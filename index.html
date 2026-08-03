@@ -150,6 +150,24 @@
 
   /* PROBLEM */
   .problem{background:var(--cream);}
+
+  /* Contrast visual — "screen time" vs "building something real", top of the Problem section */
+  .contrast{display:flex;align-items:center;justify-content:center;gap:26px;max-width:920px;margin:0 auto 60px;}
+  .contrast-panel{flex:1;max-width:340px;position:relative;background:var(--cream-dark);border-radius:24px;padding:24px 18px 26px;box-shadow:var(--shadow-sm);text-align:center;transition:transform .4s var(--ease),box-shadow .4s var(--ease);}
+  .contrast-panel:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .contrast-panel img{width:100%;height:auto;max-height:230px;object-fit:contain;display:block;margin:0 auto 14px;}
+  .contrast-tag{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13.5px;padding:8px 18px;border-radius:100px;}
+  .contrast-tag--before{background:rgba(90,76,69,.12);color:var(--charcoal-soft);}
+  .contrast-tag--before .strike{text-decoration:line-through;}
+  .contrast-tag--after{background:var(--gold);color:var(--charcoal);}
+  .contrast-arrow{flex:0 0 auto;width:50px;height:50px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--shadow-sm);}
+  @media(max-width:760px){
+    .contrast{flex-direction:column;gap:16px;margin-bottom:48px;}
+    .contrast-arrow{transform:rotate(90deg);}
+    .contrast-panel{max-width:280px;width:100%;padding:20px 16px 22px;}
+    .contrast-panel img{max-height:190px;}
+  }
+
   .problem-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;}
   .problem-quote{
     background:var(--charcoal);color:var(--cream);border-radius:22px;padding:40px;position:relative;box-shadow:var(--shadow);
@@ -374,6 +392,19 @@
 </section>
 
 <section class="problem">
+  <div class="wrap">
+    <div class="contrast reveal">
+      <div class="contrast-panel">
+        <img src="images/kid-playing-video-games.webp" alt="A boy absorbed in a video game, surrounded by snack wrappers and energy drink cans">
+        <span class="contrast-tag contrast-tag--before"><span class="strike">Screen time</span></span>
+      </div>
+      <div class="contrast-arrow" aria-hidden="true">&#8594;</div>
+      <div class="contrast-panel">
+        <img src="images/kid-building-project.webp" alt="A boy focused on building a wooden birdhouse with real tools">
+        <span class="contrast-tag contrast-tag--after">Building something real</span>
+      </div>
+    </div>
+  </div>
   <div class="wrap problem-grid">
     <div class="reveal">
       <span class="eyebrow">The boredom epidemic</span>
