@@ -200,8 +200,18 @@
     display:flex;flex-direction:column;
   }
   .project-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);}
-  .project-thumb{height:150px;background:linear-gradient(135deg,var(--gold-light),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;color:var(--red-dark);font-size:15px;font-weight:600;position:relative;overflow:hidden;}
-  .project-thumb::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.15) 0 12px,transparent 12px 24px);}
+  .project-thumb{height:190px;position:relative;overflow:hidden;}
+  .project-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* IMAGE PLACEHOLDER SLOTS — appear automatically whenever a `photo` field in the content arrays below is empty.
+     Once you have a real image, save it into an /images folder next to this file and set that field to the
+     relative path (e.g. photo:"images/explorers-toolkit.jpg") — the placeholder disappears and the real photo
+     renders in its place. Do not paste base64 image data directly here (see known size-limit issue). */
+  .img-slot{position:relative;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--cream-dark);border:2px dashed var(--gold);border-radius:14px;overflow:hidden;text-align:center;padding:16px;}
+  .img-slot::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(191,38,38,.06) 0 14px,transparent 14px 28px);pointer-events:none;}
+  .img-slot .img-slot-icon{width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:var(--shadow-sm);position:relative;z-index:1;flex-shrink:0;}
+  .img-slot .img-slot-label{position:relative;z-index:1;font-size:12px;font-weight:600;color:var(--charcoal-soft);line-height:1.4;max-width:220px;}
+  .img-slot--proof{aspect-ratio:1/1;border-radius:18px;}
   .project-body{padding:22px 22px 26px;display:flex;flex-direction:column;gap:10px;flex:1;}
   .project-tag{align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);background:rgba(191,38,38,.08);padding:4px 10px;border-radius:100px;}
   .project-body h4{font-size:18px;}
@@ -222,6 +232,8 @@
 
   /* TOOLKIT EXPLAINER */
   .toolkits{background:var(--cream);}
+  .toolkit-photo{max-width:640px;margin:0 auto 44px;aspect-ratio:16/9;}
+  .toolkit-photo img{width:100%;height:100%;object-fit:cover;border-radius:18px;box-shadow:var(--shadow-sm);display:block;}
   .toolkit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
   .toolkit-card{background:#fff;border-radius:18px;padding:26px 22px;box-shadow:var(--shadow-sm);transition:transform .35s var(--ease);}
   .toolkit-card:hover{transform:translateY(-6px);}
@@ -239,6 +251,11 @@
   .skill-pill{background:#fff;border:1px solid var(--cream);padding:9px 18px;border-radius:100px;font-size:13.5px;font-weight:600;color:var(--charcoal-soft);box-shadow:0 4px 12px -8px rgba(36,28,24,.3);transition:transform .3s var(--ease),color .3s,border-color .3s;}
   .skill-pill:hover{transform:translateY(-4px);color:var(--red);border-color:var(--red);}
 
+  /* Real studio photo gallery — sits inside the Proof section */
+  .studio-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:0 auto 44px;}
+  .studio-gallery img{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block;}
+  @media(max-width:900px){.studio-gallery{grid-template-columns:repeat(2,1fr);}}
+
   /* ABOUT */
   .about{background:var(--cream);}
   .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center;}
@@ -246,8 +263,10 @@
   .about-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
   .about-video-poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;background:linear-gradient(135deg,var(--gold-light),var(--red));transition:opacity .3s;}
   .about-video-poster:hover .play-btn{transform:scale(1.08);}
-  .play-btn{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:var(--shadow-sm);transition:transform .3s var(--ease);}
-  .about-video-label{font-family:'Fredoka',sans-serif;color:#fff;font-size:15px;text-align:center;padding:0 20px;text-shadow:0 2px 8px rgba(0,0,0,.25);}
+  .play-btn{position:relative;z-index:1;width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:var(--shadow-sm);transition:transform .3s var(--ease);}
+  .about-video-label{position:relative;z-index:1;font-family:'Fredoka',sans-serif;color:#fff;font-size:15px;text-align:center;padding:0 20px;text-shadow:0 2px 8px rgba(0,0,0,.25);}
+  .about-video-poster.img-slot{border:2px dashed rgba(255,255,255,.55);background:linear-gradient(135deg,var(--gold-light),var(--red));}
+  .about-video-poster .img-slot-label{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:2;color:#fff;background:rgba(36,28,24,.4);padding:7px 16px;border-radius:100px;width:max-content;max-width:80%;}
   .about h2{margin-bottom:16px;}
   .about p{color:var(--charcoal-soft);margin-bottom:14px;font-size:16px;}
 
@@ -424,6 +443,7 @@
       <span class="eyebrow">Understanding toolkits</span>
       <h2>One toolkit. Every build.</h2>
     </div>
+    <div class="toolkit-photo reveal" id="toolkitPhoto"></div>
     <div class="toolkit-grid stagger" id="toolkitGrid"></div>
   </div>
 </section>
@@ -432,6 +452,7 @@
   <div class="wrap">
     <div class="proof-badge reveal"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
     <blockquote class="reveal">Kids love woodworking, trust me! We've taught <span id="kidsCount">0</span>+ kids in our studio &mdash; now you can attend from home, any time you like.</blockquote>
+    <div class="studio-gallery stagger" id="studioGallery"></div>
     <p class="eyebrow" style="justify-content:center;color:var(--gold-light);">By the last cut, your child can</p>
     <div class="skill-pills stagger" id="skillPills"></div>
   </div>
@@ -440,7 +461,7 @@
 <section class="about" id="about">
   <div class="wrap about-grid">
     <div class="about-video reveal" id="aboutVideo" data-video-id="">
-      <div class="about-video-poster" style="background-image:linear-gradient(rgba(36,28,24,.15),rgba(36,28,24,.45)),url('https://i.vimeocdn.com/video/2183585280-7257c5826c2bd082883cd693b9a6e9c8285a004b053742a7935a8cdb16794abb-d_960?region=us');background-size:cover;background-position:center;">
+      <div class="about-video-poster" id="aboutPoster">
         <span class="play-btn" aria-label="Play video">&#9658;</span>
         <span class="about-video-label">Meet The Woodworking Guy</span>
       </div>
@@ -534,13 +555,29 @@
   // Category = which toolkit tier the project needs, pulled from Projects-and-Toolkits.md.
   // Add new projects here as the catalog grows — the grid and filters update automatically.
   const CATEGORIES = ["Explorers Projects", "Makers Projects"];
+  // `photo`: leave "" to show a placeholder slot on the card, or set a relative path (e.g. "images/explorers-toolkit.jpg")
+  // once you have the real product photo — the placeholder disappears automatically.
   const projects = [
-    {name:"Explorers Toolkit",tag:"Explorers Projects",price:"From €95",note:"the core starter kit (toolkit purchase, not a project)"},
-    {name:"Makers Toolkit",tag:"Makers Projects",price:"Price TBC",note:"toolkit purchase — items priced but no total yet"},
-    {name:"Kids Holiday Workshop: Bird feeder",tag:"Explorers Projects",price:"US$500,00",note:"double check this price — also confirm toolkit tier"},
-    {name:"Kids Holiday Workshop: Aeroplane",tag:"Explorers Projects",price:"Free",note:"intro / lead-magnet project"},
-    {name:"Marshmallow Catapult",tag:"Makers Projects",price:"Price TBC",note:"from Projects-and-Toolkits.md Makers Toolkit list"}
+    {name:"Explorers Toolkit",tag:"Explorers Projects",price:"From €95",note:"the core starter kit (toolkit purchase, not a project)",photo:""},
+    {name:"Makers Toolkit",tag:"Makers Projects",price:"Price TBC",note:"toolkit purchase — items priced but no total yet",photo:""},
+    {name:"Kids Holiday Workshop: Bird feeder",tag:"Explorers Projects",price:"US$500,00",note:"double check this price — also confirm toolkit tier",photo:""},
+    {name:"Kids Holiday Workshop: Aeroplane",tag:"Explorers Projects",price:"Free",note:"intro / lead-magnet project",photo:""},
+    {name:"Marshmallow Catapult",tag:"Makers Projects",price:"Price TBC",note:"from Projects-and-Toolkits.md Makers Toolkit list",photo:""}
   ];
+
+  // Real photos for the "Kids Love Woodworking" proof section — same empty-string-shows-placeholder pattern.
+  const studioPhotos = [
+    {photo:"",caption:"Kids sanding at the workbench"},
+    {photo:"",caption:"A finished build, ready to take home"},
+    {photo:"",caption:"Measuring and marking together"},
+    {photo:"",caption:"The \"I made this!\" moment"}
+  ];
+
+  // Single photo of the actual toolkit contents laid out — shown above the toolkit-tier cards.
+  const TOOLKIT_PHOTO = ""; // e.g. "images/explorers-toolkit-contents.jpg"
+
+  // Real photo or video-poster image of Henk in the studio — replaces the placeholder on the About section.
+  const ABOUT_PHOTO = ""; // e.g. "images/henk-studio.jpg"
 
   const benefits = [
     "No noise, no disruption — hand tools only, quiet enough for an apartment with neighbours close by.",
@@ -594,7 +631,10 @@
     projects.filter(p=>filter==='All'||p.tag===filter).forEach((p,i)=>{
       const el = document.createElement('div');
       el.className='project-card reveal in'; el.style.setProperty('--i',i);
-      el.innerHTML = `<div class="project-thumb">${p.name}</div>
+      const thumb = p.photo
+        ? `<img src="${p.photo}" alt="${p.name}">`
+        : `<div class="img-slot"><span class="img-slot-icon">&#128247;</span><span class="img-slot-label">Photo needed:<br>${p.name}</span></div>`;
+      el.innerHTML = `<div class="project-thumb">${thumb}</div>
         <div class="project-body">
           <span class="project-tag">${p.tag}</span>
           <h4>${p.name}</h4>
@@ -620,6 +660,30 @@
     el.innerHTML = `<div class="check">&#10003;</div><p>${b}</p>`;
     benefitGrid.appendChild(el);
   });
+
+  const studioGallery = document.getElementById('studioGallery');
+  studioPhotos.forEach((s,i)=>{
+    const el = document.createElement('div');
+    el.className='reveal'; el.style.setProperty('--i',i);
+    el.innerHTML = s.photo
+      ? `<img src="${s.photo}" alt="${s.caption}">`
+      : `<div class="img-slot img-slot--proof"><span class="img-slot-icon">&#128247;</span><span class="img-slot-label">Photo needed:<br>${s.caption}</span></div>`;
+    studioGallery.appendChild(el);
+  });
+
+  const toolkitPhotoEl = document.getElementById('toolkitPhoto');
+  toolkitPhotoEl.innerHTML = TOOLKIT_PHOTO
+    ? `<img src="${TOOLKIT_PHOTO}" alt="Explorers Toolkit contents">`
+    : `<div class="img-slot"><span class="img-slot-icon">&#128247;</span><span class="img-slot-label">Photo needed:<br>Explorers Toolkit contents, laid out</span></div>`;
+
+  const aboutPoster = document.getElementById('aboutPoster');
+  if (ABOUT_PHOTO) {
+    aboutPoster.style.backgroundImage = `linear-gradient(rgba(36,28,24,.15),rgba(36,28,24,.45)),url('${ABOUT_PHOTO}')`;
+    aboutPoster.style.backgroundSize = 'cover'; aboutPoster.style.backgroundPosition = 'center';
+  } else {
+    aboutPoster.classList.add('img-slot');
+    aboutPoster.insertAdjacentHTML('beforeend', `<span class="img-slot-label">Photo/video needed: Henk in the studio</span>`);
+  }
 
   const toolkitGrid = document.getElementById('toolkitGrid');
   toolkits.forEach((t,i)=>{
