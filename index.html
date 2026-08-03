@@ -112,7 +112,6 @@
     overflow:hidden;padding:140px 0 130px;
   }
   .hero .shape{position:absolute;border-radius:50%;opacity:.14;background:var(--gold);filter:blur(2px);animation:float 9s ease-in-out infinite;}
-  .hero .s1{width:220px;height:220px;top:8%;left:6%;animation-delay:0s;}
   .hero .s2{width:140px;height:140px;bottom:14%;left:12%;background:var(--white);opacity:.08;animation-delay:1.5s;}
   .hero .s3{width:300px;height:300px;top:20%;right:-70px;animation-delay:.8s;}
   .hero .s4{width:90px;height:90px;bottom:22%;right:18%;background:var(--white);opacity:.1;animation-delay:2.4s;}
@@ -168,9 +167,9 @@
     .guy-bubble::after{display:none;}
   }
   .hero-ctas{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:46px;}
-  .hero-stats{display:flex;flex-wrap:wrap;row-gap:10px;column-gap:0;justify-content:center;list-style:none;margin:0;padding:0;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;}
-  .hero-stats li{display:flex;align-items:center;}
-  .hero-stats li:not(:first-child)::before{content:'';flex:0 0 auto;width:4px;height:4px;background:var(--gold);border-radius:50%;margin:0 14px;}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;list-style:none;margin:0;padding:0;}
+  .hero-stats li{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:13.5px;font-weight:600;padding:8px 16px 8px 9px;border-radius:100px;}
+  .hero-stats .check{flex:0 0 auto;width:18px;height:18px;border-radius:50%;background:var(--gold);color:var(--charcoal);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
   .scroll-cue{
     position:absolute;bottom:max(24px, env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
     color:rgba(255,255,255,.65);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
@@ -226,7 +225,9 @@
   .turn .section-head p{color:rgba(251,243,236,.7);}
   .turn .section-head h2{color:#fff;}
   .turn-visual{max-width:480px;margin:0 auto 50px;}
-  .turn-visual img{width:100%;height:auto;display:block;}
+  .turn-visual img{width:100%;height:auto;display:block;animation:gentlePulse 4.5s ease-in-out infinite;transform-origin:center bottom;}
+  @keyframes gentlePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.035);}}
+  @media(prefers-reduced-motion:reduce){.turn-visual img{animation:none;}}
   .turn-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
   .turn-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:34px 26px;transition:transform .4s var(--ease),background .4s var(--ease);}
   .turn-card:hover{transform:translateY(-8px);background:rgba(255,255,255,.09);}
@@ -293,7 +294,17 @@
   /* TOOLKIT EXPLAINER */
   .toolkits{background:var(--cream);}
   .toolkit-photo{max-width:640px;margin:0 auto 44px;background:var(--cream-dark);border-radius:24px;padding:22px;box-shadow:var(--shadow-sm);}
-  .toolkit-photo img{width:100%;height:auto;display:block;border-radius:14px;}
+  .toolkit-photo img{width:100%;height:auto;display:block;border-radius:14px;animation:occasionalShake 7s ease-in-out infinite;transform-origin:70% 85%;}
+  @keyframes occasionalShake{
+    0%,88%,100%{transform:rotate(0);}
+    89.5%{transform:rotate(-1.4deg);}
+    91%{transform:rotate(1.3deg);}
+    92.5%{transform:rotate(-1deg);}
+    94%{transform:rotate(.7deg);}
+    95.5%{transform:rotate(-.3deg);}
+    97%{transform:rotate(0);}
+  }
+  @media(prefers-reduced-motion:reduce){.toolkit-photo img{animation:none;}}
   .toolkit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
   .toolkit-card{background:#fff;border-radius:18px;padding:26px 22px;box-shadow:var(--shadow-sm);transition:transform .35s var(--ease);}
   .toolkit-card:hover{transform:translateY(-6px);}
@@ -322,7 +333,9 @@
   /* Him "present" alongside the testimonial */
   .proof-top{display:flex;align-items:center;justify-content:center;gap:28px;max-width:1050px;margin:0 auto 22px;position:relative;}
   .proof-figure{flex:0 0 auto;width:300px;max-width:30%;}
-  .proof-figure img{width:100%;height:auto;display:block;filter:drop-shadow(0 18px 24px rgba(0,0,0,.4));}
+  .proof-figure img{width:100%;height:auto;display:block;filter:drop-shadow(0 18px 24px rgba(0,0,0,.4));animation:laptopFloat 5s ease-in-out infinite;}
+  @keyframes laptopFloat{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-8px) rotate(.6deg);}}
+  @media(prefers-reduced-motion:reduce){.proof-figure img{animation:none;}}
   .proof-top .proof-text{max-width:580px;text-align:left;}
   .proof-top .proof-badge{margin:0 0 18px;}
   .proof-top blockquote{margin:0;text-align:left;}
@@ -415,7 +428,7 @@
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-primary" id="navCta" href="#" target="_blank" rel="noopener">My Projects</a>
+      <a class="btn btn-dark" id="navCta" href="#" target="_blank" rel="noopener">My Projects</a>
       <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -426,25 +439,25 @@
   <a href="#projects">Projects</a>
   <a href="#about">About</a>
   <a href="#faq">FAQ</a>
-  <a class="btn btn-primary" href="#" id="mobileCta" target="_blank" rel="noopener">My Projects</a>
+  <a class="btn btn-dark" href="#" id="mobileCta" target="_blank" rel="noopener">My Projects</a>
 </div>
 
 <section class="hero" id="top">
-  <div class="shape s1"></div><div class="shape s2"></div><div class="shape s3"></div><div class="shape s4"></div>
+  <div class="shape s2"></div><div class="shape s3"></div><div class="shape s4"></div>
   <div class="wrap hero-flex">
     <div class="hero-inner">
       <div class="hero-badge"><span class="dot"></span> Loved by parents worldwide · 5.0 rating</div>
       <p class="parent-quote">I want my child to spend time in a way that is good for them, but I don't have the time or energy to make that happen.</p>
-      <div class="guy-bubble"><p>99% of parents feel this. If that's you &mdash; I can help.</p></div>
+      <div class="guy-bubble"><p>99% of parents feel this pain. If that's you &mdash; I can help.</p></div>
       <p class="lede">Simple, practical woodworking projects for kids ages 8&ndash;15 &mdash; built around one goal: your kid off the couch and holding something real they made.</p>
       <div class="hero-ctas">
         <a href="https://www.the-woodworking-guy.com/" class="btn btn-primary" id="heroCta" target="_blank" rel="noopener">Get started now</a>
         <a href="#projects" class="btn btn-outline">Browse projects</a>
       </div>
       <ul class="hero-stats">
-        <li>Online woodworking projects for kids</li>
-        <li>Loved by parents worldwide</li>
-        <li>For kids 8&ndash;15</li>
+        <li><span class="check">&#10003;</span>Ages 8&ndash;15</li>
+        <li><span class="check">&#10003;</span>Online woodworking projects</li>
+        <li><span class="check">&#10003;</span>Build at Home</li>
       </ul>
     </div>
     <div class="hero-character-col">
@@ -615,7 +628,7 @@
 <section class="final-cta">
   <div class="wrap reveal">
     <h2>Give your child more than another screen.</h2>
-    <p>Order the Explorers Toolkit now. Start your first project.</p>
+    <p>Order the Explorers Toolkit now and start building.</p>
     <a href="#" class="btn btn-primary" id="finalCta" target="_blank" rel="noopener">Order the Explorers Toolkit</a>
   </div>
 </section>
@@ -646,7 +659,7 @@
 
 <script>
   // ---- EASILY-EDITABLE CONTENT (add/remove items here — layout updates automatically) ----
-  const WIX_PROJECTS_URL = "https://www.the-woodworking-guy.com/my-projects"; // TODO: confirm exact Wix "My Projects" page URL before launch
+  const WIX_PROJECTS_URL = "https://www.the-woodworking-guy.com/my-programs";
 
   // "Meet The Woodworking Guy" video — drop in a Vimeo or YouTube ID once the video is hosted.
   // Vimeo:  VIDEO_HOST="vimeo",  VIDEO_ID="123456789"
