@@ -292,8 +292,8 @@
 
   /* TOOLKIT EXPLAINER */
   .toolkits{background:var(--cream);}
-  .toolkit-photo{max-width:640px;margin:0 auto 44px;aspect-ratio:16/9;}
-  .toolkit-photo img{width:100%;height:100%;object-fit:cover;border-radius:18px;box-shadow:var(--shadow-sm);display:block;}
+  .toolkit-photo{max-width:640px;margin:0 auto 44px;background:var(--cream-dark);border-radius:24px;padding:22px;box-shadow:var(--shadow-sm);}
+  .toolkit-photo img{width:100%;height:auto;display:block;border-radius:14px;}
   .toolkit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
   .toolkit-card{background:#fff;border-radius:18px;padding:26px 22px;box-shadow:var(--shadow-sm);transition:transform .35s var(--ease);}
   .toolkit-card:hover{transform:translateY(-6px);}
@@ -301,12 +301,38 @@
   .toolkit-card h4{font-size:15.5px;margin-bottom:8px;}
   .toolkit-card p{font-size:13.5px;color:var(--charcoal-soft);}
 
+  /* MATERIALS — toolkit (once) vs materials (per project) explainer */
+  .materials{background:var(--cream-dark);}
+  .materials-row{display:flex;align-items:center;justify-content:center;gap:24px;max-width:820px;margin:0 auto;}
+  .materials-card{flex:1;background:#fff;border-radius:22px;padding:32px 28px;box-shadow:var(--shadow-sm);text-align:center;transition:transform .4s var(--ease);}
+  .materials-card:hover{transform:translateY(-6px);}
+  .materials-num{width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:19px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+  .materials-card h4{font-size:19px;margin-bottom:10px;}
+  .materials-card p{color:var(--charcoal-soft);font-size:14.5px;}
+  .materials-plus{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:var(--gold);color:var(--charcoal);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;box-shadow:var(--shadow-sm);}
+  @media(max-width:760px){.materials-row{flex-direction:column;}}
+
   /* PROOF */
-  .proof{background:var(--charcoal);color:var(--cream);text-align:center;}
+  .proof{background:var(--charcoal);color:var(--cream);text-align:center;padding-top:56px;}
   .proof-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-sm);margin-bottom:30px;font-weight:700;font-size:14px;}
   .proof-badge .stars{color:var(--gold);letter-spacing:2px;}
   .proof blockquote{font-family:'Fredoka',sans-serif;font-size:clamp(20px,3vw,28px);max-width:760px;margin:0 auto 40px;line-height:1.4;}
   .proof blockquote span{color:var(--gold-light);}
+
+  /* Him "present" alongside the testimonial */
+  .proof-top{display:flex;align-items:center;justify-content:center;gap:28px;max-width:1050px;margin:0 auto 22px;position:relative;}
+  .proof-figure{flex:0 0 auto;width:300px;max-width:30%;}
+  .proof-figure img{width:100%;height:auto;display:block;filter:drop-shadow(0 18px 24px rgba(0,0,0,.4));}
+  .proof-top .proof-text{max-width:580px;text-align:left;}
+  .proof-top .proof-badge{margin:0 0 18px;}
+  .proof-top blockquote{margin:0;text-align:left;}
+  @media(max-width:760px){
+    .proof-top{flex-direction:column;justify-content:center;gap:14px;margin-bottom:14px;}
+    .proof-figure{width:230px;max-width:78%;}
+    .proof-top .proof-text{text-align:center;max-width:100%;}
+    .proof-top .proof-badge{margin:0 auto 16px;}
+    .proof-top blockquote{text-align:center;margin:0 auto;}
+  }
   .skill-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:820px;margin:0 auto;}
   .skill-pill{background:#fff;border:1px solid var(--cream);padding:9px 18px;border-radius:100px;font-size:13.5px;font-weight:600;color:var(--charcoal-soft);box-shadow:0 4px 12px -8px rgba(36,28,24,.3);transition:transform .3s var(--ease),color .3s,border-color .3s;}
   .skill-pill:hover{transform:translateY(-4px);color:var(--red);border-color:var(--red);}
@@ -351,19 +377,6 @@
   .final-cta h2{color:#fff;font-size:clamp(26px,4vw,40px);margin-bottom:16px;}
   .final-cta p{color:rgba(255,255,255,.85);font-size:17px;margin-bottom:34px;}
 
-  /* CONTACT */
-  .contact{background:var(--cream);}
-  .contact-box{max-width:640px;margin:0 auto;background:#fff;border-radius:24px;padding:44px;box-shadow:var(--shadow);}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-  .field{display:flex;flex-direction:column;gap:6px;}
-  .field label{font-size:13px;font-weight:600;color:var(--charcoal-soft);}
-  .field input,.field textarea{
-    border:1.5px solid var(--cream-dark);border-radius:12px;padding:13px 16px;font-family:'Inter',sans-serif;font-size:14.5px;
-    background:var(--cream);transition:border-color .25s;
-  }
-  .field input:focus,.field textarea:focus{outline:none;border-color:var(--red);}
-  .contact-box .btn-dark{width:100%;margin-top:6px;}
-
   /* FOOTER */
   footer{background:var(--charcoal);color:rgba(251,243,236,.7);padding:64px 0 30px;}
   .footer-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;margin-bottom:44px;}
@@ -382,13 +395,11 @@
     .toolkit-grid{grid-template-columns:1fr 1fr;}
     .benefit-grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr;}
-    .form-row{grid-template-columns:1fr;}
   }
   @media(max-width:560px){
     section{padding:72px 0;}
     .turn-cards,.project-grid,.toolkit-grid{grid-template-columns:1fr;}
     .hero{padding:120px 0 110px;}
-    .contact-box{padding:28px;}
   }
 </style>
 </head>
@@ -402,7 +413,6 @@
       <a href="#projects">Projects</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
     </nav>
     <div class="nav-cta">
       <a class="btn btn-primary" id="navCta" href="#" target="_blank" rel="noopener">My Projects</a>
@@ -416,7 +426,6 @@
   <a href="#projects">Projects</a>
   <a href="#about">About</a>
   <a href="#faq">FAQ</a>
-  <a href="#contact">Contact</a>
   <a class="btn btn-primary" href="#" id="mobileCta" target="_blank" rel="noopener">My Projects</a>
 </div>
 
@@ -429,8 +438,8 @@
       <div class="guy-bubble"><p>99% of parents feel this. If that's you &mdash; I can help.</p></div>
       <p class="lede">Simple, practical woodworking projects for kids ages 8&ndash;15 &mdash; built around one goal: your kid off the couch and holding something real they made.</p>
       <div class="hero-ctas">
-        <a href="#" class="btn btn-primary" id="heroCta" target="_blank" rel="noopener">Get started now</a>
-        <a href="https://www.the-woodworking-guy.com/" class="btn btn-outline" target="_blank" rel="noopener">Browse projects</a>
+        <a href="https://www.the-woodworking-guy.com/" class="btn btn-primary" id="heroCta" target="_blank" rel="noopener">Get started now</a>
+        <a href="#projects" class="btn btn-outline">Browse projects</a>
       </div>
       <ul class="hero-stats">
         <li>Online woodworking projects for kids</li>
@@ -529,17 +538,45 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Understanding toolkits</span>
-      <h2>One toolkit. Every build.</h2>
+      <h2>One toolkit. Many projects.</h2>
     </div>
     <div class="toolkit-photo reveal" id="toolkitPhoto"></div>
     <div class="toolkit-grid stagger" id="toolkitGrid"></div>
   </div>
 </section>
 
+<section class="materials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">How ordering works</span>
+      <h2>Buy your toolkit once. Order materials per project.</h2>
+      <p>Two separate orders, both through the same simple link system &mdash; here's how they're different.</p>
+    </div>
+    <div class="materials-row reveal">
+      <div class="materials-card">
+        <div class="materials-num">1</div>
+        <h4>Your Toolkit</h4>
+        <p>The tools you'll use again and again. Order it once and it carries you through every project you build &mdash; no need to buy it twice.</p>
+      </div>
+      <div class="materials-plus" aria-hidden="true">+</div>
+      <div class="materials-card">
+        <div class="materials-num">2</div>
+        <h4>Your Materials</h4>
+        <p>Every project needs its own wood and materials, ordered separately. You'll find that link right under the first video, in time to build once it arrives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="proof">
   <div class="wrap">
-    <div class="proof-badge reveal"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-    <blockquote class="reveal">Kids love woodworking, trust me! We've taught <span id="kidsCount">0</span>+ kids in our studio &mdash; now you can attend from home, any time you like.</blockquote>
+    <div class="proof-top reveal">
+      <div class="proof-figure"><img src="images/woodworking-guy-laptop.webp" alt="The Woodworking Guy presenting a video lesson, shown on a laptop screen"></div>
+      <div class="proof-text">
+        <div class="proof-badge"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+        <blockquote>Kids love woodworking, trust me! We've taught <span id="kidsCount">0</span>+ kids in our studio &mdash; now you can attend from home, any time you like.</blockquote>
+      </div>
+    </div>
     <div class="studio-scroll-wrap reveal">
       <div class="studio-scroll" id="studioGallery"></div>
     </div>
@@ -583,24 +620,6 @@
   </div>
 </section>
 
-<section class="contact" id="contact">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Get in touch</span>
-      <h2>Questions before you start?</h2>
-    </div>
-    <form class="contact-box reveal" onsubmit="return false;">
-      <div class="form-row">
-        <div class="field"><label>First name</label><input type="text" placeholder="Jane"></div>
-        <div class="field"><label>Last name</label><input type="text" placeholder="Doe"></div>
-      </div>
-      <div class="field" style="margin-bottom:16px;"><label>Email</label><input type="email" placeholder="jane@example.com"></div>
-      <div class="field" style="margin-bottom:16px;"><label>Message</label><textarea rows="4" placeholder="How can we help?"></textarea></div>
-      <button class="btn btn-dark" type="submit">Send</button>
-    </form>
-  </div>
-</section>
-
 <footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -615,7 +634,6 @@
           <li><a href="#projects">Projects</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -648,12 +666,14 @@
   const CATEGORIES = ["Explorers Projects", "Makers Projects"];
   // `photo`: leave "" to show a placeholder slot on the card, or set a relative path (e.g. "images/explorers-toolkit.jpg")
   // once you have the real product photo — the placeholder disappears automatically.
+  // `link`: leave "" to fall back to WIX_PROJECTS_URL, or set this project's specific overview-page URL on
+  // the-woodworking-guy.com once you have it — "View details" will use it instead, per project.
   const projects = [
-    {name:"Explorers Toolkit",tag:"Explorers Projects",price:"From €95",note:"the core starter kit (toolkit purchase, not a project)",photo:""},
-    {name:"Makers Toolkit",tag:"Makers Projects",price:"Price TBC",note:"toolkit purchase — items priced but no total yet",photo:""},
-    {name:"Kids Holiday Workshop: Bird feeder",tag:"Explorers Projects",price:"US$500,00",note:"double check this price — also confirm toolkit tier",photo:""},
-    {name:"Kids Holiday Workshop: Aeroplane",tag:"Explorers Projects",price:"Free",note:"intro / lead-magnet project",photo:""},
-    {name:"Marshmallow Catapult",tag:"Makers Projects",price:"Price TBC",note:"from Projects-and-Toolkits.md Makers Toolkit list",photo:""}
+    {name:"Explorers Toolkit",tag:"Explorers Projects",price:"From €95",note:"the core starter kit (toolkit purchase, not a project)",photo:"",link:""},
+    {name:"Makers Toolkit",tag:"Makers Projects",price:"Price TBC",note:"toolkit purchase — items priced but no total yet",photo:"",link:""},
+    {name:"Kids Holiday Workshop: Bird feeder",tag:"Explorers Projects",price:"US$500,00",note:"double check this price — also confirm toolkit tier",photo:"",link:""},
+    {name:"Kids Holiday Workshop: Aeroplane",tag:"Explorers Projects",price:"Free",note:"intro / lead-magnet project",photo:"",link:""},
+    {name:"Marshmallow Catapult",tag:"Makers Projects",price:"Price TBC",note:"from Projects-and-Toolkits.md Makers Toolkit list",photo:"",link:""}
   ];
 
   // Real photos for the "Kids Love Woodworking" proof section — scrollable filmstrip.
@@ -671,7 +691,7 @@
   ];
 
   // Single photo of the actual toolkit contents laid out — shown above the toolkit-tier cards.
-  const TOOLKIT_PHOTO = ""; // e.g. "images/explorers-toolkit-contents.jpg"
+  const TOOLKIT_PHOTO = "images/toolkit-delivery.webp";
 
   // Real photo or video-poster image of Henk in the studio — replaces the placeholder on the About section.
   const ABOUT_PHOTO = ""; // e.g. "images/henk-studio.jpg"
@@ -710,7 +730,8 @@
   ];
 
   // ---- RENDER ----
-  document.querySelectorAll('#navCta,#mobileCta,#heroCta,#finalCta').forEach(el=>el.href=WIX_PROJECTS_URL);
+  // heroCta ("Get started now") is set directly in the HTML to the main site — not tied to WIX_PROJECTS_URL.
+  document.querySelectorAll('#navCta,#mobileCta,#finalCta').forEach(el=>el.href=WIX_PROJECTS_URL);
 
   const stepsTrack = document.getElementById('stepsTrack');
   steps.forEach((s,i)=>{
@@ -736,7 +757,7 @@
           <span class="project-tag">${p.tag}</span>
           <h4>${p.name}</h4>
           <div class="project-price">${p.price}</div>
-          <a class="project-cta" href="${WIX_PROJECTS_URL}" target="_blank" rel="noopener">View details &rarr;</a>
+          <a class="project-cta" href="${p.link || WIX_PROJECTS_URL}" target="_blank" rel="noopener">View details &rarr;</a>
         </div>`;
       projectGrid.appendChild(el);
     });
@@ -773,8 +794,8 @@
 
   const toolkitPhotoEl = document.getElementById('toolkitPhoto');
   toolkitPhotoEl.innerHTML = TOOLKIT_PHOTO
-    ? `<img src="${TOOLKIT_PHOTO}" alt="Explorers Toolkit contents">`
-    : `<div class="img-slot"><span class="img-slot-icon">&#128247;</span><span class="img-slot-label">Photo needed:<br>Explorers Toolkit contents, laid out</span></div>`;
+    ? `<img src="${TOOLKIT_PHOTO}" alt="A delivery courier handing over a toolkit box full of tools and materials to an excited kid">`
+    : `<div class="img-slot" style="height:260px;"><span class="img-slot-icon">&#128247;</span><span class="img-slot-label">Photo needed:<br>Explorers Toolkit contents, laid out</span></div>`;
 
   const aboutPoster = document.getElementById('aboutPoster');
   if (ABOUT_PHOTO) {
