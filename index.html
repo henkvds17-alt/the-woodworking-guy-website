@@ -435,7 +435,7 @@
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-dark" id="navCta" href="#" target="_blank" rel="noopener">My Projects</a>
+      <a class="btn btn-primary" id="navCta" href="#" target="_blank" rel="noopener">My Projects</a>
       <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -456,7 +456,7 @@
       <div class="hero-badge"><span class="dot"></span> Loved by parents worldwide · 5.0 rating</div>
       <p class="parent-quote">I want my child to spend time in a way that is good for them, but I don't have the time or energy to make that happen.</p>
       <div class="guy-bubble"><p>99% of parents feel this pain. If that's you &mdash; I can help.</p></div>
-      <p class="lede">Simple, practical woodworking projects for kids ages 8&ndash;15 &mdash; built around one goal: your kid off the couch and holding something real they made.</p>
+      <p class="lede">Simple, practical woodworking projects for kids ages 8&ndash;15&mdash;designed to get your kid off the couch and doing something real. Any time, anywhere.</p>
       <div class="hero-ctas">
         <a href="https://www.the-woodworking-guy.com/" class="btn btn-primary" id="heroCta" target="_blank" rel="noopener">Get started now</a>
         <a href="#projects" class="btn btn-outline">Browse projects</a>
@@ -478,7 +478,7 @@
   <div class="wrap">
     <div class="contrast reveal">
       <div class="contrast-panel">
-        <img src="images/kid-playing-video-games.webp" alt="A boy absorbed in a video game, surrounded by snack wrappers and energy drink cans">
+        <img src="images/kid-on-couch.webp" alt="A boy slumped on the couch, absorbed in a screen">
         <span class="contrast-tag contrast-tag--before"><span class="strike">Screen time</span></span>
       </div>
       <div class="contrast-arrow" aria-hidden="true">&#8594;</div>
@@ -594,7 +594,7 @@
       <div class="proof-figure"><img src="images/woodworking-guy-laptop.webp" alt="The Woodworking Guy presenting a video lesson, shown on a laptop screen"></div>
       <div class="proof-text">
         <div class="proof-badge"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-        <blockquote>Kids love woodworking, trust me! We've taught <span id="kidsCount">0</span>+ kids in our studio &mdash; now you can attend from home, any time you like.</blockquote>
+        <blockquote>Kids love woodworking, trust me! We've taught <span>so many</span> kids in our studio &mdash; now you can attend from home, any time you like.</blockquote>
       </div>
     </div>
     <div class="studio-scroll-wrap reveal">
@@ -885,20 +885,6 @@
   },{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // animated counter for "95+ kids"
-  const kidsCountEl = document.getElementById('kidsCount');
-  let counted = false;
-  const counterIo = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting && !counted){
-        counted = true;
-        let val = 0; const target = 95;
-        const tick = ()=>{ val += 3; if(val>=target){kidsCountEl.textContent=target;return;} kidsCountEl.textContent=val; requestAnimationFrame(tick); };
-        tick();
-      }
-    });
-  },{threshold:.5});
-  counterIo.observe(kidsCountEl);
 </script>
 </body>
 </html>
