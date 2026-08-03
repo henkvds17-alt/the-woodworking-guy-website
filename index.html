@@ -129,10 +129,17 @@
   @keyframes guyIdle{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
   @media(prefers-reduced-motion:reduce){.hero-character-col{animation:none;}}
   @media(max-width:900px){
-    .hero-flex{flex-direction:column-reverse;gap:18px;align-items:center;}
-    .hero-flex .hero-inner{max-width:100%;text-align:center;margin:0;}
+    .hero-flex{flex-direction:column;gap:18px;align-items:center;}
+    .hero-flex .hero-inner{display:contents;max-width:100%;text-align:center;margin:0;}
     .hero-flex .hero-inner .hero-ctas,.hero-flex .hero-inner .hero-stats{justify-content:center;}
-    .hero-character-col{width:48%;max-width:230px;align-self:center;}
+    /* Mobile reading order: quote first, then him, then his reply bubble — not his photo leading the page */
+    .hero-badge{order:1;}
+    .parent-quote{order:2;}
+    .hero-character-col{order:3;width:48%;max-width:230px;align-self:center;}
+    .guy-bubble{order:4;}
+    .lede{order:5;}
+    .hero-ctas{order:6;}
+    .hero-stats{order:7;}
   }
   @media(max-width:560px){.hero-character-col{width:52%;max-width:190px;}}
   .hero-inner{position:relative;z-index:2;text-align:center;max-width:840px;margin:0 auto;}
@@ -439,7 +446,7 @@
   <a href="#projects">Projects</a>
   <a href="#about">About</a>
   <a href="#faq">FAQ</a>
-  <a class="btn btn-dark" href="#" id="mobileCta" target="_blank" rel="noopener">My Projects</a>
+  <a class="btn btn-primary" href="#" id="mobileCta" target="_blank" rel="noopener">My Projects</a>
 </div>
 
 <section class="hero" id="top">
