@@ -132,14 +132,13 @@
     .hero-flex{flex-direction:column;gap:18px;align-items:center;}
     .hero-flex .hero-inner{display:contents;max-width:100%;text-align:center;margin:0;}
     .hero-flex .hero-inner .hero-ctas,.hero-flex .hero-inner .hero-stats{justify-content:center;}
-    /* Mobile reading order: quote first, then him, then his reply bubble — not his photo leading the page */
+    /* Mobile reading order: headline first, then him, then subheading */
     .hero-badge{order:1;}
-    .parent-quote{order:2;}
+    .hero h1{order:2;}
     .hero-character-col{order:3;width:48%;max-width:230px;align-self:center;}
-    .guy-bubble{order:4;}
-    .lede{order:5;}
-    .hero-ctas{order:6;}
-    .hero-stats{order:7;}
+    .lede{order:4;}
+    .hero-ctas{order:5;}
+    .hero-stats{order:6;}
   }
   @media(max-width:560px){.hero-character-col{width:52%;max-width:190px;}}
   .hero-inner{position:relative;z-index:2;text-align:center;max-width:840px;margin:0 auto;}
@@ -149,30 +148,9 @@
   }
   .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.8s infinite;}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(224,168,62,.7);}50%{box-shadow:0 0 0 8px rgba(224,168,62,0);}}
-  .hero h1{color:#fff;font-size:clamp(24px,3.6vw,40px);font-weight:600;margin-bottom:20px;letter-spacing:-.01em;}
+  .hero h1{color:#fff;font-size:clamp(38px,6.5vw,68px);font-weight:700;margin-bottom:22px;letter-spacing:-.01em;line-height:1.08;}
   .hero h1 em{font-style:normal;color:var(--gold-light);}
   .hero p.lede{color:rgba(255,255,255,.88);font-size:clamp(14px,1.6vw,16.5px);max-width:640px;margin:0 auto 36px;}
-
-  /* Hero as a two-beat exchange: parent's pain point, then his direct reply */
-  .parent-quote{
-    font-family:'Fredoka',sans-serif;font-weight:500;font-style:italic;color:rgba(255,255,255,.72);
-    font-size:clamp(16px,1.9vw,19px);line-height:1.5;margin:0 0 20px;position:relative;padding-left:26px;
-  }
-  .parent-quote::before{content:'\201C';position:absolute;left:-6px;top:-14px;font-family:'Fredoka',sans-serif;font-size:52px;color:var(--gold-light);opacity:.45;line-height:1;}
-  .guy-bubble{
-    position:relative;background:#fff;border-radius:22px;padding:20px 26px;margin:0 0 28px;
-    box-shadow:var(--shadow-sm);display:inline-block;max-width:480px;
-  }
-  .guy-bubble p{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--charcoal);font-size:clamp(19px,2.7vw,28px);line-height:1.25;margin:0;}
-  .guy-bubble::after{
-    content:'';position:absolute;top:50%;right:-14px;transform:translateY(-50%);width:0;height:0;
-    border-style:solid;border-width:12px 0 12px 16px;border-color:transparent transparent transparent #fff;
-  }
-  @media(max-width:900px){
-    .parent-quote{padding-left:0;}
-    .parent-quote::before{display:none;}
-    .guy-bubble::after{display:none;}
-  }
   .hero-ctas{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:46px;}
   .hero-stats{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;list-style:none;margin:0;padding:0;}
   .hero-stats li{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:13.5px;font-weight:600;padding:8px 16px 8px 9px;border-radius:100px;}
@@ -454,17 +432,16 @@
   <div class="wrap hero-flex">
     <div class="hero-inner">
       <div class="hero-badge"><span class="dot"></span> Loved by parents worldwide · 5.0 rating</div>
-      <p class="parent-quote">I want my child to spend time in a way that is good for them, but I don't have the time or energy to make that happen.</p>
-      <div class="guy-bubble"><p>99% of parents feel this pain. If that's you &mdash; I can help.</p></div>
+      <h1>Look what I made today.</h1>
       <p class="lede">Simple, practical woodworking projects for kids ages 8&ndash;15&mdash;designed to get your kid off the couch and doing something real. Any time, anywhere.</p>
       <div class="hero-ctas">
         <a href="https://www.the-woodworking-guy.com/" class="btn btn-primary" id="heroCta" target="_blank" rel="noopener">Get started now</a>
         <a href="#projects" class="btn btn-outline">Browse projects</a>
       </div>
       <ul class="hero-stats">
-        <li><span class="check">&#10003;</span>Ages 8&ndash;15</li>
-        <li><span class="check">&#10003;</span>Online woodworking projects</li>
-        <li><span class="check">&#10003;</span>Build at Home</li>
+        <li><span class="check">&#10003;</span>No experience needed</li>
+        <li><span class="check">&#10003;</span>Toolkit ships to your door</li>
+        <li><span class="check">&#10003;</span>Buy once, yours forever</li>
       </ul>
     </div>
     <div class="hero-character-col">
