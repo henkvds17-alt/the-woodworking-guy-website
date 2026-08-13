@@ -221,6 +221,7 @@
 
   /* STEPS */
   .steps{background:var(--cream-dark);}
+  .steps-quote{color:var(--red);}
   .steps-track{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;position:relative;}
   .steps-track::before{content:'';position:absolute;top:34px;left:8%;right:8%;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 10px,transparent 10px 20px);z-index:0;}
   .step{position:relative;z-index:1;text-align:center;}
@@ -314,11 +315,13 @@
   .materials-scatter img{width:100%;height:auto;display:block;}
   @keyframes msWiggle{0%,100%{transform:rotate(var(--r)) translateY(0);}50%{transform:rotate(calc(var(--r) + 4deg)) translateY(-9px);}}
   @media(prefers-reduced-motion:reduce){.materials-scatter{animation:none;}}
-  .ms-1{width:190px;top:9%;left:7%;--r:-20deg;animation-duration:6.2s;}
-  .ms-2{width:195px;top:7%;right:8%;--r:15deg;animation-duration:7s;animation-delay:.5s;}
-  .ms-3{width:230px;bottom:7%;left:9%;--r:9deg;animation-duration:6.6s;animation-delay:1s;}
-  .ms-4{width:195px;bottom:8%;right:9%;--r:-13deg;animation-duration:7.4s;animation-delay:1.5s;}
-  .ms-5{width:135px;top:45%;left:5%;--r:22deg;animation-duration:5.6s;animation-delay:2s;}
+  .ms-1{width:210px;top:6%;left:8%;--r:-18deg;animation-duration:6.2s;}
+  .ms-2{width:215px;top:4%;right:9%;--r:14deg;animation-duration:7s;animation-delay:.5s;}
+  .ms-3{width:260px;bottom:4%;left:10%;--r:8deg;animation-duration:6.6s;animation-delay:1s;}
+  .ms-4{width:205px;bottom:5%;right:10%;--r:-12deg;animation-duration:7.4s;animation-delay:1.5s;}
+  .ms-5{width:150px;top:40%;left:5%;--r:20deg;animation-duration:5.6s;animation-delay:2s;}
+  .ms-6{width:95px;top:38%;right:6%;--r:-24deg;animation-duration:5.9s;animation-delay:.9s;}
+  .ms-7{width:140px;bottom:1%;left:44%;--r:5deg;animation-duration:6.9s;animation-delay:1.8s;}
   @media(max-width:900px){.materials-scatter{display:none;}}
 
   /* PROOF */
@@ -384,17 +387,21 @@
   .faq-a p{padding:0 26px 22px;color:var(--charcoal-soft);font-size:14.5px;}
 
   /* FINAL CTA */
-  .final-cta{background:radial-gradient(circle at 70% 30%,var(--red-dark),var(--red-deep));text-align:center;color:#fff;}
-  .final-cta h2{color:#fff;font-size:clamp(26px,4vw,40px);margin-bottom:16px;}
-  .final-cta p{color:rgba(255,255,255,.85);font-size:17px;margin-bottom:34px;}
+  .final-cta{background:radial-gradient(circle at 70% 30%,var(--red-dark),var(--red-deep));text-align:center;color:#fff;padding:130px 0;}
+  .final-cta .hero-badge{margin-bottom:22px;}
+  .final-cta h2{color:#fff;font-size:clamp(30px,5vw,52px);margin-bottom:18px;letter-spacing:-.01em;}
+  .final-cta p{color:rgba(255,255,255,.85);font-size:18px;margin-bottom:38px;}
+  .final-cta .btn-primary{padding:20px 46px;font-size:18px;animation:ctaPulse 2.6s ease-in-out infinite;}
+  @keyframes ctaPulse{0%,100%{box-shadow:0 10px 30px -10px rgba(224,168,62,.7);}50%{box-shadow:0 14px 40px -6px rgba(224,168,62,1);}}
+  @media(prefers-reduced-motion:reduce){.final-cta .btn-primary{animation:none;}}
 
   /* FOOTER */
   footer{background:var(--charcoal);color:rgba(251,243,236,.7);padding:64px 0 30px;}
-  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;margin-bottom:44px;}
+  .footer-grid{display:flex;justify-content:center;align-items:flex-start;gap:110px;margin-bottom:44px;text-align:left;}
   footer h4{color:#fff;font-family:'Fredoka',sans-serif;font-size:15px;margin-bottom:16px;}
   footer ul li{margin-bottom:10px;font-size:14px;}
   footer ul a:hover{color:var(--gold);}
-  .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;font-size:13px;display:flex;justify-content:center;text-align:center;}
 
   @media(max-width:900px){
     nav.links,.nav-cta .btn{display:none;}
@@ -405,7 +412,7 @@
     .steps-track::before{display:none;}
     .toolkit-grid{grid-template-columns:1fr 1fr;}
     .benefit-grid{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:1fr;}
+    .footer-grid{flex-direction:column;align-items:center;text-align:center;gap:36px;}
   }
   @media(max-width:560px){
     section{padding:72px 0;}
@@ -516,7 +523,7 @@
 <section class="steps">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>From "I'm bored" to "I made this" &mdash; in four steps.</h2>
+      <h2>From <span class="steps-quote">"I'm bored"</span> to <span class="steps-quote">"I made this"</span> &mdash; in four steps.</h2>
     </div>
     <div class="steps-track stagger" id="stepsTrack"></div>
   </div>
@@ -561,11 +568,12 @@
   <div class="materials-scatter ms-3"><img src="images/21.png" alt="" loading="lazy"></div>
   <div class="materials-scatter ms-4"><img src="images/22.png" alt="" loading="lazy"></div>
   <div class="materials-scatter ms-5"><img src="images/23.png" alt="" loading="lazy"></div>
+  <div class="materials-scatter ms-6"><img src="images/19.png" alt="" loading="lazy"></div>
+  <div class="materials-scatter ms-7"><img src="images/22.png" alt="" loading="lazy"></div>
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">How ordering works</span>
       <h2>Buy your toolkit once. Order materials per project.</h2>
-      <p>Two separate orders, both through the same simple link system &mdash; here's how they're different.</p>
     </div>
     <div class="materials-row reveal">
       <div class="materials-card">
@@ -589,7 +597,7 @@
       <div class="proof-figure"><img src="images/woodworking-guy-laptop.webp" alt="The Woodworking Guy presenting a video lesson, shown on a laptop screen"></div>
       <div class="proof-text">
         <div class="proof-badge"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-        <blockquote>Kids love woodworking, trust me! We've taught <span>so many</span> kids in our studio &mdash; now you can attend from home, any time you like.</blockquote>
+        <blockquote>Kids love woodworking, trust me! We've taught <span>many</span> kids in our studio &mdash; now you can attend from home, any time you like.</blockquote>
       </div>
     </div>
     <div class="studio-scroll-wrap reveal">
@@ -629,9 +637,10 @@
 
 <section class="final-cta">
   <div class="wrap reveal">
+    <div class="hero-badge"><span class="dot"></span> Ready to build?</div>
     <h2>Give your child more than another screen.</h2>
-    <p>Order the Explorers Toolkit now and start building.</p>
-    <a href="#" class="btn btn-primary" id="finalCta" target="_blank" rel="noopener">Order the Explorers Toolkit</a>
+    <p>Browse every project and find the one they can't wait to build.</p>
+    <a href="#projects" class="btn btn-primary" id="finalCta">Browse Projects</a>
   </div>
 </section>
 
@@ -654,7 +663,6 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 The Woodworking Guy. All rights reserved.</span>
-      <span>Design mockup &mdash; not yet live</span>
     </div>
   </div>
 </footer>
@@ -746,7 +754,8 @@
 
   // ---- RENDER ----
   // heroCta ("Get started now") is set directly in the HTML to the main site — not tied to WIX_PROJECTS_URL.
-  document.querySelectorAll('#navCta,#mobileCta,#finalCta').forEach(el=>el.href=WIX_PROJECTS_URL);
+  document.querySelectorAll('#navCta,#mobileCta').forEach(el=>el.href=WIX_PROJECTS_URL);
+  // finalCta intentionally left pointing at #projects (in-page anchor) — not the Wix purchase link.
 
   const stepsTrack = document.getElementById('stepsTrack');
   steps.forEach((s,i)=>{
