@@ -298,6 +298,25 @@
   .toolkit-card h4{font-size:15.5px;margin-bottom:8px;}
   .toolkit-card p{font-size:13.5px;color:var(--charcoal-soft);}
 
+  /* TOOLKIT COMPARISON — Explorers vs Makers */
+  .tk-compare{margin-top:56px;}
+  .tk-compare-head{text-align:center;margin-bottom:28px;}
+  .tk-compare-head h3{font-size:24px;margin-bottom:8px;}
+  .tk-compare-head p{font-size:14.5px;color:var(--charcoal-soft);max-width:520px;margin:0 auto;}
+  .tk-compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch;}
+  .tk-compare-card{background:#fff;border-radius:24px;padding:34px 30px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;border:2px solid transparent;}
+  .tk-compare-card.featured{border-color:var(--gold);}
+  .tk-compare-badge{display:inline-flex;align-self:flex-start;font-family:'Inter',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);background:var(--cream);padding:5px 12px;border-radius:100px;margin-bottom:14px;}
+  .tk-compare-card h4{font-size:22px;margin-bottom:6px;}
+  .tk-compare-tag{font-size:13.5px;color:var(--charcoal-soft);margin-bottom:18px;}
+  .tk-compare-price{font-family:'Fredoka',sans-serif;font-size:28px;color:var(--red);line-height:1.1;}
+  .tk-compare-price-note{font-size:12px;color:var(--charcoal-soft);margin-bottom:20px;}
+  .tk-compare-list{display:flex;flex-direction:column;gap:11px;margin-bottom:22px;flex-grow:1;}
+  .tk-compare-list li{display:flex;gap:10px;font-size:14.5px;align-items:flex-start;color:var(--charcoal);}
+  .tk-compare-list li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;}
+  .tk-compare-best{font-size:13px;font-weight:600;color:var(--charcoal-soft);border-top:1px solid var(--cream-dark);padding-top:14px;}
+  .tk-compare-note{grid-column:1/-1;text-align:center;font-size:13px;color:var(--charcoal-soft);margin-top:18px;}
+
   /* MATERIALS — toolkit (once) vs materials (per project) explainer */
   .materials{background:var(--cream-dark);position:relative;overflow:hidden;}
   .materials .wrap{position:relative;z-index:2;}
@@ -424,6 +443,7 @@
     .steps-track{grid-template-columns:1fr 1fr;row-gap:40px;}
     .steps-track::before{display:none;}
     .toolkit-grid{grid-template-columns:1fr 1fr;}
+    .tk-compare-grid{grid-template-columns:1fr;}
     .benefit-grid{grid-template-columns:1fr;}
     .footer-grid{flex-direction:column;align-items:center;text-align:center;gap:36px;}
   }
@@ -574,6 +594,48 @@
     </div>
     <div class="toolkit-photo reveal" id="toolkitPhoto"></div>
     <div class="toolkit-grid stagger" id="toolkitGrid"></div>
+
+    <div class="tk-compare reveal">
+      <div class="tk-compare-head">
+        <h3>Explorers vs. Makers — which one fits your child?</h3>
+        <p>Every toolkit is a once-off purchase, reused across every project at that level — no subscriptions, no ongoing fees.</p>
+      </div>
+      <div class="tk-compare-grid">
+
+        <div class="tk-compare-card">
+          <span class="tk-compare-badge">Start here</span>
+          <h4>Explorers Toolkit</h4>
+          <p class="tk-compare-tag">For complete beginners and younger kids</p>
+          <p class="tk-compare-price">≈ €100</p>
+          <p class="tk-compare-price-note">One-time. Estimate only — exact cost depends on where you shop.</p>
+          <ul class="tk-compare-list">
+            <li>Thin materials that are easy for small hands to cut</li>
+            <li>Simple hand tools only — no power tools, no noise</li>
+            <li>Projects are assembled with child-safe glue</li>
+            <li>One toolkit, reused across every Explorers project</li>
+          </ul>
+          <p class="tk-compare-best">Best for: younger kids and first-time builders</p>
+        </div>
+
+        <div class="tk-compare-card featured">
+          <span class="tk-compare-badge">Next step up</span>
+          <h4>Makers Toolkit</h4>
+          <p class="tk-compare-tag">For kids ready for their first power tools</p>
+          <p class="tk-compare-price">≈ €170 more</p>
+          <p class="tk-compare-price-note">One-time, on top of the Explorers Toolkit. Estimate only — exact cost depends on where you shop.</p>
+          <ul class="tk-compare-list">
+            <li>Builds directly on the Explorers Toolkit, which comes first</li>
+            <li>A wider range of materials to build with</li>
+            <li>Kid-safe power tools, always used under guidance</li>
+            <li>Stronger builds, with projects joined using screws</li>
+            <li>Finished with genuine wood oil, not just glue</li>
+            <li>One toolkit, reused across every Makers project</li>
+          </ul>
+          <p class="tk-compare-best">Best for: kids with a bit more building experience</p>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
