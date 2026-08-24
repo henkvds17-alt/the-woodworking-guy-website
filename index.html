@@ -262,8 +262,10 @@
   .project-body{padding:22px 22px 26px;display:flex;flex-direction:column;gap:10px;flex:1;}
   .project-tag{align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);background:rgba(191,38,38,.08);padding:4px 10px;border-radius:100px;}
   .project-body h4{font-size:18px;}
-  .project-price{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--charcoal);font-size:16px;margin-top:auto;}
+  .project-price-group{margin-top:auto;}
+  .project-price{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--charcoal);font-size:16px;}
   .project-price span{color:var(--charcoal-soft);font-weight:400;font-size:13px;}
+  .project-price-note{font-size:11px;color:var(--charcoal-soft);margin-top:2px;}
   .project-cta{margin-top:6px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--red);transition:gap .25s;}
   .project-card:hover .project-cta{gap:10px;}
 
@@ -871,7 +873,10 @@
         <div class="project-body">
           <span class="project-tag">${p.tag}</span>
           <h4>${p.name}</h4>
-          <div class="project-price">${p.price}</div>
+          <div class="project-price-group">
+            <div class="project-price">${p.price}</div>
+            <div class="project-price-note">Billed in ZAR</div>
+          </div>
           <a class="project-cta" href="${p.link || WIX_PROJECTS_URL}" target="_blank" rel="noopener">View details &rarr;</a>
         </div>`;
       projectGrid.appendChild(el);
