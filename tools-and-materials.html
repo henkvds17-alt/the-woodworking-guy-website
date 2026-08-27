@@ -111,7 +111,11 @@
   .img-slot .img-slot-icon{width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;box-shadow:var(--shadow-sm);position:relative;z-index:1;flex-shrink:0;}
   .img-slot .img-slot-label{position:relative;z-index:1;font-size:9.5px;font-weight:600;color:var(--charcoal-soft);line-height:1.25;}
 
-  /* MATERIALS PER PROJECT */
+  /* MATERIALS PER PROJECT — grouped by toolkit tier so buyers only ever look at projects
+     their own toolkit can build */
+  .materials-toolkit-group{margin-bottom:28px;}
+  .materials-toolkit-group:last-child{margin-bottom:0;}
+  .materials-toolkit-heading{font-family:'Inter',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--red);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--cream-dark);}
   .project-block{background:#fff;border-radius:20px;padding:20px 18px;box-shadow:var(--shadow-sm);margin-bottom:14px;}
   .project-block-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
   .project-block-head h3{font-size:19px;}
@@ -369,8 +373,8 @@
     `;
   }
 
-  const listEl = document.getElementById('projectsMaterialsList');
-  listEl.innerHTML = projectMaterials.map((p, i) => `
+  function projectBlockHtml(p, i){
+    return `
     <div class="project-block" id="project-${i}">
       <div class="project-block-head">
         <div>
@@ -385,6 +389,22 @@
           ${p.items.map(materialItemHtml).join('')}
         </div>
       </div>
+    </div>
+  `;
+  }
+
+  // Grouped by toolkit tier (Explorers projects together, then Makers, etc.) so buyers
+  // never have to compare across tiers to find what belongs to their toolkit.
+  const listEl = document.getElementById('projectsMaterialsList');
+  const toolkitGroups = new Map();
+  projectMaterials.forEach((p, i) => {
+    if(!toolkitGroups.has(p.toolkit)) toolkitGroups.set(p.toolkit, []);
+    toolkitGroups.get(p.toolkit).push({ p, i });
+  });
+  listEl.innerHTML = [...toolkitGroups.entries()].map(([toolkit, entries]) => `
+    <div class="materials-toolkit-group">
+      <h3 class="materials-toolkit-heading">${toolkit} Toolkit Projects</h3>
+      ${entries.map(({ p, i }) => projectBlockHtml(p, i)).join('')}
     </div>
   `).join('');
 
@@ -448,11 +468,23 @@
   const PAGE_WIDTH = 210;
   const CONTENT_WIDTH = PAGE_WIDTH - PAGE_MARGIN * 2;
 
+  // ---- LOGO LETTERHEAD (every generated PDF, every page, carries The Woodworking Guy logo) ----
+  let _pdfLogoData = null; // set once per download click, read by drawLogoHeader on every page
+
+  function drawLogoHeader(doc){
+    if(!_pdfLogoData) return 20;
+    const maxW = 38, maxH = 15;
+    const ratio = Math.min(maxW / _pdfLogoData.width, maxH / _pdfLogoData.height);
+    const w = _pdfLogoData.width * ratio, h = _pdfLogoData.height * ratio;
+    doc.addImage(_pdfLogoData.dataUrl, 'PNG', PAGE_MARGIN, 10, w, h);
+    return 10 + h + 8;
+  }
+
   function newPageIfNeeded(doc, y, needed){
     const pageHeight = doc.internal.pageSize.getHeight();
     if(y + needed > pageHeight - 15){
       doc.addPage();
-      return 20;
+      return drawLogoHeader(doc);
     }
     return y;
   }
@@ -630,10 +662,12 @@
       }
 
       const imgMap = await preloadPhotos(photoPaths);
+      const logoSrc = document.querySelector('.brand-logo-img img')?.src;
+      _pdfLogoData = logoSrc ? await loadImageData(logoSrc) : null;
 
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-      let y = 22;
+      let y = drawLogoHeader(doc);
       let filename = 'the-woodworking-guy.pdf';
 
       if(target === 'explorers'){
@@ -674,17 +708,29 @@
         filename = 'project-' + slugify(p.project) + '.pdf';
       } else if(target === 'all-projects'){
         y = addHeading(doc, y, 'All Projects — Materials & Cutting Lists', 16);
-        projectMaterials.forEach((p, idx) => {
-          if(idx > 0){
-            y = newPageIfNeeded(doc, y, 10);
-            doc.setDrawColor(228, 214, 203);
-            doc.setLineWidth(0.4);
-            doc.line(PAGE_MARGIN, y, PAGE_WIDTH - PAGE_MARGIN, y);
-            y += 8;
-          }
-          y = addProjectTitleRow(doc, y, p.project, p.projectPhoto, imgMap);
-          y = addSectionLabel(doc, y, p.toolkit + ' Toolkit');
-          y = addMaterialLines(doc, y, p.items, imgMap);
+        // Grouped by toolkit tier, matching the on-page layout — one section label per
+        // tier rather than repeating "Toolkit" on every single project.
+        const groups = new Map();
+        projectMaterials.forEach(p => {
+          if(!groups.has(p.toolkit)) groups.set(p.toolkit, []);
+          groups.get(p.toolkit).push(p);
+        });
+        let firstGroup = true;
+        groups.forEach((projects, toolkit) => {
+          if(!firstGroup) y += 4;
+          firstGroup = false;
+          y = addSectionLabel(doc, y, toolkit + ' Toolkit Projects');
+          projects.forEach((p, idx) => {
+            if(idx > 0){
+              y = newPageIfNeeded(doc, y, 10);
+              doc.setDrawColor(228, 214, 203);
+              doc.setLineWidth(0.4);
+              doc.line(PAGE_MARGIN, y, PAGE_WIDTH - PAGE_MARGIN, y);
+              y += 8;
+            }
+            y = addProjectTitleRow(doc, y, p.project, p.projectPhoto, imgMap);
+            y = addMaterialLines(doc, y, p.items, imgMap);
+          });
         });
         y = addNote(doc, y, MATERIALS_NOTE);
         filename = 'all-projects-materials.pdf';
