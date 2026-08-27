@@ -77,10 +77,14 @@
 
   #projectResult{display:none;margin-top:18px;text-align:left;background:var(--cream);border-radius:18px;padding:18px;border:2px dashed var(--gold);}
   #projectResult.show{display:block;}
-  #projectResult h4{font-size:17px;margin-bottom:4px;}
-  #projectResult .pr-tier{font-size:12.5px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:block;}
-  #projectResult .pr-photo{width:100%;height:130px;border-radius:12px;overflow:hidden;margin-bottom:12px;background:var(--cream-dark);}
-  #projectResult .pr-photo img{width:100%;height:100%;object-fit:cover;}
+  #projectResult .pr-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  #projectResult h4{font-size:17px;}
+  #projectResult .pr-tier{font-size:12.5px;color:var(--red);font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:block;margin-top:2px;}
+  #projectResult .pr-photo{width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream-dark);}
+  #projectResult .pr-photo img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;}
+  #projectResult .pr-photo .img-slot{border-radius:50%;}
+  #projectResult .pr-photo .img-slot-label{display:none;}
+  #projectResult .pr-photo .img-slot-icon{width:16px;height:16px;font-size:8px;}
   #projectResult .pr-group-title{font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;color:var(--charcoal);margin:12px 0 6px;}
   #projectResult ul{display:flex;flex-direction:column;gap:5px;margin-bottom:4px;}
   #projectResult li{font-size:13.5px;color:var(--charcoal-soft);display:flex;gap:8px;}
@@ -98,6 +102,7 @@
   .tool-card:hover{transform:translateY(-4px);}
   .tool-photo{width:100%;height:110px;border-radius:9px;overflow:hidden;margin-bottom:8px;background:var(--cream-dark);}
   .tool-photo img{width:100%;height:100%;object-fit:cover;}
+  .tool-photo img{cursor:zoom-in;}
   .tool-card h4{font-size:13.5px;margin-bottom:3px;}
   .tool-card p{font-size:11.5px;color:var(--charcoal-soft);}
 
@@ -109,19 +114,21 @@
   /* MATERIALS PER PROJECT */
   .materials-projects-section .wrap > p{max-width:700px;color:var(--charcoal-soft);font-size:14.5px;margin:6px 0 22px;}
   .project-block{background:#fff;border-radius:20px;padding:20px 18px;box-shadow:var(--shadow-sm);margin-bottom:14px;}
-  .project-block-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
+  .project-block-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
+  .project-block-title-row{display:flex;align-items:center;gap:12px;}
   .project-block-head h3{font-size:19px;}
   .project-tier-tag{display:inline-flex;font-family:'Inter',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--red);background:var(--cream);padding:4px 11px;border-radius:100px;margin-top:4px;}
-  .project-photo{width:100%;height:160px;border-radius:14px;overflow:hidden;margin-bottom:14px;background:var(--cream-dark);}
-  .project-photo img{width:100%;height:100%;object-fit:cover;}
-  .project-photo .img-slot{border-radius:14px;}
-  .project-photo .img-slot-icon{width:30px;height:30px;font-size:13px;}
-  .project-photo .img-slot-label{font-size:11px;}
+  .project-photo{width:60px;height:60px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream-dark);}
+  .project-photo img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;}
+  .project-photo .img-slot{border-radius:50%;}
+  .project-photo .img-slot-icon{width:18px;height:18px;font-size:9px;}
+  .project-photo .img-slot-label{display:none;}
 
   .material-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
   .material-card{background:var(--cream);border-radius:12px;padding:10px;}
   .material-photo{width:100%;height:100px;border-radius:8px;overflow:hidden;margin-bottom:8px;background:var(--cream-dark);}
   .material-photo img{width:100%;height:100%;object-fit:cover;}
+  .material-photo img{cursor:zoom-in;}
   .material-card h5{font-size:13px;margin-bottom:3px;}
   .material-card .m-size{font-size:11.5px;color:var(--charcoal-soft);}
   .material-card .m-qty{display:inline-block;margin-top:5px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:12px;color:#fff;background:var(--red);padding:3px 9px;border-radius:100px;}
@@ -148,9 +155,12 @@
     .img-slot .img-slot-label{display:none;}
     .img-slot .img-slot-icon{width:18px;height:18px;font-size:9px;}
 
-    .project-photo{height:120px;}
   }
 
+  /* IMAGE LIGHTBOX — click any real photo to see it enlarged */
+  .lightbox-backdrop{position:fixed;inset:0;background:rgba(36,28,24,.85);z-index:999;display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+  .lightbox-backdrop img{max-width:min(90vw,640px);max-height:85vh;width:auto;height:auto;border-radius:14px;box-shadow:var(--shadow);cursor:default;}
+  .lightbox-close{position:absolute;top:18px;right:22px;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:28px;line-height:1;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 </style>
 </head>
 <body>
@@ -350,13 +360,15 @@
   listEl.innerHTML = projectMaterials.map((p, i) => `
     <div class="project-block" id="project-${i}">
       <div class="project-block-head">
-        <div>
-          <h3>${p.project}</h3>
-          <span class="project-tier-tag">${p.toolkit} Toolkit</span>
+        <div class="project-block-title-row">
+          <div class="project-photo">${photoOrSlot(p.projectPhoto, p.project + ' — finished project')}</div>
+          <div>
+            <h3>${p.project}</h3>
+            <span class="project-tier-tag">${p.toolkit} Toolkit</span>
+          </div>
         </div>
         <button class="btn btn-dark download-btn" data-download="project-${i}">Download as PDF</button>
       </div>
-      <div class="project-photo">${photoOrSlot(p.projectPhoto, p.project + ' — finished project')}</div>
       <div class="material-grid">
         ${p.items.map(materialItemHtml).join('')}
       </div>
@@ -378,9 +390,13 @@
     const p = projectMaterials[Number(picker.value)];
     const tools = p.toolkit === 'Makers' ? explorersTools.concat(makersTools) : explorersTools;
     resultEl.innerHTML = `
-      <h4>${p.project}</h4>
-      <span class="pr-tier">${p.toolkit} Toolkit${p.toolkit === 'Makers' ? ' (builds on Explorers)' : ''}</span>
-      <div class="pr-photo">${photoOrSlot(p.projectPhoto, p.project + ' — finished project')}</div>
+      <div class="pr-head">
+        <div class="pr-photo">${photoOrSlot(p.projectPhoto, p.project + ' — finished project')}</div>
+        <div>
+          <h4>${p.project}</h4>
+          <span class="pr-tier">${p.toolkit} Toolkit${p.toolkit === 'Makers' ? ' (builds on Explorers)' : ''}</span>
+        </div>
+      </div>
       <div class="pr-group-title">Tools you'll need</div>
       <ul>${tools.map(t => `<li>${t.name}</li>`).join('')}</ul>
       <div class="pr-group-title">Materials to cut</div>
@@ -391,6 +407,21 @@
     `;
     resultEl.classList.add('show');
     resultEl.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  // ---- IMAGE LIGHTBOX (click any real tool/material/project photo to see it enlarged) ----
+  document.addEventListener('click', (e) => {
+    const img = e.target.closest('.tool-photo img, .material-photo img, .project-photo img, .pr-photo img');
+    if(!img) return;
+    const backdrop = document.createElement('div');
+    backdrop.className = 'lightbox-backdrop';
+    backdrop.innerHTML = `
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <img src="${img.src}" alt="${img.alt}">
+    `;
+    document.body.appendChild(backdrop);
+    const close = () => backdrop.remove();
+    backdrop.addEventListener('click', (evt) => { if(evt.target !== backdrop.querySelector('img')) close(); });
   });
 
   // ---- DOWNLOAD AS PDF (generates a real PDF file directly — no print dialog, no screenshots) ----
@@ -429,99 +460,198 @@
     return y + 7;
   }
 
-  function addToolLines(doc, y, tools){
+  function addProjectTitleRow(doc, y, title, photo, imgMap){
+    const size = 20;
+    y = newPageIfNeeded(doc, y, size + 8);
+    drawThumb(doc, PAGE_MARGIN, y, size, photo, imgMap);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(15);
+    doc.setTextColor(36, 28, 24);
+    const lines = doc.splitTextToSize(title, CONTENT_WIDTH - size - 6);
+    doc.text(lines, PAGE_MARGIN + size + 6, y + 8);
+    return y + Math.max(size, lines.length * 6 + 4) + 8;
+  }
+
+  // ---- IMAGE LOADING (so real tool/material photos can be embedded in the PDF) ----
+  function loadImageData(src){
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          canvas.getContext('2d').drawImage(img, 0, 0);
+          resolve({ dataUrl: canvas.toDataURL('image/png'), width: img.naturalWidth, height: img.naturalHeight });
+        } catch(err){
+          resolve(null);
+        }
+      };
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+  }
+
+  async function preloadPhotos(paths){
+    const unique = [...new Set(paths.filter(Boolean))];
+    const map = new Map();
+    await Promise.all(unique.map(async (p) => {
+      const data = await loadImageData(p);
+      if(data) map.set(p, data);
+    }));
+    return map;
+  }
+
+  const THUMB = 20; // mm — square thumbnail size used for every tool/material row
+
+  function drawThumb(doc, x, y, size, photo, imgMap){
+    const data = photo && imgMap.get(photo);
+    if(data){
+      const ratio = Math.min(size / data.width, size / data.height);
+      const w = data.width * ratio, h = data.height * ratio;
+      doc.addImage(data.dataUrl, 'PNG', x + (size - w) / 2, y + (size - h) / 2, w, h);
+    } else {
+      doc.setFillColor(243, 228, 215);
+      doc.setDrawColor(224, 168, 62);
+      doc.roundedRect(x, y, size, size, 1.5, 1.5, 'FD');
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(6.5);
+      doc.setTextColor(90, 76, 69);
+      doc.text('Photo needed', x + size / 2, y + size / 2, { align: 'center', baseline: 'middle', maxWidth: size - 3 });
+    }
+  }
+
+  function addToolLines(doc, y, tools, imgMap){
+    const textX = PAGE_MARGIN + THUMB + 5;
+    const textWidth = CONTENT_WIDTH - THUMB - 5;
     tools.forEach(t => {
-      y = newPageIfNeeded(doc, y, 14);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9.5);
+      const noteLines = doc.splitTextToSize(t.note, textWidth);
+      const rowHeight = Math.max(THUMB, 5 + noteLines.length * 4.4) + 4;
+      y = newPageIfNeeded(doc, y, rowHeight);
+      drawThumb(doc, PAGE_MARGIN, y - 4.5, THUMB, t.photo, imgMap);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(11);
       doc.setTextColor(36, 28, 24);
-      doc.text('-  ' + t.name, PAGE_MARGIN, y);
-      y += 5;
+      doc.text(t.name, textX, y);
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9.5);
       doc.setTextColor(90, 76, 69);
-      const lines = doc.splitTextToSize(t.note, CONTENT_WIDTH - 5);
-      doc.text(lines, PAGE_MARGIN + 4, y);
-      y += lines.length * 4.4 + 4;
+      doc.text(noteLines, textX, y + 5);
+      y += rowHeight;
     });
     return y;
   }
 
-  function addMaterialLines(doc, y, items){
+  function addMaterialLines(doc, y, items, imgMap){
+    const textX = PAGE_MARGIN + THUMB + 5;
     items.forEach(m => {
-      y = newPageIfNeeded(doc, y, 16);
+      const lineCount = 1 + (m.size || m.qty ? 1 : 0) + (m.flag ? 1 : 0);
+      const rowHeight = Math.max(THUMB, 5 + (lineCount - 1) * 4.4) + 4;
+      y = newPageIfNeeded(doc, y, rowHeight);
+      drawThumb(doc, PAGE_MARGIN, y - 4.5, THUMB, m.photo, imgMap);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(11);
       doc.setTextColor(36, 28, 24);
-      doc.text('-  ' + m.material, PAGE_MARGIN, y);
-      y += 5;
+      doc.text(m.material, textX, y);
+      let ly = y + 5;
       const detail = [m.size, m.qty].filter(Boolean).join('     ');
       if(detail){
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(9.5);
         doc.setTextColor(90, 76, 69);
-        doc.text(detail, PAGE_MARGIN + 4, y);
-        y += 4.4;
+        doc.text(detail, textX, ly);
+        ly += 4.4;
       }
       if(m.flag){
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(9);
         doc.setTextColor(234, 73, 46);
-        doc.text('Note: ' + m.flag, PAGE_MARGIN + 4, y);
-        y += 4.4;
+        doc.text('Note: ' + m.flag, textX, ly);
+        ly += 4.4;
       }
-      y += 3;
+      y += rowHeight;
     });
     return y;
   }
 
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', async (e) => {
     const btn = e.target.closest('.download-btn');
     if(!btn) return;
     const target = btn.getAttribute('data-download');
+    const originalLabel = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Preparing…';
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-    let y = 22;
-    let filename = 'the-woodworking-guy.pdf';
+    try {
+      let photoPaths = [];
+      if(target === 'explorers'){
+        photoPaths = explorersTools.map(t => t.photo);
+      } else if(target === 'makers'){
+        photoPaths = explorersTools.concat(makersTools).map(t => t.photo);
+      } else if(target.startsWith('project-')){
+        const idx = Number(target.split('-').pop());
+        const p = projectMaterials[idx];
+        photoPaths = [p.projectPhoto, ...p.items.map(m => m.photo)];
+      } else if(target.startsWith('picker-')){
+        const idx = Number(target.split('-').pop());
+        const p = projectMaterials[idx];
+        const tools = p.toolkit === 'Makers' ? explorersTools.concat(makersTools) : explorersTools;
+        photoPaths = [p.projectPhoto, ...tools.map(t => t.photo), ...p.items.map(m => m.photo)];
+      }
 
-    if(target === 'explorers'){
-      y = addHeading(doc, y, "Explorers Toolkit — Tools You'll Need", 16);
-      y = addToolLines(doc, y, explorersTools);
-      filename = 'explorers-toolkit.pdf';
-    } else if(target === 'makers'){
-      y = addHeading(doc, y, "Makers Toolkit — Tools You'll Need", 16);
-      y = addSectionLabel(doc, y, 'Explorers Toolkit (required first)');
-      y = addToolLines(doc, y, explorersTools);
-      y += 3;
-      y = addSectionLabel(doc, y, 'Makers Toolkit (additional tools)');
-      y = addToolLines(doc, y, makersTools);
-      filename = 'makers-toolkit.pdf';
-    } else if(target.startsWith('project-')){
-      const idx = Number(target.split('-').pop());
-      const p = projectMaterials[idx];
-      y = addHeading(doc, y, p.project + ' — Materials & Cutting List', 16);
-      y = addSectionLabel(doc, y, p.toolkit + ' Toolkit');
-      y = addMaterialLines(doc, y, p.items);
-      filename = 'materials-' + slugify(p.project) + '.pdf';
-    } else if(target.startsWith('picker-')){
-      const idx = Number(target.split('-').pop());
-      const p = projectMaterials[idx];
-      y = addHeading(doc, y, p.project + ' — Full Shopping List', 16);
-      y = addSectionLabel(doc, y, 'Explorers Toolkit');
-      y = addToolLines(doc, y, explorersTools);
-      if(p.toolkit === 'Makers'){
+      const imgMap = await preloadPhotos(photoPaths);
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+      let y = 22;
+      let filename = 'the-woodworking-guy.pdf';
+
+      if(target === 'explorers'){
+        y = addHeading(doc, y, "Explorers Toolkit — Tools You'll Need", 16);
+        y = addToolLines(doc, y, explorersTools, imgMap);
+        filename = 'explorers-toolkit.pdf';
+      } else if(target === 'makers'){
+        y = addHeading(doc, y, "Makers Toolkit — Tools You'll Need", 16);
+        y = addSectionLabel(doc, y, 'Explorers Toolkit (required first)');
+        y = addToolLines(doc, y, explorersTools, imgMap);
         y += 3;
         y = addSectionLabel(doc, y, 'Makers Toolkit (additional tools)');
-        y = addToolLines(doc, y, makersTools);
+        y = addToolLines(doc, y, makersTools, imgMap);
+        filename = 'makers-toolkit.pdf';
+      } else if(target.startsWith('project-')){
+        const idx = Number(target.split('-').pop());
+        const p = projectMaterials[idx];
+        y = addProjectTitleRow(doc, y, p.project + ' — Materials & Cutting List', p.projectPhoto, imgMap);
+        y = addSectionLabel(doc, y, p.toolkit + ' Toolkit');
+        y = addMaterialLines(doc, y, p.items, imgMap);
+        filename = 'materials-' + slugify(p.project) + '.pdf';
+      } else if(target.startsWith('picker-')){
+        const idx = Number(target.split('-').pop());
+        const p = projectMaterials[idx];
+        y = addProjectTitleRow(doc, y, p.project + ' — Full Shopping List', p.projectPhoto, imgMap);
+        y = addSectionLabel(doc, y, 'Explorers Toolkit');
+        y = addToolLines(doc, y, explorersTools, imgMap);
+        if(p.toolkit === 'Makers'){
+          y += 3;
+          y = addSectionLabel(doc, y, 'Makers Toolkit (additional tools)');
+          y = addToolLines(doc, y, makersTools, imgMap);
+        }
+        y += 3;
+        y = addSectionLabel(doc, y, 'Materials to Cut');
+        y = addMaterialLines(doc, y, p.items, imgMap);
+        filename = 'project-' + slugify(p.project) + '.pdf';
       }
-      y += 3;
-      y = addSectionLabel(doc, y, 'Materials to Cut');
-      y = addMaterialLines(doc, y, p.items);
-      filename = 'project-' + slugify(p.project) + '.pdf';
-    }
 
-    doc.save(filename);
+      doc.save(filename);
+    } catch(err){
+      console.error(err);
+      alert('Sorry, something went wrong creating the PDF. Please try again.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = originalLabel;
+    }
   });
 </script>
 </body>
