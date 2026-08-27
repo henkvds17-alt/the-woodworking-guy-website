@@ -151,16 +151,6 @@
     .project-photo{height:120px;}
   }
 
-  /* PRINT / DOWNLOAD-AS-PDF — each Download button reveals only its own section for the browser's print dialog, where "Save as PDF" is a destination option */
-  .print-target{}
-  @media print{
-    header.local-nav, .local-banner, .local-intro, .picker-section, footer.local-footer, .download-btn{display:none !important;}
-    .print-target{display:none !important;}
-    .print-target.print-active{display:block !important;}
-    body{background:#fff;}
-    section{padding:0;}
-    .tool-card,.project-block,.material-card{box-shadow:none;border:1px solid #ddd;}
-  }
 </style>
 </head>
 <body>
@@ -197,7 +187,7 @@
   </div>
 </section>
 
-<section id="explorers" class="toolkit-section print-target">
+<section id="explorers" class="toolkit-section">
   <div class="wrap">
     <div class="section-head-row">
       <div>
@@ -205,13 +195,13 @@
         <h2>Tools You'll Need</h2>
         <p>The starting toolkit — reused across every Explorers-level project. Buy once, keep for future builds.</p>
       </div>
-      <button class="btn btn-dark download-btn" data-download="explorers">⬇️ Download as PDF</button>
+      <button class="btn btn-dark download-btn" data-download="explorers">Download as PDF</button>
     </div>
     <div class="tool-grid" id="explorersGrid"></div>
   </div>
 </section>
 
-<section id="makers" class="toolkit-section alt-bg print-target">
+<section id="makers" class="toolkit-section alt-bg">
   <div class="wrap">
     <div class="section-head-row">
       <div>
@@ -219,7 +209,7 @@
         <h2>Additional Tools You'll Need</h2>
         <p>Builds on the Explorers Toolkit — you'll need everything above, plus everything below, for Makers-level projects.</p>
       </div>
-      <button class="btn btn-dark download-btn" data-download="makers">⬇️ Download as PDF</button>
+      <button class="btn btn-dark download-btn" data-download="makers">Download as PDF</button>
     </div>
     <div class="tool-grid" id="makersGrid"></div>
   </div>
@@ -240,6 +230,7 @@
   </div>
 </footer>
 
+<script src="vendor/jspdf.umd.min.js"></script>
 <script>
   // ---- EASILY-EDITABLE CONTENT ----
   // `photo`: leave "" to show a placeholder tile, or set a relative path (e.g. "images/tools/pull-saw.webp")
@@ -357,13 +348,13 @@
 
   const listEl = document.getElementById('projectsMaterialsList');
   listEl.innerHTML = projectMaterials.map((p, i) => `
-    <div class="project-block print-target" id="project-${i}">
+    <div class="project-block" id="project-${i}">
       <div class="project-block-head">
         <div>
           <h3>${p.project}</h3>
           <span class="project-tier-tag">${p.toolkit} Toolkit</span>
         </div>
-        <button class="btn btn-dark download-btn" data-download="project-${i}">⬇️ Download as PDF</button>
+        <button class="btn btn-dark download-btn" data-download="project-${i}">Download as PDF</button>
       </div>
       <div class="project-photo">${photoOrSlot(p.projectPhoto, p.project + ' — finished project')}</div>
       <div class="material-grid">
@@ -395,44 +386,142 @@
       <div class="pr-group-title">Materials to cut</div>
       <ul>${p.items.map(m => `<li>${m.material}${m.size ? ' — ' + m.size : ''}${m.qty ? ' ' + m.qty : ''}${m.flag ? ' (⚠ ' + m.flag + ')' : ''}</li>`).join('')}</ul>
       <div class="pr-actions">
-        <button class="btn btn-outline-dark download-btn" data-download="picker-${picker.value}">⬇️ Download as PDF</button>
+        <button class="btn btn-outline-dark download-btn" data-download="picker-${picker.value}">Download as PDF</button>
       </div>
     `;
     resultEl.classList.add('show');
     resultEl.scrollIntoView({behavior:'smooth', block:'nearest'});
   });
 
-  // ---- DOWNLOAD AS PDF (uses the browser's native print dialog, where "Save as PDF" is a destination) ----
+  // ---- DOWNLOAD AS PDF (generates a real PDF file directly — no print dialog, no screenshots) ----
+  function slugify(s){
+    return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
+
+  const PAGE_MARGIN = 15;
+  const PAGE_WIDTH = 210;
+  const CONTENT_WIDTH = PAGE_WIDTH - PAGE_MARGIN * 2;
+
+  function newPageIfNeeded(doc, y, needed){
+    const pageHeight = doc.internal.pageSize.getHeight();
+    if(y + needed > pageHeight - 15){
+      doc.addPage();
+      return 20;
+    }
+    return y;
+  }
+
+  function addHeading(doc, y, text, size){
+    y = newPageIfNeeded(doc, y, size / 2 + 6);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(size);
+    doc.setTextColor(36, 28, 24);
+    doc.text(text, PAGE_MARGIN, y);
+    return y + size / 2.3 + 4;
+  }
+
+  function addSectionLabel(doc, y, text){
+    y = newPageIfNeeded(doc, y, 10);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(191, 38, 38);
+    doc.text(text.toUpperCase(), PAGE_MARGIN, y);
+    return y + 7;
+  }
+
+  function addToolLines(doc, y, tools){
+    tools.forEach(t => {
+      y = newPageIfNeeded(doc, y, 14);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(36, 28, 24);
+      doc.text('-  ' + t.name, PAGE_MARGIN, y);
+      y += 5;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9.5);
+      doc.setTextColor(90, 76, 69);
+      const lines = doc.splitTextToSize(t.note, CONTENT_WIDTH - 5);
+      doc.text(lines, PAGE_MARGIN + 4, y);
+      y += lines.length * 4.4 + 4;
+    });
+    return y;
+  }
+
+  function addMaterialLines(doc, y, items){
+    items.forEach(m => {
+      y = newPageIfNeeded(doc, y, 16);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(36, 28, 24);
+      doc.text('-  ' + m.material, PAGE_MARGIN, y);
+      y += 5;
+      const detail = [m.size, m.qty].filter(Boolean).join('     ');
+      if(detail){
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9.5);
+        doc.setTextColor(90, 76, 69);
+        doc.text(detail, PAGE_MARGIN + 4, y);
+        y += 4.4;
+      }
+      if(m.flag){
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(234, 73, 46);
+        doc.text('Note: ' + m.flag, PAGE_MARGIN + 4, y);
+        y += 4.4;
+      }
+      y += 3;
+    });
+    return y;
+  }
+
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.download-btn');
     if(!btn) return;
     const target = btn.getAttribute('data-download');
 
-    document.querySelectorAll('.print-target').forEach(el => el.classList.remove('print-active'));
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    let y = 22;
+    let filename = 'the-woodworking-guy.pdf';
 
     if(target === 'explorers'){
-      document.getElementById('explorers').classList.add('print-active');
+      y = addHeading(doc, y, "Explorers Toolkit — Tools You'll Need", 16);
+      y = addToolLines(doc, y, explorersTools);
+      filename = 'explorers-toolkit.pdf';
     } else if(target === 'makers'){
-      document.getElementById('explorers').classList.add('print-active');
-      document.getElementById('makers').classList.add('print-active');
+      y = addHeading(doc, y, "Makers Toolkit — Tools You'll Need", 16);
+      y = addSectionLabel(doc, y, 'Explorers Toolkit (required first)');
+      y = addToolLines(doc, y, explorersTools);
+      y += 3;
+      y = addSectionLabel(doc, y, 'Makers Toolkit (additional tools)');
+      y = addToolLines(doc, y, makersTools);
+      filename = 'makers-toolkit.pdf';
     } else if(target.startsWith('project-')){
-      document.getElementById(target).classList.add('print-active');
+      const idx = Number(target.split('-').pop());
+      const p = projectMaterials[idx];
+      y = addHeading(doc, y, p.project + ' — Materials & Cutting List', 16);
+      y = addSectionLabel(doc, y, p.toolkit + ' Toolkit');
+      y = addMaterialLines(doc, y, p.items);
+      filename = 'materials-' + slugify(p.project) + '.pdf';
     } else if(target.startsWith('picker-')){
-      const idx = target.split('-').pop();
-      const p = projectMaterials[Number(idx)];
-      document.getElementById('explorers').classList.add('print-active');
-      if(p.toolkit === 'Makers') document.getElementById('makers').classList.add('print-active');
-      document.getElementById('project-' + idx).classList.add('print-active');
-    } else {
-      const el = document.getElementById(target);
-      if(el) el.classList.add('print-active');
+      const idx = Number(target.split('-').pop());
+      const p = projectMaterials[idx];
+      y = addHeading(doc, y, p.project + ' — Full Shopping List', 16);
+      y = addSectionLabel(doc, y, 'Explorers Toolkit');
+      y = addToolLines(doc, y, explorersTools);
+      if(p.toolkit === 'Makers'){
+        y += 3;
+        y = addSectionLabel(doc, y, 'Makers Toolkit (additional tools)');
+        y = addToolLines(doc, y, makersTools);
+      }
+      y += 3;
+      y = addSectionLabel(doc, y, 'Materials to Cut');
+      y = addMaterialLines(doc, y, p.items);
+      filename = 'project-' + slugify(p.project) + '.pdf';
     }
 
-    window.print();
-  });
-
-  window.addEventListener('afterprint', () => {
-    document.querySelectorAll('.print-target').forEach(el => el.classList.remove('print-active'));
+    doc.save(filename);
   });
 </script>
 </body>
