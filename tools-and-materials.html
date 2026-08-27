@@ -143,6 +143,9 @@
   .material-card .m-qty{display:inline-block;margin-top:5px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:12px;color:#fff;background:var(--red);padding:3px 9px;border-radius:100px;}
   .material-card .m-flag{display:block;margin-top:5px;font-size:11px;color:var(--orange);font-weight:600;}
 
+  .wood-note{margin-top:14px;padding-top:12px;border-top:1px dashed var(--cream-dark);font-size:12.5px;font-style:italic;color:var(--charcoal-soft);}
+  #projectResult .wood-note{margin-top:10px;padding-top:10px;font-size:12px;}
+
   footer.local-footer{background:var(--charcoal);color:rgba(251,243,236,.7);padding:26px 0;text-align:center;font-size:13px;}
   footer.local-footer a{color:var(--gold-light);font-weight:600;}
 
@@ -337,6 +340,10 @@
     }
   ];
 
+  // Wood-selection guidance — shown on-page and in the PDF alongside every project's cutting
+  // list, since it applies to every material regardless of project.
+  const WOOD_NOTE = "Pine is recommended, but another softwood can also be used. Choose a straight, flat and dry piece with minimal knots and straight grain. Avoid wood that is cracked, brittle, bowed, twisted or cupped.";
+
   // ---- RENDER ----
   function photoOrSlot(photo, label){
     return photo
@@ -389,6 +396,7 @@
           ${p.items.map(materialItemHtml).join('')}
         </div>
       </div>
+      <p class="wood-note">${WOOD_NOTE}</p>
     </div>
   `;
   }
@@ -434,6 +442,7 @@
       <ul>${tools.map(t => `<li>${t.name}</li>`).join('')}</ul>
       <div class="pr-group-title">Materials to cut</div>
       <ul>${p.items.map(m => `<li>${m.material}${m.size ? ' — ' + m.size : ''}${m.qty ? ' ' + m.qty : ''}${m.flag ? ' (⚠ ' + m.flag + ')' : ''}</li>`).join('')}</ul>
+      <p class="wood-note">${WOOD_NOTE}</p>
       <div class="pr-actions">
         <button class="btn btn-outline-dark download-btn" data-download="picker-${picker.value}">Download as PDF</button>
       </div>
@@ -688,6 +697,7 @@
         y = addProjectTitleRow(doc, y, p.project + ' — Materials & Cutting List', p.projectPhoto, imgMap);
         y = addSectionLabel(doc, y, p.toolkit + ' Toolkit');
         y = addMaterialLines(doc, y, p.items, imgMap);
+        y = addNote(doc, y, WOOD_NOTE);
         y = addNote(doc, y, MATERIALS_NOTE);
         filename = 'materials-' + slugify(p.project) + '.pdf';
       } else if(target.startsWith('picker-')){
@@ -704,10 +714,13 @@
         y += 3;
         y = addSectionLabel(doc, y, 'Materials to Cut');
         y = addMaterialLines(doc, y, p.items, imgMap);
+        y = addNote(doc, y, WOOD_NOTE);
         y = addNote(doc, y, MATERIALS_NOTE);
         filename = 'project-' + slugify(p.project) + '.pdf';
       } else if(target === 'all-projects'){
         y = addHeading(doc, y, 'All Projects — Materials & Cutting Lists', 16);
+        y = addNote(doc, y, WOOD_NOTE);
+        y += 2;
         // Grouped by toolkit tier, matching the on-page layout — one section label per
         // tier rather than repeating "Toolkit" on every single project.
         const groups = new Map();
