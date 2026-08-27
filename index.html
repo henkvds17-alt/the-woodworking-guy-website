@@ -432,6 +432,39 @@
   @keyframes ctaPulse{0%,100%{box-shadow:0 10px 30px -10px rgba(224,168,62,.7);}50%{box-shadow:0 14px 40px -6px rgba(224,168,62,1);}}
   @media(prefers-reduced-motion:reduce){.final-cta .btn-primary{animation:none;}}
 
+  /* COMMUNITY */
+  .community{background:var(--cream);}
+  .community-panel{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--cream-dark) 0%,var(--gold-light) 115%);border-radius:32px;padding:64px 56px;box-shadow:var(--shadow);}
+  .community-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;}
+  .community-copy .eyebrow{color:var(--red);}
+  .community-copy h2{margin-bottom:16px;}
+  .community-copy > p{color:var(--charcoal-soft);font-size:16px;margin-bottom:28px;max-width:460px;}
+  .community-features{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+  .community-feature{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.65);border-radius:16px;padding:13px 18px;}
+  .community-feature .icon{flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .community-feature span:last-child{font-family:'Fredoka',sans-serif;font-weight:600;font-size:14.5px;color:var(--charcoal);}
+  .community-note{font-size:13px;color:var(--charcoal-soft);margin-top:14px;}
+  .community-photos{position:relative;height:330px;}
+  .community-photo{position:absolute;width:190px;border-radius:16px;padding:10px;background:#fff;box-shadow:var(--shadow-sm);transition:transform .3s var(--ease);}
+  .community-photo img{width:100%;height:150px;object-fit:cover;border-radius:8px;display:block;}
+  .community-photo:hover{transform:translateY(-6px) rotate(0deg) scale(1.03);z-index:5;}
+  .cp-1{top:0;left:4%;transform:rotate(-7deg);z-index:1;}
+  .cp-2{top:16%;left:33%;transform:rotate(4deg);z-index:2;}
+  .cp-3{top:0;left:60%;transform:rotate(-3deg);z-index:3;}
+  @media(max-width:900px){
+    .community-panel{padding:44px 30px;}
+    .community-grid{grid-template-columns:1fr;}
+    .community-photos{height:220px;margin-top:6px;}
+    .community-photo{width:150px;}
+    .community-photo img{height:118px;}
+    .cp-1{left:0;}
+    .cp-2{left:31%;top:18%;}
+    .cp-3{left:63%;top:2%;}
+  }
+  @media(max-width:560px){
+    .community-photos{display:none;}
+  }
+
   /* FOOTER */
   footer{background:var(--charcoal);color:rgba(251,243,236,.7);padding:64px 0 30px;}
   .footer-grid{display:flex;justify-content:center;align-items:flex-start;gap:110px;margin-bottom:44px;text-align:left;}
@@ -469,6 +502,7 @@
       <a href="#projects">Projects</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
+      <a href="#community">Community</a>
       <a href="https://www.the-woodworking-guy.com/contact-8" target="_blank" rel="noopener">Contact</a>
     </nav>
     <div class="nav-cta">
@@ -483,6 +517,7 @@
   <a href="#projects">Projects</a>
   <a href="#about">About</a>
   <a href="#faq">FAQ</a>
+  <a href="#community">Community</a>
   <a href="https://www.the-woodworking-guy.com/contact-8" target="_blank" rel="noopener">Contact</a>
   <a class="btn btn-primary" href="#" id="mobileCta" target="_blank" rel="noopener">My Projects</a>
 </div>
@@ -737,6 +772,32 @@
   </div>
 </section>
 
+<section class="community" id="community">
+  <div class="wrap reveal">
+    <div class="community-panel">
+      <div class="community-grid">
+        <div class="community-copy">
+          <span class="eyebrow">Join the community</span>
+          <h2>You built it. Now show it off.</h2>
+          <p>Share photos of what you've made, see what other Woodworking Guy families have built, and swap ideas for what to build next.</p>
+          <div class="community-features stagger">
+            <div class="community-feature reveal" style="--i:0;"><span class="icon">&#128247;</span><span>Share what you've built</span></div>
+            <div class="community-feature reveal" style="--i:1;"><span class="icon">&#128064;</span><span>See what others have made</span></div>
+            <div class="community-feature reveal" style="--i:2;"><span class="icon">&#128172;</span><span>Swap ideas &amp; experiences</span></div>
+          </div>
+          <a href="https://www.the-woodworking-guy.com/groups" class="btn btn-primary" target="_blank" rel="noopener">Join the Community</a>
+          <p class="community-note">Free for every Woodworking Guy family.</p>
+        </div>
+        <div class="community-photos">
+          <div class="community-photo cp-1"><img src="images/kid-building-project.webp" alt="A child hard at work on their build"></div>
+          <div class="community-photo cp-2"><img src="images/studio-4.webp" alt="A student with their certificate of completion"></div>
+          <div class="community-photo cp-3"><img src="images/studio-6.webp" alt="Students in the studio, proud of their work"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="footer-grid">
@@ -751,6 +812,7 @@
           <li><a href="#projects">Projects</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#faq">FAQ</a></li>
+          <li><a href="#community">Community</a></li>
         </ul>
       </div>
     </div>
