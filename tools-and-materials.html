@@ -477,16 +477,31 @@
   const PAGE_WIDTH = 210;
   const CONTENT_WIDTH = PAGE_WIDTH - PAGE_MARGIN * 2;
 
-  // ---- LOGO LETTERHEAD (every generated PDF, every page, carries The Woodworking Guy logo) ----
+  // ---- LOGO LETTERHEAD (every generated PDF, every page — centered logo + slogan, like a
+  // proper letterhead, since these PDFs go out to customers) ----
   let _pdfLogoData = null; // set once per download click, read by drawLogoHeader on every page
+  const PDF_SLOGAN = "Give your kids healthy hands-on fun!";
 
   function drawLogoHeader(doc){
     if(!_pdfLogoData) return 20;
-    const maxW = 38, maxH = 15;
+    const maxW = 50, maxH = 19;
     const ratio = Math.min(maxW / _pdfLogoData.width, maxH / _pdfLogoData.height);
     const w = _pdfLogoData.width * ratio, h = _pdfLogoData.height * ratio;
-    doc.addImage(_pdfLogoData.dataUrl, 'PNG', PAGE_MARGIN, 10, w, h);
-    return 10 + h + 8;
+    const logoY = 12;
+    doc.addImage(_pdfLogoData.dataUrl, 'PNG', (PAGE_WIDTH - w) / 2, logoY, w, h);
+
+    const sloganY = logoY + h + 7;
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(11);
+    doc.setTextColor(191, 38, 38);
+    doc.text(PDF_SLOGAN, PAGE_WIDTH / 2, sloganY, { align: 'center' });
+
+    const ruleY = sloganY + 6;
+    doc.setDrawColor(224, 168, 62);
+    doc.setLineWidth(0.6);
+    doc.line(PAGE_WIDTH / 2 - 24, ruleY, PAGE_WIDTH / 2 + 24, ruleY);
+
+    return ruleY + 10;
   }
 
   function newPageIfNeeded(doc, y, needed){
