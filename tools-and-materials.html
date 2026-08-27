@@ -43,7 +43,7 @@
   .btn-dark:hover{background:var(--red);transform:translateY(-3px);}
   .btn-outline-dark{border-color:var(--charcoal);color:var(--charcoal);background:transparent;}
   .btn-outline-dark:hover{background:var(--charcoal);color:#fff;}
-  .save-btn{padding:9px 16px;font-size:13px;gap:6px;}
+  .download-btn{padding:9px 16px;font-size:13px;gap:6px;}
 
   section{padding:44px 0;position:relative;}
   .section-head{max-width:700px;margin:0 auto 28px;text-align:center;}
@@ -151,13 +151,16 @@
     .project-photo{height:120px;}
   }
 
-  /* SAVE-TO-PHOTOS MODAL */
-  .save-modal-backdrop{position:fixed;inset:0;background:rgba(36,28,24,.78);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px;}
-  .save-modal{background:#fff;border-radius:20px;padding:20px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto;position:relative;text-align:center;box-shadow:var(--shadow);}
-  .save-modal img{width:100%;border-radius:12px;margin-bottom:14px;border:1px solid var(--cream-dark);}
-  .save-modal-hint{font-size:13.5px;color:var(--charcoal-soft);margin-bottom:16px;}
-  .save-modal-close{position:absolute;top:8px;right:12px;background:none;border:none;font-size:26px;line-height:1;color:var(--charcoal-soft);cursor:pointer;padding:6px;}
-  .save-modal .btn{width:100%;}
+  /* PRINT / DOWNLOAD-AS-PDF — each Download button reveals only its own section for the browser's print dialog, where "Save as PDF" is a destination option */
+  .print-target{}
+  @media print{
+    header.local-nav, .local-banner, .local-intro, .picker-section, footer.local-footer, .download-btn{display:none !important;}
+    .print-target{display:none !important;}
+    .print-target.print-active{display:block !important;}
+    body{background:#fff;}
+    section{padding:0;}
+    .tool-card,.project-block,.material-card{box-shadow:none;border:1px solid #ddd;}
+  }
 </style>
 </head>
 <body>
@@ -194,7 +197,7 @@
   </div>
 </section>
 
-<section id="explorers" class="toolkit-section">
+<section id="explorers" class="toolkit-section print-target">
   <div class="wrap">
     <div class="section-head-row">
       <div>
@@ -202,13 +205,13 @@
         <h2>Tools You'll Need</h2>
         <p>The starting toolkit — reused across every Explorers-level project. Buy once, keep for future builds.</p>
       </div>
-      <button class="btn btn-dark save-btn" data-save="explorers">💾 Save to Photos</button>
+      <button class="btn btn-dark download-btn" data-download="explorers">⬇️ Download as PDF</button>
     </div>
     <div class="tool-grid" id="explorersGrid"></div>
   </div>
 </section>
 
-<section id="makers" class="toolkit-section alt-bg">
+<section id="makers" class="toolkit-section alt-bg print-target">
   <div class="wrap">
     <div class="section-head-row">
       <div>
@@ -216,7 +219,7 @@
         <h2>Additional Tools You'll Need</h2>
         <p>Builds on the Explorers Toolkit — you'll need everything above, plus everything below, for Makers-level projects.</p>
       </div>
-      <button class="btn btn-dark save-btn" data-save="makers">💾 Save to Photos</button>
+      <button class="btn btn-dark download-btn" data-download="makers">⬇️ Download as PDF</button>
     </div>
     <div class="tool-grid" id="makersGrid"></div>
   </div>
@@ -237,7 +240,6 @@
   </div>
 </footer>
 
-<script src="vendor/html2canvas.min.js"></script>
 <script>
   // ---- EASILY-EDITABLE CONTENT ----
   // `photo`: leave "" to show a placeholder tile, or set a relative path (e.g. "images/tools/pull-saw.webp")
@@ -355,13 +357,13 @@
 
   const listEl = document.getElementById('projectsMaterialsList');
   listEl.innerHTML = projectMaterials.map((p, i) => `
-    <div class="project-block" id="project-${i}">
+    <div class="project-block print-target" id="project-${i}">
       <div class="project-block-head">
         <div>
           <h3>${p.project}</h3>
           <span class="project-tier-tag">${p.toolkit} Toolkit</span>
         </div>
-        <button class="btn btn-dark save-btn" data-save="project-${i}">💾 Save to Photos</button>
+        <button class="btn btn-dark download-btn" data-download="project-${i}">⬇️ Download as PDF</button>
       </div>
       <div class="project-photo">${photoOrSlot(p.projectPhoto, p.project + ' — finished project')}</div>
       <div class="material-grid">
@@ -393,96 +395,44 @@
       <div class="pr-group-title">Materials to cut</div>
       <ul>${p.items.map(m => `<li>${m.material}${m.size ? ' — ' + m.size : ''}${m.qty ? ' ' + m.qty : ''}${m.flag ? ' (⚠ ' + m.flag + ')' : ''}</li>`).join('')}</ul>
       <div class="pr-actions">
-        <button class="btn btn-outline-dark save-btn" data-save="picker-${picker.value}">💾 Save this project's list</button>
+        <button class="btn btn-outline-dark download-btn" data-download="picker-${picker.value}">⬇️ Download as PDF</button>
       </div>
     `;
     resultEl.classList.add('show');
     resultEl.scrollIntoView({behavior:'smooth', block:'nearest'});
   });
 
-  // ---- SAVE TO PHOTOS (renders the relevant section(s) to a PNG people can save on their phone) ----
-  function slugify(s){
-    return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-  }
-
-  async function captureNodesToImage(nodes){
-    const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:640px;background:#FBF3EC;padding:20px;';
-    nodes.forEach(n => {
-      const clone = n.cloneNode(true);
-      clone.querySelectorAll('.save-btn').forEach(b => b.remove());
-      clone.style.marginBottom = '16px';
-      wrapper.appendChild(clone);
-    });
-    document.body.appendChild(wrapper);
-    let dataUrl;
-    try {
-      const canvas = await html2canvas(wrapper, {backgroundColor:'#FBF3EC', scale:2, useCORS:true});
-      dataUrl = canvas.toDataURL('image/png');
-    } finally {
-      document.body.removeChild(wrapper);
-    }
-    return dataUrl;
-  }
-
-  function showSaveModal(dataUrl, filename){
-    const backdrop = document.createElement('div');
-    backdrop.className = 'save-modal-backdrop';
-    backdrop.innerHTML = `
-      <div class="save-modal">
-        <button class="save-modal-close" aria-label="Close">&times;</button>
-        <img src="${dataUrl}" alt="Your saved list">
-        <p class="save-modal-hint">📱 On your phone: press and hold the image above, then choose "Save to Photos" (or "Download image"). On a computer, use the button below.</p>
-        <a class="btn btn-primary" href="${dataUrl}" download="${filename}.png">⬇️ Download</a>
-      </div>
-    `;
-    document.body.appendChild(backdrop);
-    const close = () => backdrop.remove();
-    backdrop.querySelector('.save-modal-close').addEventListener('click', close);
-    backdrop.addEventListener('click', (e) => { if(e.target === backdrop) close(); });
-  }
-
-  document.addEventListener('click', async (e) => {
-    const btn = e.target.closest('.save-btn');
+  // ---- DOWNLOAD AS PDF (uses the browser's native print dialog, where "Save as PDF" is a destination) ----
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.download-btn');
     if(!btn) return;
-    const target = btn.getAttribute('data-save');
-    const originalLabel = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = 'Preparing…';
+    const target = btn.getAttribute('data-download');
 
-    try {
-      let nodes = [];
-      let filename = 'the-woodworking-guy';
+    document.querySelectorAll('.print-target').forEach(el => el.classList.remove('print-active'));
 
-      if(target === 'explorers'){
-        nodes = [document.getElementById('explorers')];
-        filename = 'explorers-toolkit';
-      } else if(target === 'makers'){
-        nodes = [document.getElementById('explorers'), document.getElementById('makers')];
-        filename = 'makers-toolkit';
-      } else if(target.startsWith('project-')){
-        const idx = target.split('-').pop();
-        const p = projectMaterials[Number(idx)];
-        nodes = [document.getElementById('project-' + idx)];
-        filename = 'materials-' + slugify(p.project);
-      } else if(target.startsWith('picker-')){
-        const idx = target.split('-').pop();
-        const p = projectMaterials[Number(idx)];
-        nodes = [document.getElementById('explorers')];
-        if(p.toolkit === 'Makers') nodes.push(document.getElementById('makers'));
-        nodes.push(document.getElementById('project-' + idx));
-        filename = 'project-' + slugify(p.project);
-      }
-
-      const dataUrl = await captureNodesToImage(nodes);
-      showSaveModal(dataUrl, filename);
-    } catch(err){
-      console.error(err);
-      alert('Sorry, something went wrong creating the image. Please try again.');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = originalLabel;
+    if(target === 'explorers'){
+      document.getElementById('explorers').classList.add('print-active');
+    } else if(target === 'makers'){
+      document.getElementById('explorers').classList.add('print-active');
+      document.getElementById('makers').classList.add('print-active');
+    } else if(target.startsWith('project-')){
+      document.getElementById(target).classList.add('print-active');
+    } else if(target.startsWith('picker-')){
+      const idx = target.split('-').pop();
+      const p = projectMaterials[Number(idx)];
+      document.getElementById('explorers').classList.add('print-active');
+      if(p.toolkit === 'Makers') document.getElementById('makers').classList.add('print-active');
+      document.getElementById('project-' + idx).classList.add('print-active');
+    } else {
+      const el = document.getElementById(target);
+      if(el) el.classList.add('print-active');
     }
+
+    window.print();
+  });
+
+  window.addEventListener('afterprint', () => {
+    document.querySelectorAll('.print-target').forEach(el => el.classList.remove('print-active'));
   });
 </script>
 </body>
