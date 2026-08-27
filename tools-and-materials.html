@@ -125,11 +125,13 @@
   .project-photo .img-slot{border-radius:16px;}
   .project-photo .img-slot-icon{width:26px;height:26px;font-size:12px;}
   .project-photo .img-slot-label{display:block;font-size:10.5px;}
-  .project-body .material-grid{flex:1;min-width:0;}
+  .project-body .material-grid{flex:1;min-width:0;align-content:flex-start;}
 
-  .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;}
-  .material-card{background:var(--cream);border-radius:12px;padding:10px;}
-  .material-photo{width:100%;height:100px;border-radius:8px;overflow:hidden;margin-bottom:8px;background:var(--cream-dark);}
+  /* Fixed-size cards that wrap, rather than a stretching grid — keeps a single material's
+     photo from ballooning to fill all the leftover width next to the (now larger) project photo. */
+  .material-grid{display:flex;flex-wrap:wrap;gap:12px;}
+  .material-card{background:var(--cream);border-radius:12px;padding:10px;width:150px;flex:0 0 150px;}
+  .material-photo{width:100%;height:90px;border-radius:8px;overflow:hidden;margin-bottom:8px;background:var(--cream-dark);}
   .material-photo img{width:100%;height:100%;object-fit:cover;}
   .material-photo img{cursor:zoom-in;}
   .material-card h5{font-size:13px;margin-bottom:3px;}
@@ -150,8 +152,8 @@
     .tool-photo{width:52px;height:52px;flex-shrink:0;margin-bottom:0;}
     .tool-card .tool-info{flex:1;min-width:0;}
 
-    .material-grid{grid-template-columns:1fr;gap:8px;}
-    .material-card{display:flex;align-items:center;gap:12px;padding:8px 10px;}
+    .material-grid{flex-direction:column;gap:8px;}
+    .material-card{display:flex;align-items:center;gap:12px;padding:8px 10px;width:100%;flex-basis:auto;}
     .material-photo{width:52px;height:52px;flex-shrink:0;margin-bottom:0;}
     .material-card .material-info{flex:1;min-width:0;}
 
@@ -179,14 +181,14 @@
 </header>
 
 <div class="local-banner">
-  🧰 This page is for families buying <b>locally</b> — at your own hardware store or timber supplier, not online.
+  🧰 This page is for families buying <b>locally</b> — at your own hardware store or timber supplier.
 </div>
 
 <section class="local-intro">
   <div class="wrap">
     <span class="eyebrow" style="justify-content:center;">Buying Locally</span>
     <h1>Tools & Materials Guide</h1>
-    <p>Prefer to shop in person instead of ordering online? This page shows exactly what to ask for at any hardware store or timber supplier — a general item description and photo for every tool, plus the exact size and quantity to cut for every project's materials. Pick your project below, or browse the full toolkit and materials lists further down the page.</p>
+    <p>Exactly what to ask for at your local hardware store or timber supplier — pick a project below, or browse the full lists further down.</p>
   </div>
 </section>
 
@@ -209,7 +211,7 @@
       <div>
         <span class="eyebrow">Explorers Toolkit</span>
         <h2>Tools You'll Need</h2>
-        <p>The starting toolkit — reused across every Explorers-level project. Buy once, keep for future builds.</p>
+        <p>The starting toolkit — buy once, and use it for all future projects.</p>
       </div>
       <button class="btn btn-dark download-btn" data-download="explorers">Download as PDF</button>
     </div>
@@ -673,12 +675,18 @@
       } else if(target === 'all-projects'){
         y = addHeading(doc, y, 'All Projects — Materials & Cutting Lists', 16);
         projectMaterials.forEach((p, idx) => {
-          if(idx > 0) y += 5;
+          if(idx > 0){
+            y = newPageIfNeeded(doc, y, 10);
+            doc.setDrawColor(228, 214, 203);
+            doc.setLineWidth(0.4);
+            doc.line(PAGE_MARGIN, y, PAGE_WIDTH - PAGE_MARGIN, y);
+            y += 8;
+          }
           y = addProjectTitleRow(doc, y, p.project, p.projectPhoto, imgMap);
           y = addSectionLabel(doc, y, p.toolkit + ' Toolkit');
           y = addMaterialLines(doc, y, p.items, imgMap);
-          y = addNote(doc, y, MATERIALS_NOTE);
         });
+        y = addNote(doc, y, MATERIALS_NOTE);
         filename = 'all-projects-materials.pdf';
       }
 
