@@ -43,6 +43,8 @@
   .btn-dark:hover{background:var(--red);transform:translateY(-3px);}
   .btn-outline-dark{border-color:var(--charcoal);color:var(--charcoal);background:transparent;}
   .btn-outline-dark:hover{background:var(--charcoal);color:#fff;}
+  .btn-outline{border-color:rgba(255,255,255,.55);color:#fff;background:transparent;}
+  .btn-outline:hover{background:rgba(255,255,255,.12);transform:translateY(-3px);}
   .download-btn{padding:9px 16px;font-size:13px;gap:6px;}
 
   section{padding:64px 0;position:relative;}
@@ -61,18 +63,30 @@
 
   /* BANNER */
 
-  /* INTRO */
-  .local-intro{padding:32px 0 36px;text-align:center;}
-  .local-intro h1{font-size:clamp(26px,4.6vw,40px);margin-bottom:0;}
-  .local-intro p{max-width:700px;margin:0 auto;color:var(--charcoal-soft);font-size:15.5px;}
-  .intro-options{display:flex;flex-direction:column;align-items:center;gap:30px;max-width:760px;margin:30px auto 0;}
-  .intro-options-image{max-width:380px;}
-  .intro-options-image img{width:100%;height:auto;display:block;filter:drop-shadow(0 16px 28px rgba(36,28,24,.25));}
-  .intro-options-row{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;}
-  .intro-option{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:250px;}
-  .intro-option-badge{pointer-events:none;padding:10px 22px;font-size:13.5px;}
-  .intro-option p{margin:0;font-size:13.5px;}
-  @media(max-width:520px){.intro-options-image{max-width:260px;} .intro-options-row{gap:28px;}}
+  /* INTRO — styled like the homepage hero: bold heading left, photo right, on a striking dark background */
+  .local-intro{
+    background:radial-gradient(circle at 18% 20%,var(--red-dark),var(--red) 55%,var(--red-deep) 100%);
+    padding:88px 0;overflow:hidden;
+  }
+  .local-intro + section{border-top:none;}
+  .local-intro .hero-flex{display:flex;align-items:center;justify-content:space-between;gap:44px;}
+  .local-intro .hero-inner{max-width:600px;text-align:left;}
+  .local-intro .eyebrow{color:var(--gold-light);}
+  .local-intro .eyebrow::before{background:var(--gold-light);}
+  .local-intro h1{color:#fff;font-size:clamp(32px,5vw,52px);margin:2px 0 26px;letter-spacing:-.01em;line-height:1.1;}
+  .local-intro .hero-character-col{flex:0 0 auto;width:34%;max-width:360px;}
+  .local-intro .hero-character-col img{width:100%;height:auto;display:block;filter:drop-shadow(0 26px 34px rgba(20,12,10,.4));}
+  .intro-options{display:flex;gap:28px;flex-wrap:wrap;}
+  .intro-option{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:8px;max-width:230px;}
+  .intro-option-badge{pointer-events:none;padding:12px 26px;font-size:14px;}
+  .intro-option p{margin:0;font-size:13.5px;color:rgba(255,255,255,.8);}
+  @media(max-width:860px){
+    .local-intro .hero-flex{flex-direction:column;text-align:center;gap:32px;}
+    .local-intro .hero-inner{max-width:100%;text-align:center;}
+    .local-intro .hero-character-col{width:52%;max-width:260px;}
+    .intro-options{justify-content:center;}
+    .intro-option{align-items:center;text-align:center;}
+  }
 
   /* PROJECT PICKER */
   .picker-section{background:var(--gold-light);}
@@ -195,23 +209,23 @@
 </header>
 
 <section class="local-intro">
-  <div class="wrap">
-    <span class="eyebrow" style="justify-content:center;">Order Online or Buy Locally</span>
-    <h1>Tools & Materials Guide</h1>
-    <div class="intro-options">
-      <div class="intro-options-image">
-        <img src="images/toolkit-delivery.webp" alt="A delivery courier handing over a toolkit box full of tools and materials to an excited kid">
-      </div>
-      <div class="intro-options-row">
+  <div class="wrap hero-flex">
+    <div class="hero-inner">
+      <span class="eyebrow">Order Online or Buy Locally</span>
+      <h1>Tools &amp; Materials Guide</h1>
+      <div class="intro-options">
         <div class="intro-option">
           <span class="btn btn-primary intro-option-badge">Order Online</span>
           <p>Get everything shipped straight to your door.</p>
         </div>
         <div class="intro-option">
-          <span class="btn btn-outline-dark intro-option-badge">Download as PDF</span>
+          <span class="btn btn-outline intro-option-badge">Download as PDF</span>
           <p>If the supplier doesn&rsquo;t deliver, download the list and buy it locally.</p>
         </div>
       </div>
+    </div>
+    <div class="hero-character-col">
+      <img src="images/toolkit-delivery.webp" alt="A delivery courier handing over a toolkit box full of tools and materials to an excited kid">
     </div>
   </div>
 </section>
