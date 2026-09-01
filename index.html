@@ -230,9 +230,18 @@
   .steps-overview-item:hover .step-badge{background:var(--gold);color:var(--charcoal);transform:translateY(-6px) scale(1.08);box-shadow:0 16px 30px -8px rgba(224,168,62,.55);}
   .steps-overview-item span{font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;line-height:1.3;transition:color .3s var(--ease);}
   .steps-overview-item:hover span{color:var(--red);}
+  .step-head{display:flex;align-items:flex-start;gap:18px;text-align:left;margin-bottom:36px;}
+  .step-num-big{font-family:'Fredoka',sans-serif;font-weight:700;font-size:64px;line-height:.82;color:var(--red);flex-shrink:0;}
+  .step-head-text{flex:1;padding-top:6px;}
+  .step-head-text .eyebrow{margin-bottom:6px;}
+  .step-head-text h2{margin-bottom:8px;}
+  @media(max-width:560px){
+    .step-num-big{font-size:46px;}
+    .step-head{gap:12px;margin-bottom:24px;}
+  }
 
   /* STEPS */
-  .steps{background:var(--cream-dark);}
+  .steps{background:var(--cream-dark);padding-top:70px;}
   .steps-quote{color:var(--red);}
   .step{position:relative;z-index:1;text-align:center;}
   .step .num{
@@ -258,7 +267,7 @@
   .step-guide-link:hover{background:var(--red);}
 
   /* PROJECTS */
-  .projects{background:var(--cream);}
+  .projects{background:var(--cream);padding-top:70px;}
   .filter-row{display:flex;gap:10px;justify-content:center;margin-bottom:44px;flex-wrap:wrap;}
   .filter-pill{
     padding:9px 20px;border-radius:100px;border:2px solid var(--cream-dark);background:transparent;font-family:'Inter',sans-serif;
@@ -296,9 +305,6 @@
 
   /* STEP LABELS — reused at the top of the three real process sections (Toolkits / Projects / Watch & Build) */
   .step-badge{width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:var(--shadow-sm);}
-  .step-pill{display:inline-flex;align-items:center;gap:12px;margin:0 auto 18px;}
-  .step-num{width:46px;height:46px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow-sm);}
-  .step-label{font-family:'Inter',sans-serif;font-weight:800;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);}
   .step-one-note{margin-top:14px;font-size:13.5px;color:var(--charcoal-soft);}
   .step-one-cta{text-align:center;}
 
@@ -671,13 +677,13 @@
 
 <section class="steps step-one" id="step-one">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="step-pill">
-        <span class="step-num">1</span>
-        <span class="step-label">Step One</span>
+    <div class="section-head step-head reveal">
+      <div class="step-num-big">1</div>
+      <div class="step-head-text">
+        <span class="eyebrow">Step One</span>
+        <h2>Get your toolkit &amp; materials.</h2>
+        <p>Every toolkit is a once-off purchase you&rsquo;ll reuse for every project. Materials are bought separately, per project &mdash; order online or buy locally, whichever&rsquo;s easier.</p>
       </div>
-      <h2>Get your toolkit &amp; materials.</h2>
-      <p>Every toolkit is a once-off purchase you&rsquo;ll reuse for every project. Materials are bought separately, per project &mdash; order online or buy locally, whichever&rsquo;s easier.</p>
     </div>
     <div class="tk-compare reveal" style="margin-top:44px;">
       <div class="tk-compare-grid">
@@ -730,13 +736,13 @@
 
 <section class="projects" id="projects">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="step-pill">
-        <span class="step-num">2</span>
-        <span class="step-label">Step Two</span>
+    <div class="section-head step-head reveal">
+      <div class="step-num-big">2</div>
+      <div class="step-head-text">
+        <span class="eyebrow">Step Two</span>
+        <h2>Pick a project.</h2>
+        <p>Start with any project! Every project is taught from the basics, so any project can be your first. Explorers are simpler, while Makers use more tools and skills. Click any photo to see it larger.</p>
       </div>
-      <h2>Pick a project.</h2>
-      <p>Start with any project! Every project is taught from the basics, so any project can be your first. Explorers are simpler, while Makers use more tools and skills. Click any photo to see it larger.</p>
     </div>
     <div class="filter-row" id="filterRow"></div>
     <div class="project-grid stagger" id="projectGrid"></div>
@@ -745,13 +751,13 @@
 
 <section class="proof" id="step-three">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="step-pill">
-        <span class="step-num">3</span>
-        <span class="step-label">Step Three</span>
+    <div class="section-head step-head reveal">
+      <div class="step-num-big">3</div>
+      <div class="step-head-text">
+        <span class="eyebrow">Step Three</span>
+        <h2>Watch and build.</h2>
+        <p>Once your toolkit and materials arrive, follow along at your own pace &mdash; short, clear steps anyone can follow, rewind anytime.</p>
       </div>
-      <h2>Watch and build.</h2>
-      <p>Once your toolkit and materials arrive, follow along at your own pace &mdash; short, clear steps anyone can follow, rewind anytime.</p>
     </div>
     <div class="proof-top reveal">
       <div class="proof-figure"><img src="images/woodworking-guy-laptop.webp" alt="The Woodworking Guy presenting a video lesson, shown on a laptop screen"></div>
@@ -774,11 +780,13 @@
     <div class="community-panel">
       <div class="community-grid">
         <div class="community-copy">
-          <div class="step-pill" style="margin:0 0 14px;">
-            <span class="step-num">4</span>
-            <span class="step-label">Step Four</span>
+          <div class="step-head" style="margin-bottom:18px;">
+            <div class="step-num-big">4</div>
+            <div class="step-head-text">
+              <span class="eyebrow">Step Four</span>
+              <h2>You built it. Now share it.</h2>
+            </div>
           </div>
-          <h2>You built it. Now share it.</h2>
           <div class="community-features stagger">
             <div class="community-feature reveal" style="--i:0;"><span class="icon">&#128247;</span><span>Share what you've built</span></div>
             <div class="community-feature reveal" style="--i:1;"><span class="icon">&#128064;</span><span>See what others have made</span></div>
