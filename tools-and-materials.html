@@ -354,6 +354,13 @@
     "images/tools/material-25x8x2cm.webp": "https://link.amazon/B0fNd5qZk"
   };
 
+  // Amazon wishlist links for each toolkit itself (same links used by the Order Online
+  // buttons in the Explorers/Makers Toolkit sections above).
+  const TOOLKIT_ORDER_LINKS = {
+    "Explorers": "https://www.amazon.de/hz/wishlist/ls/3QGXYEA6VATOJ?ref_=wl_share",
+    "Makers": "https://www.amazon.de/hz/wishlist/ls/2461Z5YCTN48I?ref_=wl_share"
+  };
+
   function projectOrderLink(p){
     const item = p.items.find(m => MATERIAL_ORDER_LINKS[m.photo]);
     return item ? MATERIAL_ORDER_LINKS[item.photo] : null;
@@ -467,7 +474,8 @@
       <ul>${p.items.map(m => `<li>${m.material}${m.size ? ' — ' + m.size : ''}${m.qty ? ' ' + m.qty : ''}${m.flag ? ' (⚠ ' + m.flag + ')' : ''}</li>`).join('')}</ul>
       <p class="wood-note">${WOOD_NOTE}</p>
       <div class="pr-actions" style="display:flex;gap:10px;flex-wrap:wrap;">
-        ${projectOrderLink(p) ? `<a class="btn btn-primary" href="${projectOrderLink(p)}" target="_blank" rel="noopener sponsored">Order Online</a>` : ''}
+        ${TOOLKIT_ORDER_LINKS[p.toolkit] ? `<a class="btn btn-primary" href="${TOOLKIT_ORDER_LINKS[p.toolkit]}" target="_blank" rel="noopener sponsored">Order Toolkit</a>` : ''}
+        ${projectOrderLink(p) ? `<a class="btn btn-primary" href="${projectOrderLink(p)}" target="_blank" rel="noopener sponsored">Order Materials</a>` : ''}
         <button class="btn btn-outline-dark download-btn" data-download="picker-${picker.value}">Download as PDF</button>
       </div>
     `;
