@@ -282,6 +282,17 @@
   .project-price-note{font-size:11px;color:var(--charcoal-soft);margin-top:2px;}
   .project-cta{margin-top:6px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--red);transition:gap .25s;}
   .project-card:hover .project-cta{gap:10px;}
+  .project-thumb img{cursor:zoom-in;}
+
+  /* STEP LABELS — reused at the top of the three real process sections (Toolkits / Projects / Watch & Build) */
+  .step-badge{width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:var(--shadow-sm);}
+  .step-one-note{margin-top:14px;font-size:13.5px;color:var(--charcoal-soft);}
+  .step-one-cta{text-align:center;}
+
+  /* IMAGE LIGHTBOX — click any project photo to see it enlarged */
+  .lightbox-backdrop{position:fixed;inset:0;background:rgba(36,28,24,.85);z-index:999;display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+  .lightbox-backdrop img{max-width:min(90vw,640px);max-height:85vh;width:auto;height:auto;border-radius:14px;box-shadow:var(--shadow);cursor:default;}
+  .lightbox-close{position:absolute;top:18px;right:22px;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:28px;line-height:1;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 
   /* BENEFITS */
   .benefits{background:var(--red);color:#fff;}
@@ -616,83 +627,55 @@
   </div>
 </section>
 
-<section class="steps">
+<section class="steps step-one" id="step-one">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>From <span class="steps-quote">"I'm bored"</span> to <span class="steps-quote">"I made this"</span> &mdash; in four steps.</h2>
+      <div class="step-badge">1</div>
+      <span class="eyebrow" style="justify-content:center;">Step One</span>
+      <h2>Understand &amp; get your toolkit.</h2>
+      <p>Every toolkit is a once-off purchase, reused across every project at that level &mdash; no subscriptions, no ongoing fees. New to this? Start with the Explorers Toolkit &mdash; simple hand tools only, no noise, works for any first project.</p>
     </div>
-    <div class="steps-track stagger" id="stepsTrack"></div>
+    <div class="step-one-cta reveal">
+      <a href="tools-and-materials.html#explorers" class="btn btn-primary">Open the Toolkit &amp; Materials Guide &rarr;</a>
+      <p class="step-one-note">Compare Explorers vs. Makers, then order online or download a printable local-buying guide.</p>
+    </div>
   </div>
 </section>
 
 <section class="projects" id="projects">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">Projects</span>
-      <h2>Find a project that gets your child off the couch.</h2>
-      <p>Start with any project! Every project is taught from the basics, so any project can be your first. Explorers are simpler, while Makers use more tools and skills.</p>
+      <div class="step-badge">2</div>
+      <span class="eyebrow" style="justify-content:center;">Step Two</span>
+      <h2>Pick a project &mdash; see it, choose it, buy it.</h2>
+      <p>Start with any project! Every project is taught from the basics, so any project can be your first. Explorers are simpler, while Makers use more tools and skills. Click any photo to see it larger.</p>
     </div>
     <div class="filter-row" id="filterRow"></div>
     <div class="project-grid stagger" id="projectGrid"></div>
   </div>
 </section>
 
-<section class="tk-compare-section">
+<section class="proof" id="step-three">
   <div class="wrap">
-    <div class="tk-compare reveal">
-      <div class="tk-compare-head">
-        <h3>Explorers vs. Makers — which one fits your child?</h3>
-        <p>Every toolkit is a once-off purchase, reused across every project at that level — no subscriptions, no ongoing fees.</p>
-      </div>
-      <div class="tk-compare-grid">
-
-        <div class="tk-compare-card">
-          <span class="tk-compare-badge">Start here</span>
-          <h4>Explorers Toolkit</h4>
-          <p class="tk-compare-age">Ages 8&ndash;13</p>
-          <p class="tk-compare-tag">For complete beginners and younger kids</p>
-          <p class="tk-compare-price">± €100</p>
-          <p class="tk-compare-price-note">One-time. Estimate only — exact cost depends on where you shop.</p>
-          <ul class="tk-compare-list">
-            <li>Build exciting beginner projects</li>
-            <li>Work with thin, easy-to-cut materials</li>
-            <li>Use simple hand tools only — no noise</li>
-            <li>Assemble your builds with child-safe glue</li>
-            <li>Reuse it for all future projects</li>
-          </ul>
-          <p class="tk-compare-best">Best for: younger kids and first-time builders</p>
-          <div class="tk-compare-actions">
-            <a href="https://www.amazon.de/hz/wishlist/ls/3QGXYEA6VATOJ?ref_=wl_share" class="btn btn-primary tk-compare-cta" target="_blank" rel="noopener sponsored">Order Online</a>
-            <a href="tools-and-materials.html" class="btn btn-dark tk-compare-cta">Buy Locally</a>
-          </div>
-          <p class="tk-compare-affiliate">As an Amazon Associate, we earn from qualifying purchases at no extra cost to you.</p>
-        </div>
-
-        <div class="tk-compare-card featured">
-          <span class="tk-compare-badge">Level up</span>
-          <h4>Makers Toolkit</h4>
-          <p class="tk-compare-age">Ages 12&ndash;16</p>
-          <p class="tk-compare-tag">For kids ready for their first power tools</p>
-          <p class="tk-compare-price">± €170</p>
-          <p class="tk-compare-price-note">One-time, on top of the Explorers Toolkit. Estimate only — exact cost depends on where you shop.</p>
-          <ul class="tk-compare-list">
-            <li>Extend your Explorers Toolkit</li>
-            <li>Work with a wider range of materials</li>
-            <li>Use child-friendly power tools, with guidance</li>
-            <li>Build stronger projects using screws</li>
-            <li>Finish your builds with real wood oil</li>
-            <li>Reuse it for every Makers project and beyond</li>
-          </ul>
-          <p class="tk-compare-best">Best for: kids with a bit more building experience</p>
-          <div class="tk-compare-actions">
-            <a href="https://www.amazon.de/hz/wishlist/ls/2461Z5YCTN48I?ref_=wl_share" class="btn btn-primary tk-compare-cta" target="_blank" rel="noopener sponsored">Order Online</a>
-            <a href="tools-and-materials.html" class="btn btn-dark tk-compare-cta">Buy Locally</a>
-          </div>
-          <p class="tk-compare-affiliate">As an Amazon Associate, we earn from qualifying purchases at no extra cost to you.</p>
-        </div>
-
+    <div class="section-head reveal">
+      <div class="step-badge">3</div>
+      <span class="eyebrow" style="justify-content:center;">Step Three</span>
+      <h2>Watch and build.</h2>
+      <p>Once your toolkit and project arrive, follow along at your own pace &mdash; short, clear steps anyone can follow, rewind anytime.</p>
+    </div>
+    <div class="proof-top reveal">
+      <div class="proof-figure"><img src="images/woodworking-guy-laptop.webp" alt="The Woodworking Guy presenting a video lesson, shown on a laptop screen"></div>
+      <div class="proof-text">
+        <div class="proof-badge"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+        <blockquote>Kids love woodworking, trust me! We've taught <span>many</span> kids in our studio &mdash; now you can attend from home, any time you like.</blockquote>
       </div>
     </div>
+    <div class="studio-scroll-wrap reveal">
+      <div class="studio-scroll" id="studioGallery"></div>
+    </div>
+    <p class="studio-scroll-hint">&larr; Scroll to see more &rarr;</p>
+    <p class="eyebrow" style="justify-content:center;color:var(--gold-light);">By the last cut, your child can</p>
+    <div class="skill-pills stagger" id="skillPills"></div>
   </div>
 </section>
 
@@ -714,55 +697,6 @@
     </div>
     <div class="toolkit-photo reveal" id="toolkitPhoto"></div>
     <div class="toolkit-grid stagger" id="toolkitGrid"></div>
-  </div>
-</section>
-
-<section class="materials">
-  <div class="materials-scatter ms-1"><img src="images/19.png" alt="" loading="lazy"></div>
-  <div class="materials-scatter ms-2 ms-shake"><img src="images/21.png" alt="" loading="lazy"></div>
-  <div class="materials-scatter ms-3"><img src="images/20.png" alt="" loading="lazy"></div>
-  <div class="materials-scatter ms-4"><img src="images/22.png" alt="" loading="lazy"></div>
-  <div class="materials-scatter ms-5"><img src="images/23.png" alt="" loading="lazy"></div>
-  <div class="materials-scatter ms-6 ms-shake"><img src="images/19.png" alt="" loading="lazy"></div>
-  <div class="materials-scatter ms-7"><img src="images/22.png" alt="" loading="lazy"></div>
-  <div class="materials-scatter ms-8"><img src="images/20.png" alt="" loading="lazy"></div>
-  <div class="materials-scatter ms-9 ms-shake"><img src="images/23.png" alt="" loading="lazy"></div>
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Understanding materials</span>
-      <h2>Order materials per project.</h2>
-    </div>
-    <div class="materials-row reveal">
-      <div class="materials-card">
-        <div class="materials-num">1</div>
-        <h4>Ordering Your Materials</h4>
-        <p>Every project has its own materials list — see Step 2 of the project for the full details, then order and build once it arrives.</p>
-      </div>
-      <div class="materials-plus" aria-hidden="true">&rarr;</div>
-      <div class="materials-card">
-        <div class="materials-num">2</div>
-        <h4>Can't Get It Delivered? No Problem</h4>
-        <p>Print the tools list and take it to your local hardware store, or print the cutting list and take it to a timber supplier &mdash; they'll cut your materials to size.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="proof">
-  <div class="wrap">
-    <div class="proof-top reveal">
-      <div class="proof-figure"><img src="images/woodworking-guy-laptop.webp" alt="The Woodworking Guy presenting a video lesson, shown on a laptop screen"></div>
-      <div class="proof-text">
-        <div class="proof-badge"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
-        <blockquote>Kids love woodworking, trust me! We've taught <span>many</span> kids in our studio &mdash; now you can attend from home, any time you like.</blockquote>
-      </div>
-    </div>
-    <div class="studio-scroll-wrap reveal">
-      <div class="studio-scroll" id="studioGallery"></div>
-    </div>
-    <p class="studio-scroll-hint">&larr; Scroll to see more &rarr;</p>
-    <p class="eyebrow" style="justify-content:center;color:var(--gold-light);">By the last cut, your child can</p>
-    <div class="skill-pills stagger" id="skillPills"></div>
   </div>
 </section>
 
@@ -861,13 +795,6 @@
   const VIDEO_HOST = "vimeo";
   const VIDEO_ID = "1213014712";
 
-  const steps = [
-    {n:1,title:"Pick a project",body:"Choose any project they like."},
-    {n:2,title:"Get the toolkit & materials",body:"Order the toolkit and materials — everything arrives at your door in days."},
-    {n:3,title:"Watch and build",body:"Short, clear steps anyone can follow — at their own pace, rewind anytime."},
-    {n:4,title:"“I made this!”",body:"You'll hear this a lot. Snap a photo and move on to the next project."}
-  ];
-
   // Category = which toolkit tier the project needs, pulled from Projects-and-Toolkits.md.
   // Add new projects here as the catalog grows — the grid and filters update automatically.
   const CATEGORIES = ["Explorers Projects", "Makers Projects"];
@@ -959,42 +886,19 @@
   document.querySelectorAll('#navCta,#mobileCta').forEach(el=>el.href=WIX_PROJECTS_URL);
   // finalCta is set directly in the HTML to the project list (like heroCta), matching WIX_PROJECTS_URL.
 
-  // Step 1 & 2 are interactive — built from the same `projects` array and toolkit data used
-  // elsewhere on the page, so they always stay in sync automatically.
-  function stepOneExtra(){
-    const chips = projects.map(p =>
-      `<a class="step-chip" href="${p.link || WIX_PROJECTS_URL}" target="_blank" rel="noopener">${p.name}</a>`
-    ).join('');
-    return `<div class="step-extra">
-      <div class="step-chips">${chips}</div>
-      <a class="step-see-all" href="#projects">See all projects &darr;</a>
-    </div>`;
-  }
-  function stepTwoExtra(){
-    return `<div class="step-extra">
-      <div class="step-toolkit-mini">
-        <a class="step-toolkit-card" href="https://www.amazon.de/hz/wishlist/ls/3QGXYEA6VATOJ?ref_=wl_share" target="_blank" rel="noopener sponsored">
-          <span><span class="stk-name">Explorers Toolkit</span><br><span class="stk-price">&plusmn; &euro;100</span></span>
-          <span class="stk-buy">Buy</span>
-        </a>
-        <a class="step-toolkit-card" href="https://www.amazon.de/hz/wishlist/ls/2461Z5YCTN48I?ref_=wl_share" target="_blank" rel="noopener sponsored">
-          <span><span class="stk-name">Makers Toolkit</span><br><span class="stk-price">&plusmn; &euro;170</span></span>
-          <span class="stk-buy">Buy</span>
-        </a>
-      </div>
-      <a class="step-guide-link" href="tools-and-materials.html">Toolkit &amp; Materials Guide &rarr;</a>
-    </div>`;
-  }
-
-  const stepsTrack = document.getElementById('stepsTrack');
-  steps.forEach((s,i)=>{
-    const el = document.createElement('div');
-    el.className='step reveal'; el.style.setProperty('--i',i);
-    let extra = '';
-    if(s.n===1) extra = stepOneExtra();
-    if(s.n===2) extra = stepTwoExtra();
-    el.innerHTML = `<div class="num">${s.n}</div><h4>${s.title}</h4><p>${s.body}</p>${extra}`;
-    stepsTrack.appendChild(el);
+  // ---- IMAGE LIGHTBOX (click any project photo to see it enlarged) ----
+  document.addEventListener('click', (e) => {
+    const img = e.target.closest('.project-thumb img');
+    if(!img) return;
+    const backdrop = document.createElement('div');
+    backdrop.className = 'lightbox-backdrop';
+    backdrop.innerHTML = `
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <img src="${img.src}" alt="${img.alt}">
+    `;
+    document.body.appendChild(backdrop);
+    const close = () => backdrop.remove();
+    backdrop.addEventListener('click', (evt) => { if(evt.target !== backdrop.querySelector('img')) close(); });
   });
 
   const tags = ["All",...CATEGORIES];
