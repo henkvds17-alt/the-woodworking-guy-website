@@ -281,7 +281,7 @@
     font-weight:600;font-size:13.5px;color:var(--charcoal-soft);cursor:pointer;transition:.25s var(--ease);
   }
   .filter-pill.active,.filter-pill:hover{border-color:var(--red);color:var(--red);background:rgba(191,38,38,.06);}
-  .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:start;}
   .project-card{
     background:#fff;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .4s var(--ease),box-shadow .4s var(--ease);
     display:flex;flex-direction:column;
@@ -299,14 +299,13 @@
   .img-slot .img-slot-icon{width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:var(--shadow-sm);position:relative;z-index:1;flex-shrink:0;}
   .img-slot .img-slot-label{position:relative;z-index:1;font-size:12px;font-weight:600;color:var(--charcoal-soft);line-height:1.4;max-width:220px;}
   .img-slot--proof{aspect-ratio:1/1;border-radius:18px;}
-  .project-body{padding:22px 22px 26px;display:flex;flex-direction:column;gap:10px;flex:1;}
+  .project-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;}
   .project-tag{align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);background:rgba(191,38,38,.08);padding:4px 10px;border-radius:100px;}
-  .project-body h4{font-size:18px;}
-  .project-price-group{margin-top:auto;}
-  .project-price{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--charcoal);font-size:16px;}
-  .project-price span{color:var(--charcoal-soft);font-weight:400;font-size:13px;}
-  .project-price-note{font-size:11px;color:var(--charcoal-soft);margin-top:2px;}
-  .project-cta{margin-top:6px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--red);transition:gap .25s;}
+  .project-body h4{font-size:22px;margin-top:2px;}
+  .project-price-row{display:flex;align-items:baseline;gap:8px;margin-top:2px;}
+  .project-price{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--charcoal);font-size:17px;}
+  .project-price-note{font-size:11.5px;color:var(--charcoal-soft);}
+  .project-cta{margin-top:8px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--red);transition:gap .25s;}
   .project-card:hover .project-cta{gap:10px;}
   .project-thumb img{cursor:zoom-in;}
 
@@ -529,7 +528,6 @@
     .project-tag{font-size:9px;padding:3px 8px;}
     .project-body h4{font-size:13.5px;line-height:1.25;}
     .project-price{font-size:14px;}
-    .project-price span{font-size:11px;}
     .project-price-note{font-size:9.5px;}
     .project-cta{font-size:12px;margin-top:2px;}
   }
@@ -874,7 +872,7 @@
 
   // Category = which toolkit tier the project needs, pulled from Projects-and-Toolkits.md.
   // Add new projects here as the catalog grows — the grid and filters update automatically.
-  const CATEGORIES = ["Explorers Projects", "Makers Projects"];
+  const CATEGORIES = ["Explorers Project", "Makers Project"];
   // `photo`: leave "" to show a placeholder slot on the card, or set a relative path (e.g. "images/explorers-toolkit.jpg")
   // once you have the real product photo — the placeholder disappears automatically.
   // `link`: leave "" to fall back to WIX_PROJECTS_URL, or set this project's specific overview-page URL on
@@ -883,11 +881,11 @@
   // The other placeholder/no-photo mockup projects were removed — add them back once real
   // photos exist for them (see Projects-and-Toolkits.md for the full project list per toolkit).
   const projects = [
-    {name:"Pot Stand",tag:"Explorers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-pot-stand.webp",link:""},
-    {name:"Book Stand",tag:"Explorers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-book-stand.webp",link:""},
-    {name:"Offcut Box",tag:"Explorers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-offcut-box.webp",link:""},
-    {name:"Key Rack",tag:"Makers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-key-rack.webp",link:""},
-    {name:"Hat / Coat Hook",tag:"Makers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-coat-hook.webp",link:""}
+    {name:"Pot Stand",tag:"Explorers Project",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-pot-stand.webp",link:""},
+    {name:"Book Stand",tag:"Explorers Project",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-book-stand.webp",link:""},
+    {name:"Offcut Box",tag:"Explorers Project",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-offcut-box.webp",link:""},
+    {name:"Key Rack",tag:"Makers Project",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-key-rack.webp",link:""},
+    {name:"Hat / Coat Hook",tag:"Makers Project",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-coat-hook.webp",link:""}
   ];
 
   // Real photos for the "Kids Love Woodworking" proof section — scrollable filmstrip.
@@ -983,9 +981,9 @@
         <div class="project-body">
           <span class="project-tag">${p.tag}</span>
           <h4>${p.name}</h4>
-          <div class="project-price-group">
-            <div class="project-price">${p.price}</div>
-            <div class="project-price-note">Billed in ZAR</div>
+          <div class="project-price-row">
+            <span class="project-price">${p.price}</span>
+            <span class="project-price-note">Billed in ZAR</span>
           </div>
           <a class="project-cta" href="${p.link || WIX_PROJECTS_URL}" target="_blank" rel="noopener">View details &rarr;</a>
         </div>`;
