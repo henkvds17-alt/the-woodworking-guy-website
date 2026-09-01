@@ -556,15 +556,16 @@
   }
 
   function addProjectTitleRow(doc, y, title, photo, imgMap){
-    const size = 20;
-    y = newPageIfNeeded(doc, y, size + 8);
-    drawThumb(doc, PAGE_MARGIN, y, size, photo, imgMap);
+    const size = 70; // mm — large, centered project photo so the finished build is clear at a glance
+    y = newPageIfNeeded(doc, y, size + 20);
+    drawThumb(doc, (PAGE_WIDTH - size) / 2, y, size, photo, imgMap);
+    const titleY = y + size + 9;
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(15);
     doc.setTextColor(36, 28, 24);
-    const lines = doc.splitTextToSize(title, CONTENT_WIDTH - size - 6);
-    doc.text(lines, PAGE_MARGIN + size + 6, y + 8);
-    return y + Math.max(size, lines.length * 6 + 4) + 8;
+    const lines = doc.splitTextToSize(title, CONTENT_WIDTH);
+    doc.text(lines, PAGE_WIDTH / 2, titleY, { align: 'center' });
+    return titleY + lines.length * 6 + 6;
   }
 
   // ---- IMAGE LOADING (so real tool/material photos can be embedded in the PDF) ----
@@ -597,7 +598,8 @@
     return map;
   }
 
-  const THUMB = 20; // mm — square thumbnail size used for every tool/material row
+  const THUMB = 20; // mm — square thumbnail size used for every tool row
+  const MATERIAL_THUMB = 45; // mm — much larger than a tool icon, so the measurements printed on material photos stay readable
 
   function drawThumb(doc, x, y, size, photo, imgMap){
     const data = photo && imgMap.get(photo);
@@ -640,31 +642,33 @@
   }
 
   function addMaterialLines(doc, y, items, imgMap){
-    const textX = PAGE_MARGIN + THUMB + 5;
+    const textX = PAGE_MARGIN + MATERIAL_THUMB + 8;
     items.forEach(m => {
       const lineCount = 1 + (m.size || m.qty ? 1 : 0) + (m.flag ? 1 : 0);
-      const rowHeight = Math.max(THUMB, 5 + (lineCount - 1) * 4.4) + 4;
+      const textBlockHeight = 5 + (lineCount - 1) * 5;
+      const rowHeight = Math.max(MATERIAL_THUMB, textBlockHeight) + 8;
       y = newPageIfNeeded(doc, y, rowHeight);
-      drawThumb(doc, PAGE_MARGIN, y - 4.5, THUMB, m.photo, imgMap);
+      drawThumb(doc, PAGE_MARGIN, y, MATERIAL_THUMB, m.photo, imgMap);
+      let ty = y + Math.max(8, (MATERIAL_THUMB - textBlockHeight) / 2 + 5);
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(11);
+      doc.setFontSize(12);
       doc.setTextColor(36, 28, 24);
-      doc.text(m.material, textX, y);
-      let ly = y + 5;
+      doc.text(m.material, textX, ty);
+      let ly = ty + 5.5;
       const detail = [m.size, m.qty].filter(Boolean).join('     ');
       if(detail){
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(9.5);
+        doc.setFontSize(10.5);
         doc.setTextColor(90, 76, 69);
         doc.text(detail, textX, ly);
-        ly += 4.4;
+        ly += 5;
       }
       if(m.flag){
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(9);
+        doc.setFontSize(9.5);
         doc.setTextColor(234, 73, 46);
         doc.text('Note: ' + m.flag, textX, ly);
-        ly += 4.4;
+        ly += 5;
       }
       y += rowHeight;
     });
