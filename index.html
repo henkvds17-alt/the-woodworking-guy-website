@@ -309,7 +309,7 @@
   /* STEP LABELS — reused at the top of the three real process sections (Toolkits / Projects / Watch & Build) */
   .step-badge{width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:var(--shadow-sm);}
   .step-one-note{margin-top:14px;font-size:13.5px;color:var(--charcoal-soft);}
-  .step-one-cta{text-align:center;}
+  .step-one-cta{text-align:center;margin-top:32px;}
 
   /* IMAGE LIGHTBOX — click any project photo to see it enlarged */
   .lightbox-backdrop{position:fixed;inset:0;background:rgba(36,28,24,.85);z-index:999;display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
@@ -347,8 +347,6 @@
   .tk-compare-list li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;}
   .tk-compare-best{font-size:13px;font-weight:600;color:var(--charcoal-soft);border-top:1px solid var(--cream-dark);padding-top:14px;}
   .tk-compare-note{grid-column:1/-1;text-align:center;font-size:13px;color:var(--charcoal-soft);margin-top:18px;}
-  .tk-compare-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
-  .tk-compare-cta{flex:1;min-width:130px;margin-top:0;padding:11px 18px;font-size:13.5px;}
   .tk-compare-affiliate{font-size:10.5px;color:var(--charcoal-soft);text-align:center;margin-top:10px;}
 
   /* MATERIALS — toolkit (once) vs materials (per project) explainer */
@@ -681,9 +679,6 @@
             <li>Reuse it for all future projects</li>
           </ul>
           <p class="tk-compare-best">Best for: younger kids and first-time builders</p>
-          <div class="tk-compare-actions">
-            <a href="tools-and-materials.html#explorers" class="btn btn-primary tk-compare-cta">Open the Toolkit &amp; Materials Guide &rarr;</a>
-          </div>
         </div>
 
         <div class="tk-compare-card featured">
@@ -702,11 +697,11 @@
             <li>Reuse it for every Makers project and beyond</li>
           </ul>
           <p class="tk-compare-best">Best for: kids with a bit more building experience</p>
-          <div class="tk-compare-actions">
-            <a href="tools-and-materials.html#makers" class="btn btn-primary tk-compare-cta">Open the Toolkit &amp; Materials Guide &rarr;</a>
-          </div>
         </div>
 
+      </div>
+      <div class="step-one-cta">
+        <a href="tools-and-materials.html" class="btn btn-primary">Open the Toolkit &amp; Materials Guide &rarr;</a>
       </div>
     </div>
   </div>
