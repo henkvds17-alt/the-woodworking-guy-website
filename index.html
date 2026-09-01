@@ -295,6 +295,9 @@
 
   /* STEP LABELS — reused at the top of the three real process sections (Toolkits / Projects / Watch & Build) */
   .step-badge{width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:var(--shadow-sm);}
+  .step-pill{display:inline-flex;align-items:center;gap:12px;margin:0 auto 18px;}
+  .step-num{width:46px;height:46px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow-sm);}
+  .step-label{font-family:'Inter',sans-serif;font-weight:800;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);}
   .step-one-note{margin-top:14px;font-size:13.5px;color:var(--charcoal-soft);}
   .step-one-cta{text-align:center;}
 
@@ -668,8 +671,10 @@
 <section class="steps step-one" id="step-one">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="step-badge">1</div>
-      <span class="eyebrow" style="justify-content:center;">Step One</span>
+      <div class="step-pill">
+        <span class="step-num">1</span>
+        <span class="step-label">Step One</span>
+      </div>
       <h2>Get your toolkit.</h2>
       <p>Every toolkit is a once-off purchase, reused across every project at that level &mdash; no subscriptions, no ongoing fees.</p>
     </div>
@@ -733,8 +738,10 @@
 <section class="projects" id="projects">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="step-badge">2</div>
-      <span class="eyebrow" style="justify-content:center;">Step Two</span>
+      <div class="step-pill">
+        <span class="step-num">2</span>
+        <span class="step-label">Step Two</span>
+      </div>
       <h2>Pick a project.</h2>
       <p>Start with any project! Every project is taught from the basics, so any project can be your first. Explorers are simpler, while Makers use more tools and skills. Click any photo to see it larger.</p>
     </div>
@@ -746,8 +753,10 @@
 <section class="proof" id="step-three">
   <div class="wrap">
     <div class="section-head reveal">
-      <div class="step-badge">3</div>
-      <span class="eyebrow" style="justify-content:center;">Step Three</span>
+      <div class="step-pill">
+        <span class="step-num">3</span>
+        <span class="step-label">Step Three</span>
+      </div>
       <h2>Watch and build.</h2>
       <p>Once your toolkit and project arrive, follow along at your own pace &mdash; short, clear steps anyone can follow, rewind anytime.</p>
     </div>
@@ -772,8 +781,10 @@
     <div class="community-panel">
       <div class="community-grid">
         <div class="community-copy">
-          <div class="step-badge" style="margin:0 0 14px;">4</div>
-          <span class="eyebrow">Step Four</span>
+          <div class="step-pill" style="margin:0 0 14px;">
+            <span class="step-num">4</span>
+            <span class="step-label">Step Four</span>
+          </div>
           <h2>You built it. Now show it off.</h2>
           <div class="community-features stagger">
             <div class="community-feature reveal" style="--i:0;"><span class="icon">&#128247;</span><span>Share what you've built</span></div>
