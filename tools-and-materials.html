@@ -346,6 +346,19 @@
     }
   ];
 
+  // Amazon "Order Online" links per material, keyed by that material's photo filename.
+  // Add a new entry here whenever a board size/material gets its own online listing —
+  // every project using that material photo will automatically get an Order Online button.
+  const MATERIAL_ORDER_LINKS = {
+    "images/tools/material-35x15x1cm.webp": "https://link.amazon/B004slux3",
+    "images/tools/material-25x8x2cm.webp": "https://link.amazon/B0fNd5qZk"
+  };
+
+  function projectOrderLink(p){
+    const item = p.items.find(m => MATERIAL_ORDER_LINKS[m.photo]);
+    return item ? MATERIAL_ORDER_LINKS[item.photo] : null;
+  }
+
   // Wood-selection guidance — shown on-page and in the PDF alongside every project's cutting
   // list, since it applies to every material regardless of project.
   const WOOD_NOTE = "Pine is recommended, but another softwood can also be used. Choose a straight, flat and dry piece with minimal knots and straight grain. Avoid wood that is cracked, brittle, bowed, twisted or cupped.";
@@ -387,6 +400,7 @@
   }
 
   function projectBlockHtml(p, i){
+    const orderLink = projectOrderLink(p);
     return `
     <div class="project-block" id="project-${i}">
       <div class="project-block-head">
@@ -394,7 +408,10 @@
           <h3>${p.project}</h3>
           <span class="project-tier-tag">${p.toolkit} Toolkit</span>
         </div>
-        <button class="btn btn-dark download-btn" data-download="project-${i}">Download as PDF</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          ${orderLink ? `<a class="btn btn-primary" href="${orderLink}" target="_blank" rel="noopener sponsored">Order Online</a>` : ''}
+          <button class="btn btn-dark download-btn" data-download="project-${i}">Download as PDF</button>
+        </div>
       </div>
       <div class="project-body">
         <div class="project-photo">${photoOrSlot(p.projectPhoto, p.project + ' — finished project')}</div>
@@ -449,7 +466,8 @@
       <div class="pr-group-title">Materials to cut</div>
       <ul>${p.items.map(m => `<li>${m.material}${m.size ? ' — ' + m.size : ''}${m.qty ? ' ' + m.qty : ''}${m.flag ? ' (⚠ ' + m.flag + ')' : ''}</li>`).join('')}</ul>
       <p class="wood-note">${WOOD_NOTE}</p>
-      <div class="pr-actions">
+      <div class="pr-actions" style="display:flex;gap:10px;flex-wrap:wrap;">
+        ${projectOrderLink(p) ? `<a class="btn btn-primary" href="${projectOrderLink(p)}" target="_blank" rel="noopener sponsored">Order Online</a>` : ''}
         <button class="btn btn-outline-dark download-btn" data-download="picker-${picker.value}">Download as PDF</button>
       </div>
     `;
