@@ -232,6 +232,20 @@
   .step:hover .num{transform:scale(1.1) rotate(-6deg);background:var(--orange);}
   .step h4{font-size:16.5px;margin-bottom:8px;}
   .step p{color:var(--charcoal-soft);font-size:14px;}
+  .step-extra{margin-top:16px;text-align:left;}
+  .step-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px;}
+  .step-chip{display:inline-block;background:#fff;border:1px solid rgba(90,76,69,.15);border-radius:100px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--charcoal);text-decoration:none;transition:transform .25s var(--ease),border-color .25s var(--ease);}
+  .step-chip:hover{transform:translateY(-2px);border-color:var(--gold);}
+  .step-see-all{display:block;text-align:center;font-size:12.5px;font-weight:600;color:var(--red);text-decoration:none;margin-top:4px;}
+  .step-see-all:hover{text-decoration:underline;}
+  .step-toolkit-mini{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
+  .step-toolkit-card{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid rgba(90,76,69,.15);border-radius:14px;padding:10px 14px;text-decoration:none;}
+  .step-toolkit-card:hover{border-color:var(--gold);}
+  .step-toolkit-card .stk-name{font-family:'Fredoka',sans-serif;font-weight:600;font-size:13.5px;color:var(--charcoal);}
+  .step-toolkit-card .stk-price{font-size:12px;color:var(--charcoal-soft);}
+  .step-toolkit-card .stk-buy{flex:0 0 auto;font-size:11.5px;font-weight:700;color:#fff;background:var(--red);padding:6px 12px;border-radius:100px;}
+  .step-guide-link{display:block;text-align:center;background:var(--charcoal);color:#fff;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;padding:11px 14px;border-radius:100px;text-decoration:none;}
+  .step-guide-link:hover{background:var(--red);}
 
   /* PROJECTS */
   .projects{background:var(--cream);}
@@ -489,8 +503,19 @@
   }
   @media(max-width:560px){
     section{padding:72px 0;}
-    .turn-cards,.project-grid,.toolkit-grid{grid-template-columns:1fr;}
+    .turn-cards,.toolkit-grid{grid-template-columns:1fr;}
     .hero{padding:120px 0 110px;}
+    /* Compact project cards on mobile — 2 per row, smaller padding/text, photo still large
+       enough to read clearly since that (with price) is what people decide on. */
+    .project-grid{grid-template-columns:1fr 1fr;gap:12px;}
+    .project-thumb{height:112px;}
+    .project-body{padding:10px 12px 12px;gap:5px;}
+    .project-tag{font-size:9px;padding:3px 8px;}
+    .project-body h4{font-size:13.5px;line-height:1.25;}
+    .project-price{font-size:14px;}
+    .project-price span{font-size:11px;}
+    .project-price-note{font-size:9.5px;}
+    .project-cta{font-size:12px;margin-top:2px;}
   }
 </style>
 </head>
@@ -532,7 +557,7 @@
       <h1>Give your kids<br><em>healthy</em> hands-on <em>fun</em>!</h1>
       <p class="lede">Simple, practical online woodworking projects for kids ages 8&ndash;16&mdash;designed to get your kid off the couch and doing something with their hands. Any time, anywhere.</p>
       <div class="hero-ctas">
-        <a href="https://www.the-woodworking-guy.com/" class="btn btn-primary" id="heroCta" target="_blank" rel="noopener">Get started now</a>
+        <a href="https://www.the-woodworking-guy.com/my-programs" class="btn btn-primary" id="heroCta" target="_blank" rel="noopener">Get started now</a>
         <a href="#projects" class="btn btn-outline">Browse projects</a>
       </div>
       <ul class="hero-stats">
@@ -562,19 +587,14 @@
       </div>
     </div>
   </div>
-  <div class="wrap problem-grid">
+  <div class="wrap problem-grid" style="grid-template-columns:1fr;max-width:640px;margin:0 auto;text-align:center;">
     <div class="reveal">
-      <span class="eyebrow">The boredom epidemic</span>
-      <h2 style="font-size:clamp(24px,3.4vw,34px);margin-bottom:20px;">In every home, kids struggle with boredom.</h2>
+      <span class="eyebrow" style="justify-content:center;">The boredom epidemic</span>
+      <h2 style="font-size:clamp(24px,3.4vw,34px);margin-bottom:20px;">Screens fill the boredom. They don&rsquo;t fix it.</h2>
       <div class="problem-quote">
         <p>"Video games are the solution to a bored child."</p>
         <span class="scam">The biggest scam</span>
       </div>
-    </div>
-    <div class="pain-list reveal">
-      <div class="pain-item"><div class="ico">1</div><div><h4>Gone to the screen</h4><p>So they sit. For hours. Evenings, weekends, holidays &mdash; gone to a screen.</p></div></div>
-      <div class="pain-item"><div class="ico">2</div><div><h4>Overstimulated, under developed</h4><p>No confidence. No fulfillment. No basic life skills.</p></div></div>
-      <div class="pain-item"><div class="ico">3</div><div><h4>Who can blame them?</h4><p>Parents are tired of fighting to get their kids to do something meaningful.</p></div></div>
     </div>
   </div>
 </section>
@@ -582,8 +602,7 @@
 <section class="turn">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow" style="color:var(--gold-light);">Time to change that</span>
-      <h2>But it doesn't have to stay this way.</h2>
+      <span class="eyebrow" style="color:var(--gold-light);justify-content:center;">Time to change that</span>
       <p>Have them build a real project &mdash; anywhere in the house, in their own time.</p>
     </div>
     <div class="turn-visual reveal">
@@ -778,7 +797,7 @@
     <div class="hero-badge"><span class="dot"></span> Ready to build?</div>
     <h2>Give your child more than another screen.</h2>
     <p>Browse every project and find the one they can't wait to build.</p>
-    <a href="https://www.the-woodworking-guy.com/" class="btn btn-primary" id="finalCta" target="_blank" rel="noopener">Browse Projects</a>
+    <a href="https://www.the-woodworking-guy.com/my-programs" class="btn btn-primary" id="finalCta" target="_blank" rel="noopener">Browse Projects</a>
   </div>
 </section>
 
@@ -856,13 +875,15 @@
   // once you have the real product photo — the placeholder disappears automatically.
   // `link`: leave "" to fall back to WIX_PROJECTS_URL, or set this project's specific overview-page URL on
   // the-woodworking-guy.com once you have it — "View details" will use it instead, per project.
+  // Mockup pass (Aug 31 2026): one card per project we actually have a real photo for.
+  // The other placeholder/no-photo mockup projects were removed — add them back once real
+  // photos exist for them (see Projects-and-Toolkits.md for the full project list per toolkit).
   const projects = [
-    {name:"Explorers Toolkit",tag:"Explorers Projects",price:"€27",note:"PREVIEW PLACEHOLDER PRICE — was 'From €95'",photo:"",link:""},
-    {name:"Makers Toolkit",tag:"Makers Projects",price:"€27",note:"PREVIEW PLACEHOLDER PRICE — was 'Price TBC'",photo:"",link:""},
-    {name:"Kids Holiday Workshop: Bird feeder",tag:"Explorers Projects",price:"€27",note:"PREVIEW PLACEHOLDER PRICE — was 'US$500,00'",photo:"",link:""},
-    {name:"Kids Holiday Workshop: Aeroplane",tag:"Explorers Projects",price:"€27",note:"PREVIEW PLACEHOLDER PRICE — was 'Free' (lead magnet)",photo:"",link:""},
-    {name:"Marshmallow Catapult",tag:"Makers Projects",price:"€27",note:"PREVIEW PLACEHOLDER PRICE — was 'Price TBC'",photo:"",link:""},
-    {name:"Template Project",tag:"Explorers Projects",price:"€27",note:"TESTING PHASE — links out to the Wix challenge page for QA",photo:"",link:"https://www.the-woodworking-guy.com/challenge-page/3ba1eade-a54b-4436-9925-680c7587247b?programId=3ba1eade-a54b-4436-9925-680c7587247b"}
+    {name:"Pot Stand",tag:"Explorers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-pot-stand.webp",link:""},
+    {name:"Book Stand",tag:"Explorers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-book-stand.webp",link:""},
+    {name:"Offcut Box",tag:"Explorers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-offcut-box.webp",link:""},
+    {name:"Key Rack",tag:"Makers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-key-rack.webp",link:""},
+    {name:"Hat / Coat Hook",tag:"Makers Projects",price:"€27",note:"MOCKUP — price not yet set",photo:"images/tools/project-coat-hook.webp",link:""}
   ];
 
   // Real photos for the "Kids Love Woodworking" proof section — scrollable filmstrip.
@@ -934,15 +955,45 @@
   ];
 
   // ---- RENDER ----
-  // heroCta ("Get started now") is set directly in the HTML to the main site — not tied to WIX_PROJECTS_URL.
+  // heroCta ("Get started now") is set directly in the HTML to the project list (my-programs), matching WIX_PROJECTS_URL.
   document.querySelectorAll('#navCta,#mobileCta').forEach(el=>el.href=WIX_PROJECTS_URL);
-  // finalCta is set directly in the HTML to the main site (like heroCta) — not tied to WIX_PROJECTS_URL.
+  // finalCta is set directly in the HTML to the project list (like heroCta), matching WIX_PROJECTS_URL.
+
+  // Step 1 & 2 are interactive — built from the same `projects` array and toolkit data used
+  // elsewhere on the page, so they always stay in sync automatically.
+  function stepOneExtra(){
+    const chips = projects.map(p =>
+      `<a class="step-chip" href="${p.link || WIX_PROJECTS_URL}" target="_blank" rel="noopener">${p.name}</a>`
+    ).join('');
+    return `<div class="step-extra">
+      <div class="step-chips">${chips}</div>
+      <a class="step-see-all" href="#projects">See all projects &darr;</a>
+    </div>`;
+  }
+  function stepTwoExtra(){
+    return `<div class="step-extra">
+      <div class="step-toolkit-mini">
+        <a class="step-toolkit-card" href="https://www.amazon.de/hz/wishlist/ls/3QGXYEA6VATOJ?ref_=wl_share" target="_blank" rel="noopener sponsored">
+          <span><span class="stk-name">Explorers Toolkit</span><br><span class="stk-price">&plusmn; &euro;100</span></span>
+          <span class="stk-buy">Buy</span>
+        </a>
+        <a class="step-toolkit-card" href="https://www.amazon.de/hz/wishlist/ls/2461Z5YCTN48I?ref_=wl_share" target="_blank" rel="noopener sponsored">
+          <span><span class="stk-name">Makers Toolkit</span><br><span class="stk-price">&plusmn; &euro;170</span></span>
+          <span class="stk-buy">Buy</span>
+        </a>
+      </div>
+      <a class="step-guide-link" href="tools-and-materials.html">Toolkit &amp; Materials Guide &rarr;</a>
+    </div>`;
+  }
 
   const stepsTrack = document.getElementById('stepsTrack');
   steps.forEach((s,i)=>{
     const el = document.createElement('div');
     el.className='step reveal'; el.style.setProperty('--i',i);
-    el.innerHTML = `<div class="num">${s.n}</div><h4>${s.title}</h4><p>${s.body}</p>`;
+    let extra = '';
+    if(s.n===1) extra = stepOneExtra();
+    if(s.n===2) extra = stepTwoExtra();
+    el.innerHTML = `<div class="num">${s.n}</div><h4>${s.title}</h4><p>${s.body}</p>${extra}`;
     stepsTrack.appendChild(el);
   });
 
