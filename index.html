@@ -330,26 +330,6 @@
   .benefit-item .check{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--charcoal);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
   .benefit-item p{font-size:14.5px;color:rgba(255,255,255,.92);}
 
-  /* TOOLKIT EXPLAINER */
-  .toolkits{background:var(--cream);}
-  .toolkit-photo{max-width:640px;margin:0 auto 44px;background:var(--cream-dark);border-radius:24px;padding:22px;box-shadow:var(--shadow-sm);}
-  .toolkit-photo img{width:100%;height:auto;display:block;border-radius:14px;animation:occasionalShake 7s ease-in-out infinite;transform-origin:70% 85%;}
-  @keyframes occasionalShake{
-    0%,88%,100%{transform:rotate(0);}
-    89.5%{transform:rotate(-1.4deg);}
-    91%{transform:rotate(1.3deg);}
-    92.5%{transform:rotate(-1deg);}
-    94%{transform:rotate(.7deg);}
-    95.5%{transform:rotate(-.3deg);}
-    97%{transform:rotate(0);}
-  }
-  @media(prefers-reduced-motion:reduce){.toolkit-photo img{animation:none;}}
-  .toolkit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-  .toolkit-card{background:#fff;border-radius:18px;padding:26px 22px;box-shadow:var(--shadow-sm);transition:transform .35s var(--ease);}
-  .toolkit-card:hover{transform:translateY(-6px);}
-  .toolkit-card .tk-num{font-family:'Fredoka',sans-serif;color:var(--gold);font-size:26px;font-weight:700;margin-bottom:10px;}
-  .toolkit-card h4{font-size:15.5px;margin-bottom:8px;}
-  .toolkit-card p{font-size:13.5px;color:var(--charcoal-soft);}
 
   /* TOOLKIT COMPARISON — Explorers vs Makers */
   .tk-compare-section{background:var(--cream-dark);}
@@ -533,14 +513,12 @@
     .problem-grid,.about-grid{grid-template-columns:1fr;}
     .project-grid{grid-template-columns:1fr 1fr;}
     .steps-overview-grid::before{display:none;}
-    .toolkit-grid{grid-template-columns:1fr 1fr;}
     .tk-compare-grid{grid-template-columns:1fr;}
     .benefit-grid{grid-template-columns:1fr;}
     .footer-grid{flex-direction:column;align-items:center;text-align:center;gap:36px;}
   }
   @media(max-width:560px){
     section{padding:72px 0;}
-    .toolkit-grid{grid-template-columns:1fr;}
     .steps-overview-grid{grid-template-columns:1fr 1fr;gap:24px 16px;}
     .hero{padding:120px 0 110px;}
     /* Compact project cards on mobile — 2 per row, smaller padding/text, photo still large
@@ -823,17 +801,6 @@
   </div>
 </section>
 
-<section class="toolkits">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Understanding toolkits</span>
-      <h2>One toolkit. Many projects.</h2>
-    </div>
-    <div class="toolkit-photo reveal" id="toolkitPhoto"></div>
-    <div class="toolkit-grid stagger" id="toolkitGrid"></div>
-  </div>
-</section>
-
 <section class="about" id="about">
   <div class="wrap about-grid">
     <div class="about-video reveal" id="aboutVideo" data-video-id="">
@@ -952,9 +919,6 @@
     {photo:"images/studio-24.webp",caption:"A student with their certificate of completion"}
   ];
 
-  // Single photo of the actual toolkit contents laid out — shown above the toolkit-tier cards.
-  const TOOLKIT_PHOTO = "images/toolkit-delivery.webp";
-
   // Real photo or video-poster image of Henk in the studio — replaces the placeholder on the About section.
   const ABOUT_PHOTO = ""; // e.g. "images/henk-studio.jpg"
 
@@ -969,13 +933,6 @@
     "Buy once, build whenever — no schedule, no slot to miss. Yours for life.",
     "Low risk — start with one build and let it prove itself.",
     "Practical and engaging — nothing like school. Real building that holds their attention."
-  ];
-
-  const toolkits = [
-    {n:"01",title:"Multiple toolkits",body:"Projects are grouped according to the toolkits needed to build them."},
-    {n:"02",title:"Already have tools?",body:"If you already have some tools at home, only select what you need."},
-    {n:"03",title:"How to order",body:"Select a project, start lesson 1, click the link below the video, add to cart and pay."},
-    {n:"04",title:"Upgrade your toolkit",body:"Start with the Explorers Toolkit, upgrade to the Makers Toolkit — reuse it for every project."}
   ];
 
   const skills = ["Measure","Mark","Saw","Drill","Sand","Assemble","Finish","Handle real tools safely","Read a plan","Think like a maker"];
@@ -1065,11 +1022,6 @@
     studioGallery.appendChild(el);
   });
 
-  const toolkitPhotoEl = document.getElementById('toolkitPhoto');
-  toolkitPhotoEl.innerHTML = TOOLKIT_PHOTO
-    ? `<img src="${TOOLKIT_PHOTO}" alt="A delivery courier handing over a toolkit box full of tools and materials to an excited kid">`
-    : `<div class="img-slot" style="height:260px;"><span class="img-slot-icon">&#128247;</span><span class="img-slot-label">Photo needed:<br>Explorers Toolkit contents, laid out</span></div>`;
-
   const aboutPoster = document.getElementById('aboutPoster');
   if (ABOUT_PHOTO) {
     aboutPoster.style.backgroundImage = `linear-gradient(rgba(36,28,24,.15),rgba(36,28,24,.45)),url('${ABOUT_PHOTO}')`;
@@ -1078,14 +1030,6 @@
     aboutPoster.classList.add('img-slot');
     aboutPoster.insertAdjacentHTML('beforeend', `<span class="img-slot-label">Photo/video needed: Henk in the studio</span>`);
   }
-
-  const toolkitGrid = document.getElementById('toolkitGrid');
-  toolkits.forEach((t,i)=>{
-    const el = document.createElement('div');
-    el.className='toolkit-card reveal'; el.style.setProperty('--i',i);
-    el.innerHTML = `<div class="tk-num">${t.n}</div><h4>${t.title}</h4><p>${t.body}</p>`;
-    toolkitGrid.appendChild(el);
-  });
 
   const skillPills = document.getElementById('skillPills');
   skills.forEach((s,i)=>{
