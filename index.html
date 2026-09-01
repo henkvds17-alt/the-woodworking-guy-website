@@ -222,13 +222,14 @@
   .turn-card .from{color:rgba(251,243,236,.5);text-decoration:line-through;font-size:13px;white-space:nowrap;}
   .turn-card .from::after{content:'\2192';margin-left:10px;color:rgba(251,243,236,.35);text-decoration:none;display:inline-block;}
   .turn-card .to{font-family:'Fredoka',sans-serif;font-size:15px;color:var(--gold-light);}
-  .steps-overview{padding:70px 0 40px;text-align:center;}
-  .steps-overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:760px;margin:0 auto;position:relative;}
-  .steps-overview-grid::before{content:'';position:absolute;top:28px;left:12.5%;right:12.5%;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 10px,transparent 10px 20px);z-index:0;}
-  .steps-overview-item{display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--charcoal);position:relative;z-index:1;}
-  .steps-overview-item .step-badge{background:var(--red);transition:transform .3s var(--ease);}
-  .steps-overview-item:hover .step-badge{transform:scale(1.08);}
-  .steps-overview-item span{font-family:'Fredoka',sans-serif;font-weight:700;font-size:15px;line-height:1.3;}
+  .steps-overview{padding:80px 0 48px;text-align:center;}
+  .steps-overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:860px;margin:0 auto;position:relative;}
+  .steps-overview-grid::before{content:'';position:absolute;top:36px;left:12.5%;right:12.5%;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 10px,transparent 10px 20px);z-index:0;}
+  .steps-overview-item{display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;color:var(--charcoal);position:relative;z-index:1;}
+  .steps-overview-item .step-badge{width:72px;height:72px;font-size:28px;background:var(--red);box-shadow:0 10px 22px -8px rgba(36,28,24,.35);transition:transform .35s var(--ease),background-color .35s var(--ease),box-shadow .35s var(--ease),color .35s var(--ease);}
+  .steps-overview-item:hover .step-badge{background:var(--gold);color:var(--charcoal);transform:translateY(-6px) scale(1.08);box-shadow:0 16px 30px -8px rgba(224,168,62,.55);}
+  .steps-overview-item span{font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;line-height:1.3;transition:color .3s var(--ease);}
+  .steps-overview-item:hover span{color:var(--red);}
 
   /* STEPS */
   .steps{background:var(--cream-dark);}
@@ -294,7 +295,7 @@
   .project-thumb img{cursor:zoom-in;}
 
   /* STEP LABELS — reused at the top of the three real process sections (Toolkits / Projects / Watch & Build) */
-  .step-badge{width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:var(--shadow-sm);}
+  .step-badge{width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:var(--shadow-sm);}
   .step-pill{display:inline-flex;align-items:center;gap:12px;margin:0 auto 18px;}
   .step-num{width:46px;height:46px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow-sm);}
   .step-label{font-family:'Inter',sans-serif;font-weight:800;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);}
