@@ -76,16 +76,17 @@
   .local-intro h1{color:#fff;font-size:clamp(32px,5vw,52px);margin:2px 0 26px;letter-spacing:-.01em;line-height:1.1;}
   .local-intro .hero-character-col{flex:0 0 auto;width:34%;max-width:360px;}
   .local-intro .hero-character-col img{width:100%;height:auto;display:block;filter:drop-shadow(0 26px 34px rgba(20,12,10,.4));}
-  .intro-options{display:flex;gap:28px;flex-wrap:wrap;}
-  .intro-option{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:8px;max-width:230px;}
-  .intro-option-badge{pointer-events:none;padding:12px 26px;font-size:14px;}
-  .intro-option p{margin:0;font-size:13.5px;color:rgba(255,255,255,.8);}
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 22px;}
+  .hero-ctas .btn{pointer-events:none;}
+  .hero-stats{display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0;}
+  .hero-stats li{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.88);font-size:14.5px;}
+  .hero-stats .check{flex:0 0 auto;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--charcoal);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
   @media(max-width:860px){
     .local-intro .hero-flex{flex-direction:column;text-align:center;gap:32px;}
     .local-intro .hero-inner{max-width:100%;text-align:center;}
     .local-intro .hero-character-col{width:52%;max-width:260px;}
-    .intro-options{justify-content:center;}
-    .intro-option{align-items:center;text-align:center;}
+    .hero-ctas{justify-content:center;}
+    .hero-stats li{justify-content:center;}
   }
 
   /* PROJECT PICKER */
@@ -213,16 +214,14 @@
     <div class="hero-inner">
       <span class="eyebrow">Order Online or Buy Locally</span>
       <h1>Tools &amp; Materials Guide</h1>
-      <div class="intro-options">
-        <div class="intro-option">
-          <span class="btn btn-primary intro-option-badge">Order Online</span>
-          <p>Get everything shipped straight to your door.</p>
-        </div>
-        <div class="intro-option">
-          <span class="btn btn-outline intro-option-badge">Download as PDF</span>
-          <p>If the supplier doesn&rsquo;t deliver, download the list and buy it locally.</p>
-        </div>
+      <div class="hero-ctas">
+        <span class="btn btn-primary">Order Online</span>
+        <span class="btn btn-outline">Download as PDF</span>
       </div>
+      <ul class="hero-stats">
+        <li><span class="check">&#10003;</span>Get everything shipped straight to your door</li>
+        <li><span class="check">&#10003;</span>Supplier doesn&rsquo;t deliver? Download the list and buy it locally</li>
+      </ul>
     </div>
     <div class="hero-character-col">
       <img src="images/toolkit-delivery.webp" alt="A delivery courier handing over a toolkit box full of tools and materials to an excited kid">
