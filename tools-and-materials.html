@@ -695,7 +695,7 @@
       if(target === 'explorers'){
         photoPaths = explorersTools.map(t => t.photo);
       } else if(target === 'makers'){
-        photoPaths = explorersTools.concat(makersTools).map(t => t.photo);
+        photoPaths = makersTools.map(t => t.photo);
       } else if(target.startsWith('project-')){
         const idx = Number(target.split('-').pop());
         const p = projectMaterials[idx];
@@ -724,10 +724,8 @@
         filename = 'explorers-toolkit.pdf';
       } else if(target === 'makers'){
         y = addHeading(doc, y, "Makers Toolkit — Tools You'll Need", 16);
-        y = addSectionLabel(doc, y, 'Explorers Toolkit (required first)');
-        y = addToolLines(doc, y, explorersTools, imgMap);
-        y += 3;
-        y = addSectionLabel(doc, y, 'Makers Toolkit (additional tools)');
+        y = addNote(doc, y, "The Makers Toolkit builds on top of the Explorers Toolkit \u2014 you'll need the Explorers Toolkit first. See the Explorers Toolkit guide for that list.");
+        y += 2;
         y = addToolLines(doc, y, makersTools, imgMap);
         filename = 'makers-toolkit.pdf';
       } else if(target.startsWith('project-')){
