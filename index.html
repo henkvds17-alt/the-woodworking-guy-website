@@ -242,8 +242,9 @@
     .step-head-num{font-size:64px;}
     .step-head-divider{display:none;}
   }
-  .step-head-top{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
-  .step-badge-sm{width:36px;height:36px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow-sm);}
+  .community-copy .step-head{max-width:none;margin-left:0;gap:20px;}
+  .community-copy .step-head-num{font-size:64px;}
+  .community-copy .step-head-divider{height:56px;}
 
   /* STEPS */
   .steps{background:var(--cream-dark);padding-top:70px;}
@@ -789,12 +790,13 @@
     <div class="community-panel">
       <div class="community-grid">
         <div class="community-copy">
-          <div class="section-head step-head" style="margin-bottom:18px;">
-            <div class="step-head-top">
-              <div class="step-badge-sm">4</div>
+          <div class="section-head step-head reveal" style="margin-bottom:18px;">
+            <div class="step-head-num">4</div>
+            <div class="step-head-divider" aria-hidden="true"></div>
+            <div class="step-head-text">
               <span class="eyebrow">Step Four</span>
+              <h2>You built it. Now share it.</h2>
             </div>
-            <h2>You built it. Now share it.</h2>
           </div>
           <div class="community-features stagger">
             <div class="community-feature reveal" style="--i:0;"><span class="icon">&#128247;</span><span>Share what you've built</span></div>
