@@ -563,7 +563,7 @@
       <h1>Give your kids<br><em>healthy</em> hands-on <em>fun</em>!</h1>
       <p class="lede">Simple, practical online woodworking projects for kids ages 8&ndash;16&mdash;designed to get your kid off the couch and doing something with their hands. Any time, anywhere.</p>
       <div class="hero-ctas">
-        <a href="https://www.the-woodworking-guy.com/my-programs" class="btn btn-primary" id="heroCta" target="_blank" rel="noopener">Get started now</a>
+        <a href="#how-it-works" class="btn btn-primary" id="heroCta">Get started now</a>
         <a href="#projects" class="btn btn-outline">Browse projects</a>
       </div>
       <ul class="hero-stats">
@@ -625,7 +625,7 @@
   </div>
 </section>
 
-<section class="steps-overview">
+<section class="steps-overview" id="how-it-works">
   <div class="wrap">
     <div class="section-head reveal" style="margin-bottom:36px;">
       <h2>From <span style="color:var(--red);">&ldquo;I&rsquo;m bored&rdquo;</span> to <span style="color:var(--red);">&ldquo;I built this.&rdquo;</span> In four simple steps.</h2>
@@ -936,7 +936,7 @@
   ];
 
   // ---- RENDER ----
-  // heroCta ("Get started now") is set directly in the HTML to the project list (my-programs), matching WIX_PROJECTS_URL.
+  // heroCta ("Get started now") is set directly in the HTML to link to the "four simple steps" section (#how-it-works).
   document.querySelectorAll('#navCta,#mobileCta').forEach(el=>el.href=WIX_PROJECTS_URL);
   // finalCta is set directly in the HTML to the project list (like heroCta), matching WIX_PROJECTS_URL.
 
