@@ -230,14 +230,13 @@
   .steps-overview-item:hover .step-badge{background:var(--gold);color:var(--charcoal);transform:translateY(-6px) scale(1.08);box-shadow:0 16px 30px -8px rgba(224,168,62,.55);}
   .steps-overview-item span{font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;line-height:1.3;transition:color .3s var(--ease);}
   .steps-overview-item:hover span{color:var(--red);}
-  .step-head{display:flex;align-items:flex-start;gap:18px;text-align:left;margin-bottom:36px;}
-  .step-num-big{font-family:'Fredoka',sans-serif;font-weight:700;font-size:64px;line-height:.82;color:var(--red);flex-shrink:0;}
-  .step-head-text{flex:1;padding-top:6px;}
-  .step-head-text .eyebrow{margin-bottom:6px;}
-  .step-head-text h2{margin-bottom:8px;}
+  .step-head{text-align:left;margin-bottom:36px;}
+  .step-head-top{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+  .step-badge-sm{width:36px;height:36px;border-radius:50%;background:var(--red);color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow-sm);}
+  .step-head .eyebrow{margin-bottom:0;}
+  .step-head h2{margin-bottom:8px;}
   @media(max-width:560px){
-    .step-num-big{font-size:46px;}
-    .step-head{gap:12px;margin-bottom:24px;}
+    .step-head{margin-bottom:24px;}
   }
 
   /* STEPS */
@@ -678,12 +677,12 @@
 <section class="steps step-one" id="step-one">
   <div class="wrap">
     <div class="section-head step-head reveal">
-      <div class="step-num-big">1</div>
-      <div class="step-head-text">
+      <div class="step-head-top">
+        <div class="step-badge-sm">1</div>
         <span class="eyebrow">Step One</span>
-        <h2>Get your toolkit &amp; materials.</h2>
-        <p>Every toolkit is a once-off purchase you&rsquo;ll reuse for every project. Materials are bought separately, per project &mdash; order online or buy locally, whichever&rsquo;s easier.</p>
       </div>
+      <h2>Get your toolkit &amp; materials.</h2>
+        <p>Every toolkit is a once-off purchase you&rsquo;ll reuse for every project. Materials are bought separately, per project &mdash; order online or buy locally, whichever&rsquo;s easier.</p>
     </div>
     <div class="tk-compare reveal" style="margin-top:44px;">
       <div class="tk-compare-grid">
@@ -737,12 +736,12 @@
 <section class="projects" id="projects">
   <div class="wrap">
     <div class="section-head step-head reveal">
-      <div class="step-num-big">2</div>
-      <div class="step-head-text">
+      <div class="step-head-top">
+        <div class="step-badge-sm">2</div>
         <span class="eyebrow">Step Two</span>
-        <h2>Pick a project.</h2>
-        <p>Start with any project! Every project is taught from the basics, so any project can be your first. Explorers are simpler, while Makers use more tools and skills. Click any photo to see it larger.</p>
       </div>
+      <h2>Pick a project.</h2>
+        <p>Start with any project! Every project is taught from the basics, so any project can be your first. Explorers are simpler, while Makers use more tools and skills. Click any photo to see it larger.</p>
     </div>
     <div class="filter-row" id="filterRow"></div>
     <div class="project-grid stagger" id="projectGrid"></div>
@@ -752,12 +751,12 @@
 <section class="proof" id="step-three">
   <div class="wrap">
     <div class="section-head step-head reveal">
-      <div class="step-num-big">3</div>
-      <div class="step-head-text">
+      <div class="step-head-top">
+        <div class="step-badge-sm">3</div>
         <span class="eyebrow">Step Three</span>
-        <h2>Watch and build.</h2>
-        <p>Once your toolkit and materials arrive, follow along at your own pace &mdash; short, clear steps anyone can follow, rewind anytime.</p>
       </div>
+      <h2>Watch and build.</h2>
+        <p>Once your toolkit and materials arrive, follow along at your own pace &mdash; short, clear steps anyone can follow, rewind anytime.</p>
     </div>
     <div class="proof-top reveal">
       <div class="proof-figure"><img src="images/woodworking-guy-laptop.webp" alt="The Woodworking Guy presenting a video lesson, shown on a laptop screen"></div>
@@ -780,12 +779,12 @@
     <div class="community-panel">
       <div class="community-grid">
         <div class="community-copy">
-          <div class="step-head" style="margin-bottom:18px;">
-            <div class="step-num-big">4</div>
-            <div class="step-head-text">
+          <div class="section-head step-head" style="margin-bottom:18px;">
+            <div class="step-head-top">
+              <div class="step-badge-sm">4</div>
               <span class="eyebrow">Step Four</span>
-              <h2>You built it. Now share it.</h2>
             </div>
+            <h2>You built it. Now share it.</h2>
           </div>
           <div class="community-features stagger">
             <div class="community-feature reveal" style="--i:0;"><span class="icon">&#128247;</span><span>Share what you've built</span></div>
