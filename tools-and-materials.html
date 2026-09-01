@@ -61,9 +61,13 @@
   /* BANNER */
 
   /* INTRO */
-  .local-intro{padding:32px 0 12px;text-align:center;}
-  .local-intro h1{font-size:clamp(26px,4.6vw,40px);margin-bottom:10px;}
+  .local-intro{padding:32px 0 36px;text-align:center;}
+  .local-intro h1{font-size:clamp(26px,4.6vw,40px);margin-bottom:0;}
   .local-intro p{max-width:700px;margin:0 auto;color:var(--charcoal-soft);font-size:15.5px;}
+  .intro-options{display:flex;justify-content:center;gap:36px;flex-wrap:wrap;max-width:760px;margin:30px auto 0;}
+  .intro-option{display:flex;flex-direction:column;align-items:center;gap:12px;max-width:300px;}
+  .intro-option-badge{pointer-events:none;padding:10px 22px;font-size:14px;}
+  .intro-option p{margin:0;font-size:14.5px;}
 
   /* PROJECT PICKER */
   .picker-section{background:var(--cream-dark);}
@@ -187,9 +191,18 @@
 
 <section class="local-intro">
   <div class="wrap">
-    <span class="eyebrow" style="justify-content:center;">Buying Locally</span>
+    <span class="eyebrow" style="justify-content:center;">Order Online or Buy Locally</span>
     <h1>Tools & Materials Guide</h1>
-    <p>Exactly what to ask for at your local hardware store or timber supplier — pick a project below, or browse the full lists further down.</p>
+    <div class="intro-options">
+      <div class="intro-option">
+        <span class="btn btn-primary intro-option-badge">Order Online</span>
+        <p>Get everything shipped straight to your door.</p>
+      </div>
+      <div class="intro-option">
+        <span class="btn btn-outline-dark intro-option-badge">Download as PDF</span>
+        <p>If your supplier doesn&rsquo;t deliver to you, download the list and buy it all at your local hardware store.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -215,7 +228,7 @@
         <p>The starting toolkit — buy once, and use it for all future projects.</p>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a class="btn btn-primary" href="https://www.amazon.de/hz/wishlist/ls/3QGXYEA6VATOJ?ref_=wl_share" target="_blank" rel="noopener sponsored">Order Online</a>
+        <a class="btn btn-primary" href="https://www.amazon.de/hz/wishlist/ls/3QGXYEA6VATOJ?ref_=wl_share" target="_blank" rel="noopener sponsored">Order Explorers Toolkit</a>
         <button class="btn btn-dark download-btn" data-download="explorers">Download as PDF</button>
       </div>
     </div>
@@ -232,7 +245,7 @@
         <p>Builds on the Explorers Toolkit — you'll need everything above, plus everything below, for Makers-level projects.</p>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <a class="btn btn-primary" href="https://www.amazon.de/hz/wishlist/ls/2461Z5YCTN48I?ref_=wl_share" target="_blank" rel="noopener sponsored">Order Online</a>
+        <a class="btn btn-primary" href="https://www.amazon.de/hz/wishlist/ls/2461Z5YCTN48I?ref_=wl_share" target="_blank" rel="noopener sponsored">Order Makers Toolkit</a>
         <button class="btn btn-dark download-btn" data-download="makers">Download as PDF</button>
       </div>
     </div>
@@ -416,7 +429,7 @@
           <span class="project-tier-tag">${p.toolkit} Toolkit</span>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          ${orderLink ? `<a class="btn btn-primary" href="${orderLink}" target="_blank" rel="noopener sponsored">Order Online</a>` : ''}
+          ${orderLink ? `<a class="btn btn-primary" href="${orderLink}" target="_blank" rel="noopener sponsored">Order Materials</a>` : ''}
           <button class="btn btn-dark download-btn" data-download="project-${i}">Download as PDF</button>
         </div>
       </div>
