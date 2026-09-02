@@ -304,6 +304,12 @@
   .project-price-note{font-size:11.5px;color:var(--charcoal-soft);}
   .project-cta{margin-top:8px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--red);transition:gap .25s;}
   .project-card:hover .project-cta{gap:10px;}
+  .project-card--soon{background:var(--cream-dark);box-shadow:none;border:2px dashed var(--gold);}
+  .project-card--soon:hover{transform:none;}
+  .img-slot--soon{background:transparent;border:none;}
+  .img-slot--soon::before{display:none;}
+  .project-tag--soon{color:var(--gold);background:rgba(224,168,62,.14);}
+  .project-soon-note{font-size:13px;color:var(--charcoal-soft);line-height:1.5;margin-top:2px;}
   .project-thumb img{cursor:zoom-in;}
 
   /* STEP LABELS — reused at the top of the three real process sections (Toolkits / Projects / Watch & Build) */
@@ -960,7 +966,8 @@
   const projectGrid = document.getElementById('projectGrid');
   function renderProjects(filter){
     projectGrid.innerHTML='';
-    projects.filter(p=>filter==='All'||p.tag===filter).forEach((p,i)=>{
+    const filtered = projects.filter(p=>filter==='All'||p.tag===filter);
+    filtered.forEach((p,i)=>{
       const el = document.createElement('div');
       el.className='project-card reveal in'; el.style.setProperty('--i',i);
       const thumb = p.photo
@@ -978,6 +985,17 @@
         </div>`;
       projectGrid.appendChild(el);
     });
+    // Always-last "more coming soon" card — signals the catalog keeps growing,
+    // regardless of which category filter is active.
+    const soon = document.createElement('div');
+    soon.className='project-card project-card--soon reveal in'; soon.style.setProperty('--i',filtered.length);
+    soon.innerHTML = `<div class="project-thumb"><div class="img-slot img-slot--soon"><span class="img-slot-icon">&#10133;</span><span class="img-slot-label">More builds<br>on the way</span></div></div>
+      <div class="project-body">
+        <span class="project-tag project-tag--soon">Coming Soon</span>
+        <h4>New Projects</h4>
+        <p class="project-soon-note">New builds are added to the catalog regularly — check back soon.</p>
+      </div>`;
+    projectGrid.appendChild(soon);
   }
   tags.forEach(t=>{
     const b = document.createElement('button');
