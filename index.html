@@ -825,7 +825,7 @@
     <div class="hero-badge"><span class="dot"></span> Ready to build?</div>
     <h2>Give your child more than another screen.</h2>
     <p>Browse every project and find the one they can't wait to build.</p>
-    <a href="https://www.the-woodworking-guy.com/my-programs" class="btn btn-primary" id="finalCta" target="_blank" rel="noopener">Browse Projects</a>
+    <a href="#projects" class="btn btn-primary" id="finalCta">Browse Projects</a>
   </div>
 </section>
 
@@ -944,7 +944,7 @@
   // ---- RENDER ----
   // heroCta ("Get started now") is set directly in the HTML to link to the "four simple steps" section (#how-it-works).
   document.querySelectorAll('#navCta,#mobileCta').forEach(el=>el.href=WIX_PROJECTS_URL);
-  // finalCta is set directly in the HTML to the project list (like heroCta), matching WIX_PROJECTS_URL.
+  // finalCta ("Browse Projects") is set directly in the HTML to link to the on-page project grid (#projects), same pattern as heroCta.
 
   // ---- IMAGE LIGHTBOX (click any project photo to see it enlarged) ----
   document.addEventListener('click', (e) => {
