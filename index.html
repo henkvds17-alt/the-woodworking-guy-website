@@ -557,6 +557,21 @@
     .scroll-cue{display:none;}
   }
 
+  /* FINAL CTA — desktop & tablet: text left, Woodworking Guy bottom-right (mirrors the hero, bookends the page). Oct 2026. */
+  @media(min-width:561px){
+    .final-cta{position:relative;overflow:hidden;text-align:left;padding:120px 0 130px;}
+    .final-cta .wrap{position:relative;z-index:2;}
+    .final-cta h2{max-width:640px;}
+    .final-cta p{max-width:520px;}
+    .final-cta::after{content:'';position:absolute;z-index:1;bottom:-60px;right:max(24px,calc(50% - 560px));
+      width:380px;height:520px;background:url('images/woodworking-guy-founder.webp') no-repeat bottom center/contain;
+      filter:drop-shadow(0 26px 34px rgba(20,12,10,.35));}
+  }
+  @media(min-width:561px) and (max-width:900px){
+    .final-cta h2,.final-cta p{max-width:58%;}
+    .final-cta::after{width:290px;height:420px;right:-30px;}
+  }
+
   /* ============================================================
      MOBILE LAYOUT SYSTEM v2 — phones only (≤560px). Oct 2026.
      One consistent system: left-aligned heads, numbered step badges,
