@@ -150,6 +150,7 @@
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(224,168,62,.7);}50%{box-shadow:0 0 0 8px rgba(224,168,62,0);}}
   .hero h1{color:#fff;font-size:clamp(30px,6vw,60px);font-weight:700;margin-bottom:18px;letter-spacing:-.01em;line-height:1.08;}
   .hero h1 em{font-style:normal;color:var(--gold-light);}
+  .hero h1 .br-m{display:none;}
   .hero p.lede{color:rgba(255,255,255,.88);font-size:clamp(14px,1.6vw,16.5px);max-width:640px;margin:0 auto 22px;}
   .hero-ctas{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;}
   .hero-stats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;list-style:none;margin:0;padding:0;}
@@ -529,6 +530,29 @@
     .project-price-note{font-size:9.5px;}
     .project-cta{font-size:12px;margin-top:2px;}
   }
+
+  /* HERO — MOBILE SPLIT LAYOUT (phones only, ≤560px). Text left, Woodworking Guy bleeding off the right edge.
+     Desktop/tablet hero is untouched. Added Oct 2026. */
+  @media(max-width:560px){
+    .hero{align-items:flex-start;padding:96px 0 0;min-height:0;}
+    .hero .s3{top:auto;bottom:6%;right:-120px;}
+    .hero-flex{display:block;position:relative;}
+    .hero-flex .hero-inner{padding-bottom:84px;}
+    .hero-flex .hero-inner{display:block;position:relative;z-index:2;text-align:left;max-width:100%;}
+    .hero-flex .hero-inner .hero-badge{display:flex;width:100%;font-size:12.5px;padding:9px 16px;margin:0 0 26px;}
+    .hero h1{font-family:'Baloo 2','Fredoka',sans-serif;font-weight:800;font-size:clamp(30px,9.4vw,38px);line-height:1.12;margin-bottom:16px;letter-spacing:0;}
+    .hero h1 .h1-l2{display:block;color:var(--gold-light);}
+    .hero h1 .br-m{display:inline;}
+    .hero h1 .h1-l2 em{color:inherit;}
+    .hero-flex .hero-inner .lede{max-width:52%;font-size:14.5px;line-height:1.55;margin:0 0 26px;color:rgba(255,255,255,.92);}
+    .hero-flex .hero-inner .hero-ctas{justify-content:flex-start;margin-bottom:0;}
+    .hero-ctas .btn-outline,.hero-stats{display:none;}
+    .hero-ctas .btn-primary{padding:15px 30px;font-size:16px;}
+    .hero-character-col{position:absolute;z-index:1;top:150px;bottom:auto;right:-22%;width:76%;max-width:340px;margin:0;}
+    .hero-character-col::before{content:'';position:absolute;top:-18px;left:70%;width:28px;height:28px;transform:rotate(25deg);
+      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='%23E0A83E' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M15 4v8M6 9l5 6M24 9l-5 6'/%3E%3C/svg%3E") no-repeat center/contain;}
+    .scroll-cue{display:none;}
+  }
 </style>
 </head>
 <body>
@@ -566,7 +590,7 @@
   <div class="wrap hero-flex">
     <div class="hero-inner">
       <div class="hero-badge"><span class="dot"></span> Loved by parents worldwide · 5.0 rating</div>
-      <h1>Give your kids<br><em>healthy</em> hands-on <em>fun</em>!</h1>
+      <h1>Give your kids<br><span class="h1-l2"><em>healthy</em><br class="br-m"> hands&#8209;on <em>fun</em>!</span></h1>
       <p class="lede">Simple, practical online woodworking projects for kids ages 8&ndash;16&mdash;designed to get your kid off the couch and doing something with their hands. Any time, anywhere.</p>
       <div class="hero-ctas">
         <a href="#how-it-works" class="btn btn-primary" id="heroCta">Get started now</a>
