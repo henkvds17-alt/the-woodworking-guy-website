@@ -351,7 +351,7 @@
         <h2>Materials</h2>
         <p>Order the materials online, or download the list and take it to your local timber supplier.</p>
       </div>
-      <button class="btn btn-dark download-btn" data-download="all-projects">Download All Projects (PDF)</button>
+      <button class="btn btn-dark download-btn" data-download="all-projects">Download Combined Cutting List (PDF)</button>
     </div>
     <p class="wood-note-m" id="woodNoteMobile"></p>
     <div id="projectsMaterialsList"></div>
@@ -801,6 +801,73 @@
     return y + lines.length * 3.8 + 4;
   }
 
+
+  // ---- COMBINED CUTTING LIST (the "Download Combined Cutting List" button) ----
+  // Adds up every project's pieces by material + size, then adds spares for mistakes:
+  // 2 extra when 5 or fewer pieces are needed, 3 extra above that.
+  function spareFor(n){ return n <= 5 ? 2 : 3; }
+  function parseQty(q){ const m = String(q || '').match(/\d+/); return m ? Number(m[0]) : 0; }
+
+  function combinedCuttingRows(){
+    const rows = new Map(), other = [];
+    projectMaterials.forEach(p => p.items.forEach(m => {
+      const n = parseQty(m.qty);
+      if(!m.size || !n){ other.push({ material: m.material, project: p.project, flag: m.flag }); return; }
+      const key = m.material + '|' + m.size;
+      if(!rows.has(key)) rows.set(key, { material: m.material, size: m.size, needed: 0, uses: [] });
+      const r = rows.get(key); r.needed += n; r.uses.push(p.project + ' \u00d7' + n);
+    }));
+    return { rows: [...rows.values()].map(r => ({ ...r, spare: spareFor(r.needed), total: r.needed + spareFor(r.needed) })), other };
+  }
+
+  function addCombinedCuttingList(doc, y){
+    const { rows, other } = combinedCuttingRows();
+    const X = { mat: PAGE_MARGIN + 3, size: PAGE_MARGIN + 48, need: PAGE_MARGIN + 104, spare: PAGE_MARGIN + 130, total: PAGE_WIDTH - PAGE_MARGIN - 3 };
+    // header row
+    y = newPageIfNeeded(doc, y, 20);
+    doc.setFillColor(36, 28, 24);
+    doc.roundedRect(PAGE_MARGIN, y, CONTENT_WIDTH, 9, 2, 2, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5); doc.setTextColor(255, 255, 255);
+    doc.text('Material', X.mat, y + 6);
+    doc.text('Cut to size', X.size, y + 6);
+    doc.text('Needed', X.need, y + 6);
+    doc.text('Spare', X.spare, y + 6);
+    doc.text('Total to cut', X.total, y + 6, { align: 'right' });
+    y += 9;
+    rows.forEach((r, i) => {
+      const usedIn = doc.splitTextToSize('Used in: ' + r.uses.join(', '), CONTENT_WIDTH - 8);
+      const h = 9 + usedIn.length * 4 + 3;
+      y = newPageIfNeeded(doc, y, h);
+      if(i % 2 === 0){ doc.setFillColor(251, 243, 236); doc.rect(PAGE_MARGIN, y, CONTENT_WIDTH, h, 'F'); }
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(36, 28, 24);
+      doc.text(r.material, X.mat, y + 7);
+      doc.setFont('helvetica', 'normal'); doc.text(r.size, X.size, y + 7);
+      doc.text(String(r.needed), X.need, y + 7);
+      doc.setTextColor(191, 38, 38); doc.text('+' + r.spare, X.spare, y + 7);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(12.5); doc.setTextColor(36, 28, 24);
+      doc.text(r.total + ' pieces', X.total, y + 7, { align: 'right' });
+      doc.setFont('helvetica', 'italic'); doc.setFontSize(8.5); doc.setTextColor(120, 108, 100);
+      doc.text(usedIn, X.mat, y + 12);
+      y += h;
+    });
+    doc.setDrawColor(224, 168, 62); doc.setLineWidth(0.6);
+    doc.line(PAGE_MARGIN, y, PAGE_WIDTH - PAGE_MARGIN, y);
+    y += 6;
+    if(other.length){
+      y = addSectionLabel(doc, y, 'Also needed (not cut to size)');
+      other.forEach(o => {
+        y = newPageIfNeeded(doc, y, 8);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.setTextColor(36, 28, 24);
+        doc.text(o.material, X.mat, y);
+        const w = doc.getTextWidth(o.material);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(90, 76, 69);
+        doc.text('for ' + o.project + (o.flag ? ' \u2014 ' + o.flag.toLowerCase() : ''), X.mat + w + 3, y);
+        y += 6;
+      });
+    }
+    return y + 2;
+  }
+
   document.addEventListener('click', async (e) => {
     const btn = e.target.closest('.download-btn');
     if(!btn) return;
@@ -825,7 +892,7 @@
         const tools = p.toolkit === 'Makers' ? explorersTools.concat(makersTools) : explorersTools;
         photoPaths = [p.projectPhoto, ...tools.map(t => t.photo), ...p.items.map(m => m.photo)];
       } else if(target === 'all-projects'){
-        photoPaths = projectMaterials.flatMap(p => [p.projectPhoto, ...p.items.map(m => m.photo)]);
+        photoPaths = []; // combined cutting list is text-only, no project photos
       }
 
       const imgMap = await preloadPhotos(photoPaths);
@@ -874,35 +941,13 @@
         y = addNote(doc, y, MATERIALS_NOTE);
         filename = 'project-' + slugify(p.project) + '.pdf';
       } else if(target === 'all-projects'){
-        y = addHeading(doc, y, 'All Projects — Materials & Cutting Lists', 16);
-        y = addNote(doc, y, WOOD_NOTE);
+        y = addHeading(doc, y, 'Combined Cutting List \u2014 All Projects', 16);
+        y = addNote(doc, y, "Take this list to your timber supplier and ask them to cut every piece to size. It covers every project on this page. Pieces of the same size have been added together, and a few spare pieces are included for mistakes.");
         y += 2;
-        // Grouped by toolkit tier, matching the on-page layout — one section label per
-        // tier rather than repeating "Toolkit" on every single project.
-        const groups = new Map();
-        projectMaterials.forEach(p => {
-          if(!groups.has(p.toolkit)) groups.set(p.toolkit, []);
-          groups.get(p.toolkit).push(p);
-        });
-        let firstGroup = true;
-        groups.forEach((projects, toolkit) => {
-          if(!firstGroup) y += 4;
-          firstGroup = false;
-          y = addSectionLabel(doc, y, toolkit + ' Toolkit Projects');
-          projects.forEach((p, idx) => {
-            if(idx > 0){
-              y = newPageIfNeeded(doc, y, 10);
-              doc.setDrawColor(228, 214, 203);
-              doc.setLineWidth(0.4);
-              doc.line(PAGE_MARGIN, y, PAGE_WIDTH - PAGE_MARGIN, y);
-              y += 8;
-            }
-            y = addProjectTitleRow(doc, y, p.project, p.projectPhoto, imgMap);
-            y = addMaterialLines(doc, y, p.items, imgMap);
-          });
-        });
-        y = addNote(doc, y, MATERIALS_NOTE);
-        filename = 'all-projects-materials.pdf';
+        y = addCombinedCuttingList(doc, y);
+        y += 2;
+        y = addNote(doc, y, WOOD_NOTE);
+        filename = 'combined-cutting-list.pdf';
       }
 
       doc.save(filename);
