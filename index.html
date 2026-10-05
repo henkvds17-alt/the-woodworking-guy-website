@@ -553,6 +553,139 @@
       background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='%23E0A83E' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M15 4v8M6 9l5 6M24 9l-5 6'/%3E%3C/svg%3E") no-repeat center/contain;}
     .scroll-cue{display:none;}
   }
+
+  /* ============================================================
+     MOBILE LAYOUT SYSTEM v2 — phones only (≤560px). Oct 2026.
+     One consistent system: left-aligned heads, numbered step badges,
+     a timeline, swipe decks, clean grids. Desktop & tablet untouched.
+     ============================================================ */
+  @media(max-width:560px){
+    /* --- shared rhythm --- */
+    section{padding:64px 0;}
+    .section-head{text-align:left;margin:0 0 28px;max-width:100%;}
+    .eyebrow,.section-head .eyebrow{justify-content:flex-start !important;}
+    .section-head h2{font-size:28px;line-height:1.15;}
+
+    /* --- step heads: same compact badge + title on every step --- */
+    .step-head{display:flex;flex-direction:row;align-items:center;gap:16px;text-align:left;margin:0 0 28px;}
+    .step-head-num{flex:0 0 56px;width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;
+      font-size:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px -8px rgba(36,28,24,.35);}
+    .proof .step-head-num{background:var(--gold);color:var(--charcoal);}
+    .step-head-divider{display:none;}
+    .step-head-text .eyebrow{justify-content:flex-start;margin-bottom:2px;}
+    .step-head-text h2{font-size:26px;}
+
+    /* --- problem: one before/after card, stacked, large images --- */
+    .contrast{display:flex;flex-direction:column;gap:0;position:relative;margin:0 0 36px;
+      background:var(--cream-dark);border-radius:26px;box-shadow:var(--shadow-sm);overflow:visible;}
+    .contrast-panel{max-width:none;width:100%;background:none;box-shadow:none;border-radius:0;padding:26px 20px 28px;
+      display:flex;flex-direction:column;align-items:center;}
+    .contrast-panel:hover{transform:none;box-shadow:none;}
+    .contrast-panel:first-child{border-bottom:2px dashed rgba(90,76,69,.18);}
+    .contrast-panel:first-child img{filter:saturate(.75);}
+    .contrast-panel img{max-height:none;height:190px;width:auto;max-width:92%;object-fit:contain;margin:0 auto 16px;}
+    .contrast-tag{font-size:14px;padding:8px 18px;}
+    .contrast-arrow{position:relative;left:auto;top:auto;transform:rotate(90deg);margin:-24px auto;
+      width:48px;height:48px;font-size:20px;z-index:2;flex:0 0 48px;}
+    .problem .wrap[style]{text-align:left !important;}
+    .problem-quote{text-align:left;padding:30px 24px 26px;}
+    .problem-quote::before{left:auto;right:22px;}
+
+    /* --- turn --- */
+    .turn{padding:56px 0;}
+    .turn-content{display:block;text-align:left;}
+    .turn-visual{width:80%;margin:0 auto 24px;}
+    .turn .eyebrow{justify-content:flex-start;}
+    .turn-card{flex-direction:column;align-items:flex-start;gap:2px;padding:12px 16px;}
+    .turn-card .from::after{display:none;}
+    .turn-card .to{font-size:17px;}
+
+    /* --- four steps: vertical timeline --- */
+    .steps-overview{padding:64px 0 40px;text-align:left;}
+    .steps-overview .section-head{margin-bottom:24px !important;}
+    .steps-overview-grid{display:flex;flex-direction:column;gap:0;}
+    .steps-overview-grid::before{display:block;left:27px;right:auto;top:30px;bottom:30px;width:2px;height:auto;
+      background:repeating-linear-gradient(180deg,var(--gold) 0 8px,transparent 8px 16px);}
+    .steps-overview-item{flex-direction:row;gap:16px;padding:9px 0;text-align:left;}
+    .steps-overview-item .step-badge{flex:0 0 56px;width:56px;height:56px;font-size:24px;margin:0;}
+    .steps-overview-item span{font-size:17px;}
+
+    /* --- step 1: toolkit swipe deck --- */
+    .tk-compare{margin-top:0 !important;}
+    .tk-compare::before{content:'Swipe to compare \2192';display:block;font-size:12px;font-weight:700;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--charcoal-soft);margin-bottom:12px;}
+    .tk-compare-grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -24px;padding:4px 24px 16px;scrollbar-width:none;}
+    .tk-compare-grid::-webkit-scrollbar{display:none;}
+    .tk-compare-card{flex:0 0 85%;scroll-snap-align:center;padding:26px 22px;}
+    .step-one-cta{margin-top:16px;}
+    .step-one-cta .btn{width:100%;padding:16px 18px;font-size:15px;}
+
+    /* --- step 2: featured card + even 2-col grid --- */
+    .filter-row{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;margin:0 -24px 22px;padding:0 24px;scrollbar-width:none;}
+    .filter-row::-webkit-scrollbar{display:none;}
+    .filter-pill{flex:0 0 auto;}
+    .project-grid{grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;}
+    .project-card:first-child{grid-column:1/-1;display:grid;grid-template-columns:1.1fr 1fr;align-items:stretch;}
+    .project-card:first-child .project-thumb{height:auto;min-height:160px;}
+    .project-card:first-child .project-body{padding:16px 14px;justify-content:center;}
+    .project-card:first-child h4{font-size:18px;}
+    .project-card--soon{grid-column:1/-1;display:flex;flex-direction:row;align-items:center;}
+    .project-card--soon .project-thumb{height:auto;width:84px;flex:0 0 84px;align-self:stretch;}
+    .project-card--soon .img-slot-label{display:none;}
+    .project-card--soon .project-body{padding:14px 16px;}
+
+    /* --- step 3 --- */
+    .proof{text-align:left;}
+    .proof-top{display:block;margin-bottom:26px;}
+    .proof-figure{width:82%;max-width:none;margin:0 auto 20px;}
+    .proof-top .proof-text{text-align:left;}
+    .proof-top .proof-badge{margin:0 0 14px;}
+    .proof-top blockquote{text-align:left;font-size:21px;}
+    .studio-scroll-wrap{margin:0 -24px 8px;}
+    .studio-scroll{padding:4px 24px 16px;}
+    .studio-scroll .studio-tile{height:190px;}
+    .studio-scroll-hint{text-align:left;margin-bottom:36px;}
+    .proof .eyebrow[style]{justify-content:flex-start !important;}
+    .skill-pills{justify-content:flex-start;gap:8px;}
+    .skill-pill{padding:8px 15px;font-size:13px;}
+
+    /* --- step 4: photos as a tidy row above the features --- */
+    .community-panel{padding:32px 20px;border-radius:24px;}
+    .community-grid{display:flex;flex-direction:column;gap:0;}
+    .community-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;height:auto;order:-1;margin:0 0 22px;}
+    .community-photo{position:static;width:auto;padding:5px;transform:none !important;border-radius:12px;}
+    .community-photo img{height:88px;border-radius:8px;}
+    .community-features{margin-bottom:24px;}
+
+    /* --- benefits: clean divided list --- */
+    .benefit-grid{gap:0;}
+    .benefit-item{background:none;border-radius:0;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.16);}
+    .benefit-item:last-child{border-bottom:none;}
+    .benefit-item:hover{background:none;}
+
+    /* --- about --- */
+    .about-grid{display:block;}
+    .about-video{border-radius:22px;margin-bottom:26px;}
+    .about h2{font-size:28px;}
+
+    /* --- faq --- */
+    .faq-q{padding:18px 20px;font-size:16px;text-align:left;}
+    .faq-a p{padding:0 20px 18px;}
+
+    /* --- final CTA: bookends the hero with the Woodworking Guy --- */
+    .final-cta{text-align:left;padding:64px 0 0;overflow:hidden;position:relative;}
+    .final-cta .wrap{position:relative;z-index:2;padding-bottom:240px;}
+    .final-cta h2{font-family:'Baloo 2','Fredoka',sans-serif;font-weight:800;font-size:34px;line-height:1.1;}
+    .final-cta p{font-size:16px;max-width:85%;margin-bottom:26px;}
+    .final-cta .btn-primary{padding:16px 32px;font-size:16px;}
+    .final-cta::after{content:'';position:absolute;right:-14%;bottom:-60px;width:62%;height:340px;z-index:1;
+      background:url('images/woodworking-guy-founder.webp') no-repeat bottom right/contain;}
+
+    /* --- footer --- */
+    footer{padding:48px 0 26px;}
+    .footer-grid{align-items:flex-start;text-align:left;gap:26px;}
+    .footer-bottom{justify-content:flex-start;text-align:left;}
+  }
 </style>
 </head>
 <body>
