@@ -332,6 +332,9 @@
   .benefit-item:hover{background:rgba(255,255,255,.15);}
   .benefit-item .check{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--charcoal);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
   .benefit-item p{font-size:14.5px;color:rgba(255,255,255,.92);}
+  .benefit-item p strong{color:#fff;font-weight:700;}
+  .step-lead strong{color:#fff;font-weight:600;}
+  .step-lead{max-width:620px;margin:-16px auto 40px;text-align:center;font-size:17px;line-height:1.6;color:rgba(251,243,236,.8);}
 
 
   /* TOOLKIT COMPARISON — Explorers vs Makers */
@@ -646,6 +649,7 @@
     .studio-scroll .studio-tile{height:190px;}
     .studio-scroll-hint{text-align:left;margin-bottom:36px;}
     .proof .eyebrow[style]{justify-content:flex-start !important;}
+    .step-lead{text-align:left;margin:-12px 0 28px;font-size:15.5px;}
     .skill-pills{justify-content:flex-start;gap:8px;}
     .skill-pill{padding:8px 15px;font-size:13px;}
 
@@ -895,6 +899,7 @@
         <h2>Watch and build.</h2>
       </div>
     </div>
+    <p class="step-lead reveal"><strong>Follow the easy step-by-step video guide.</strong> Every measurement, cut and joint is shown clearly on screen in short, simple steps, so your child can pause, rewind and build along at their own pace.</p>
     <div class="proof-top reveal">
       <div class="proof-figure"><img src="images/woodworking-guy-laptop.webp" alt="The Woodworking Guy presenting a video lesson, shown on a laptop screen"></div>
       <div class="proof-text">
@@ -1167,7 +1172,10 @@
   benefits.forEach((b,i)=>{
     const el = document.createElement('div');
     el.className='benefit-item reveal'; el.style.setProperty('--i',i%6);
-    el.innerHTML = `<div class="check">&#10003;</div><p>${b}</p>`;
+    // Bold the lead phrase (everything before the first " — ") so each point scans quickly.
+    const cut=b.indexOf(' — ');
+    const txt = cut>0 ? `<strong>${b.slice(0,cut)}</strong> — ${b.slice(cut+3)}` : b;
+    el.innerHTML = `<div class="check">&#10003;</div><p>${txt}</p>`;
     benefitGrid.appendChild(el);
   });
 
