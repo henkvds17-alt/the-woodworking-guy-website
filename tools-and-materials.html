@@ -216,6 +216,54 @@
     .local-intro .hero-character-col{width:140vw;max-width:none;margin:18px 0 -48px calc(-24px - 17vw);align-self:flex-start;}
     .local-intro .hero-character-col img{filter:drop-shadow(0 22px 30px rgba(20,12,10,.45));}
   }
+  /* TOOLKITS & MATERIALS — MOBILE (phones ≤560px only). Compact, scannable layout:
+     buttons side by side, 3-column tool tiles with uncropped photos, compact project cards,
+     wood advice shown once instead of under every project. Desktop & tablet untouched. Oct 2026. */
+  .wood-note-m{display:none;}
+  @media(max-width:560px){
+    section{padding:44px 0;}
+    .section-head-row{gap:16px;margin-bottom:20px;}
+    .section-head-row h2{font-size:28px;margin-bottom:4px;}
+    .section-head-row p{font-size:14px;line-height:1.5;}
+    .section-head-row > div:last-child{display:flex;flex-wrap:nowrap !important;gap:8px !important;width:100%;}
+    .section-head-row .btn{padding:12px 16px;font-size:14px;white-space:nowrap;}
+    .section-head-row .btn-primary{flex:1;}
+    #materials .section-head-row > .download-btn{width:100%;}
+
+    /* tools: 3-column tiles, whole photo visible */
+    .tool-grid{grid-template-columns:repeat(3,1fr);gap:8px;}
+    .tool-card{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:8px 8px 10px;border-radius:14px;text-align:center;}
+    .tool-photo{width:100%;height:auto;aspect-ratio:1/1;margin:0;background:#fff;border-radius:10px;}
+    .tool-photo img{object-fit:contain;padding:4px;}
+    .tool-card h4{font-size:12px;line-height:1.25;margin:0;}
+    .tool-card p{display:none;}
+
+    /* materials: one shared wood tip, compact project cards */
+    .wood-note-m{display:block;margin:14px 0 26px;padding:14px 16px;background:#fff;border-radius:14px;border-left:4px solid var(--gold);
+      font-size:13px;line-height:1.5;color:var(--charcoal-soft);}
+    .wood-note-m strong{color:var(--charcoal);font-style:normal;}
+    .project-block .wood-note{display:none;}
+    .materials-toolkit-group{margin-bottom:22px;}
+    .project-block{display:grid;grid-template-columns:104px 1fr;grid-template-areas:"photo head" "photo mats" "btns btns";
+      column-gap:14px;row-gap:8px;padding:14px;border-radius:18px;margin-bottom:12px;}
+    .project-block-head{display:contents;}
+    .project-block-head > div:first-child{grid-area:head;}
+    .project-block-head h3{font-size:18px;line-height:1.2;}
+    .project-tier-tag{font-size:9.5px;padding:3px 9px;}
+    .project-block-head > div:last-child{grid-area:btns;display:flex;flex-wrap:nowrap !important;gap:8px !important;margin-top:4px;}
+    .project-block-head .btn{padding:11px 14px;font-size:13.5px;white-space:nowrap;}
+    .project-block-head .btn-primary{flex:1;}
+    .project-body{display:contents;}
+    .project-photo{grid-area:photo;width:104px;height:104px;border-radius:12px;}
+    .project-body .material-grid{grid-area:mats;flex-direction:column;gap:4px;}
+    .material-card{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;width:auto;flex:none;padding:0;background:none;}
+    .material-photo{display:none;}
+    .material-card .material-info{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;}
+    .material-card h5{font-size:13px;margin:0;}
+    .material-card .m-size{font-size:12px;}
+    .material-card .m-qty{margin:0;font-size:11px;padding:2px 8px;}
+    .material-card .m-flag{margin:0;font-size:11px;flex-basis:100%;}
+  }
 </style>
 </head>
 <body>
@@ -305,6 +353,7 @@
       </div>
       <button class="btn btn-dark download-btn" data-download="all-projects">Download All Projects (PDF)</button>
     </div>
+    <p class="wood-note-m" id="woodNoteMobile"></p>
     <div id="projectsMaterialsList"></div>
   </div>
 </section>
@@ -488,6 +537,9 @@
 
   // Grouped by toolkit tier (Explorers projects together, then Makers, etc.) so buyers
   // never have to compare across tiers to find what belongs to their toolkit.
+  // Mobile shows the wood advice once at the top of Materials instead of under every project.
+  const woodNoteMobile = document.getElementById('woodNoteMobile');
+  if(woodNoteMobile) woodNoteMobile.innerHTML = '<strong>Wood tip:</strong> ' + WOOD_NOTE;
   const listEl = document.getElementById('projectsMaterialsList');
   const toolkitGroups = new Map();
   projectMaterials.forEach((p, i) => {
