@@ -706,6 +706,19 @@
     .footer-bottom{justify-content:flex-start;text-align:left;}
   }
 </style>
+<!-- Meta Pixel (consent-aware, EU) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+(function(){var c=null;try{c=localStorage.getItem('twg_consent')}catch(e){}
+if(c!=='granted')fbq('consent','revoke');})();
+fbq('init','1112999404511711');
+fbq('track','PageView');
+</script>
+<!-- End Meta Pixel -->
 </head>
 <body>
 
@@ -1266,6 +1279,32 @@
   },{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+</script>
+<!-- Cookie consent + pixel click events -->
+<div id="twg-consent" style="display:none;position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:560px;margin:0 auto;background:#fff;color:#2b2118;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.18);padding:16px 18px;font:14px/1.45 Inter,system-ui,sans-serif">
+<p style="margin:0 0 12px">We use cookies to see which of our ads help families find us. OK with that?</p>
+<div style="display:flex;gap:8px;justify-content:flex-end">
+<button type="button" id="twg-decline" style="padding:8px 14px;border-radius:999px;border:1px solid #c9b8a3;background:#fff;color:#2b2118;cursor:pointer">No thanks</button>
+<button type="button" id="twg-accept" style="padding:8px 16px;border-radius:999px;border:0;background:#e46b2d;color:#fff;font-weight:600;cursor:pointer">Accept</button>
+</div></div>
+<script>
+(function(){
+  var KEY='twg_consent',box=document.getElementById('twg-consent'),c=null;
+  try{c=localStorage.getItem(KEY)}catch(e){}
+  if(!c&&box)box.style.display='block';
+  function set(v){try{localStorage.setItem(KEY,v)}catch(e){} if(box)box.style.display='none'; if(v==='granted'&&window.fbq)fbq('consent','grant');}
+  var a=document.getElementById('twg-accept'),d=document.getElementById('twg-decline');
+  if(a)a.addEventListener('click',function(){set('granted')});
+  if(d)d.addEventListener('click',function(){set('denied')});
+  document.addEventListener('click',function(e){
+    var l=e.target.closest&&e.target.closest('a[href]'); if(!l||!window.fbq)return;
+    var h=l.href||'';
+    if(/the-woodworking-guy\.com\/(my-programs|program|product|online-programs)/i.test(h)||l.closest('.project-card,.projects,[data-project]'))fbq('track','ViewContent',{content_name:(l.closest('[data-project],article,.card')||l).innerText.trim().slice(0,80),content_category:'program'});
+    else if(/\/community/i.test(h))fbq('track','Lead',{content_name:'Join the Community'});
+    else if(/\/contact/i.test(h))fbq('track','Contact');
+    else if(/amazon\./i.test(h))fbq('trackCustom','ToolkitListClick',{content_name:l.innerText.trim().slice(0,60)});
+  },true);
+})();
 </script>
 </body>
 </html>
